@@ -78,7 +78,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className=" flex items-center justify-center px-4 py-10 mt-20 -z-20 pt-20">
+    <div className=" flex items-center justify-center px-4 mt-10 mb-6 -z-20 pt-20">
       <Helmet>
         <title>Sign Up | LocalChefBazaar</title>
       </Helmet>
@@ -96,6 +96,7 @@ const SignUp = () => {
             <label className="text-orange-800 font-medium mb-1">Name</label>
             <input
               type="text"
+              autoComplete="name"
               className="w-full px-4 py-3 bg-orange-50 border border-orange-200 rounded-xl"
               placeholder="Enter your name"
               value={name}

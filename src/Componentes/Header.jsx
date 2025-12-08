@@ -25,14 +25,14 @@ const Header = () => {
   const navLinks = user
     ? [
         { name: 'Home', path: '/' },
-        { name: 'All Issues', path: '/allissues' },
+        { name: 'Meals', path: '/allmeals' },
         { name: 'Add Issues', path: '/addissues' },
         { name: 'My Issues', path: '/myissues' },
         { name: 'My Contribution', path: '/contribution' },
       ]
     : [
         { name: 'Home', path: '/' },
-        { name: 'All Issues', path: '/allissues' },
+        { name: 'Meals', path: '/allmeals' },
       ];
 
   const handleLogout = () => {

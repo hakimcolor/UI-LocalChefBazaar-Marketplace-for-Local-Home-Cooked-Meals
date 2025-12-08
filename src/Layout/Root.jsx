@@ -5,7 +5,7 @@ import Header from '../Componentes/Header.jsx';
 const Root = () => {
   return (
     <div>
-      <Header />
+      <Header /><br /><br /><br /><br /><b><br /></b>
       <Outlet />
     </div>
   );
