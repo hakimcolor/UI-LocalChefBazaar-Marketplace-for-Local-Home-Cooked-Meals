@@ -70,7 +70,7 @@ const Header = () => {
 
   return (
     <header
-      className="w-full fixed top-0 left-0 shadow-md z-50 animate__animated animate__fadeInDown animate__faster "
+      className="w-full fixed top-0 left-0 shadow-md z-50 animate__animated animate__fadeInDown animate__faster"
       style={{
         backgroundColor: 'var(--header-bg)',
         color: 'var(--header-text)',
@@ -82,11 +82,11 @@ const Header = () => {
         <NavLink to="/" className="flex items-center gap-2">
           <img src={logo} alt="Logo" className="w-16 h-16 rounded-full" />
           <span className="hidden sm:flex text-2xl font-bold">
-            <span className="text-red-500">L</span>
+            <span className="text-red-500">C</span>
             <span className="text-orange-500">C</span>
-            <span className="text-yellow-400">B</span>
-            <span className="text-green-300">Z</span>
-            <span className="text-blue-200">R</span>
+            <span className="text-yellow-400">I</span>
+            <span className="text-green-300">R</span>
+            <span className="text-blue-200">P</span>
           </span>
         </NavLink>
 
