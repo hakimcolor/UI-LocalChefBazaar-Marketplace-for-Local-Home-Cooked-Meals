@@ -52,13 +52,11 @@ const SignUp = () => {
     try {
       const res = await createUser(email, password);
 
-      // Update Firebase Auth Profile
       await updateProfile(res.user, {
         displayName: name,
         photoURL: profileImg,
       });
 
-      // Save to Firestore
       await setDoc(doc(db, 'users', res.user.uid), {
         name,
         email,
@@ -71,14 +69,14 @@ const SignUp = () => {
       });
 
       toast.success('Account created successfully!');
-      navigate('/signin');
+      navigate('/');
     } catch (error) {
       toast.error(error.message);
     }
   };
 
   return (
-    <div className=" flex items-center justify-center px-4 mt-10 mb-6 -z-20 pt-20">
+    <div className="flex items-center justify-center px-4 mt-10 mb-6 -z-20">
       <Helmet>
         <title>Sign Up | LocalChefBazaar</title>
       </Helmet>
@@ -91,11 +89,11 @@ const SignUp = () => {
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Name */}
           <div className="flex flex-col">
             <label className="text-orange-800 font-medium mb-1">Name</label>
             <input
               type="text"
+              name="name"
               autoComplete="name"
               className="w-full px-4 py-3 bg-orange-50 border border-orange-200 rounded-xl"
               placeholder="Enter your name"
@@ -105,13 +103,13 @@ const SignUp = () => {
             />
           </div>
 
-          {/* Profile Image URL */}
           <div className="flex flex-col">
             <label className="text-orange-800 font-medium mb-1">
               Profile Image URL
             </label>
             <input
               type="text"
+              name="image"
               className="w-full px-4 py-3 bg-orange-50 border border-orange-200 rounded-xl"
               placeholder="Enter image link"
               value={profileImg}
@@ -120,11 +118,11 @@ const SignUp = () => {
             />
           </div>
 
-          {/* Address */}
           <div className="flex flex-col">
             <label className="text-orange-800 font-medium mb-1">Address</label>
             <input
               type="text"
+              name="address"
               className="w-full px-4 py-3 bg-orange-50 border border-orange-200 rounded-xl"
               placeholder="Enter your address"
               value={address}
@@ -133,11 +131,11 @@ const SignUp = () => {
             />
           </div>
 
-          {/* Email */}
           <div className="flex flex-col">
             <label className="text-orange-800 font-medium mb-1">Email</label>
             <input
               type="email"
+              name="email"
               className="w-full px-4 py-3 bg-orange-50 border border-orange-200 rounded-xl"
               placeholder="Enter your email"
               value={email}
@@ -146,7 +144,6 @@ const SignUp = () => {
             />
           </div>
 
-          {/* Password */}
           <div className="flex flex-col relative">
             <label className="text-orange-800 font-medium mb-1">Password</label>
             <input
@@ -156,6 +153,7 @@ const SignUp = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              autoComplete="new-password"
             />
             <button
               type="button"
@@ -170,7 +168,6 @@ const SignUp = () => {
             </button>
           </div>
 
-          {/* Confirm Password */}
           <div className="flex flex-col">
             <label className="text-orange-800 font-medium mb-1">
               Confirm Password

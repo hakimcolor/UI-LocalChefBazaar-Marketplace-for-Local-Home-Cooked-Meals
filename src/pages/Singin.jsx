@@ -1,4 +1,3 @@
-
 import { auth } from '../Firebase/Firebase.confige';
 import React, { useContext, useState } from 'react';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
@@ -27,79 +26,70 @@ const SignIn = () => {
       .then(() => {
         setEmail('');
         setPasscode('');
-        toast.success('Login successful!', { duration: 1000 });
-        navigate('/issue');
+        toast.success('Login successful!');
+        navigate('/');
       })
       .catch((err) => {
         setError(err.message);
-        toast.error(err.message, { duration: 2000 });
+        toast.error(err.message);
       });
   };
 
   const handleForgotPassword = () => {
     if (!email) {
-      toast.error('Please enter your email first!', { duration: 2000 });
+      toast.error('Please enter your email first!');
       return;
     }
 
     sendPasswordResetEmail(auth, email)
       .then(() => {
-        toast.success('Password reset email sent! Check your inbox.', {
-          duration: 3000,
-        });
+        toast.success('Password reset email sent! Check your inbox.');
       })
       .catch((err) => {
-        toast.error(err.message, { duration: 2000 });
+        toast.error(err.message);
       });
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-yellow-50 via-amber-100 to-orange-50 px-4 py-10">
+    <div className="flex items-center justify-center min-h-screen px-4">
       <Helmet>
         <title>Login | LocalChefBazaar</title>
       </Helmet>
 
       <Toaster />
 
-      {/* Card */}
       <div className="bg-white/90 backdrop-blur-md border border-orange-200 shadow-2xl rounded-3xl p-8 sm:p-10 w-full max-w-lg">
-        {/* Heading */}
-        <h2 className="text-4xl font-extrabold text-center text-orange-700 mb-2">
+        <h2 className="text-4xl font-extrabold text-center text-orange-700 mb-8">
           Login to Your Account
         </h2>
         <p className="text-center text-orange-600 mb-8">
           Enter your credentials to continue
         </p>
 
-        {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Email */}
           <div className="flex flex-col">
-            <label className="text-orange-800 font-medium mb-1 text-left">
-              Email
-            </label>
+            <label className="text-orange-800 font-medium mb-1">Email</label>
             <input
               type="email"
               value={email}
+              name='email'
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
               required
-              className="w-full px-4 py-3 bg-orange-50 border border-orange-200 rounded-xl focus:ring-2 focus:ring-amber-400 outline-none"
+              className="w-full px-4 py-3 bg-orange-50 border border-orange-200 rounded-xl"
             />
           </div>
 
-          {/* Password */}
           <div className="relative flex flex-col">
-            <label className="text-orange-800 font-medium mb-1 text-left">
-              Password
-            </label>
+            <label className="text-orange-800 font-medium mb-1">Password</label>
             <input
               type={show ? 'text' : 'password'}
               value={passcode}
               onChange={(e) => setPasscode(e.target.value)}
+              name='password'
               placeholder="Enter your password"
               required
-              className="w-full px-4 py-3 bg-orange-50 border border-orange-200 rounded-xl focus:ring-2 focus:ring-amber-400 outline-none pr-12"
+              className="w-full px-4 py-3 bg-orange-50 border border-orange-200 rounded-xl pr-12"
             />
             <button
               type="button"
@@ -114,7 +104,6 @@ const SignIn = () => {
             </button>
           </div>
 
-          {/* Forgot */}
           <div className="text-right">
             <button
               type="button"
@@ -130,19 +119,16 @@ const SignIn = () => {
             </button>
           </div>
 
-          {/* Error */}
           {error && <p className="text-red-500 text-sm">{error}</p>}
 
-          {/* Submit */}
           <button
             type="submit"
-            className="w-full py-3 bg-amber-500 text-white font-bold rounded-xl hover:bg-amber-600 transition shadow-md cursor-pointer"
+            className="w-full py-3 bg-amber-500 text-white font-bold rounded-xl hover:bg-amber-600 shadow-md"
           >
             Login
           </button>
         </form>
 
-        {/* Footer */}
         <p className="text-sm text-center text-orange-700 mt-6">
           Don’t have an account?{' '}
           <NavLink
