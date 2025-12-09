@@ -67,6 +67,12 @@
 //     });
 //   };
 
+//   const buttonClass =
+//     'px-4 py-2 bg-amber-500 text-white font-bold rounded-xl shadow-md hover:bg-amber-600 transition';
+
+//   const toggleButtonClass =
+//     'ml-4 p-2 rounded-full bg-amber-500 text-white hover:bg-amber-600 transition';
+
 //   return (
 //     <header
 //       className="w-full fixed top-0 left-0 shadow-md z-50 animate__animated animate__fadeInDown animate__faster"
@@ -89,7 +95,7 @@
 //           </span>
 //         </NavLink>
 
-//         <nav className="hidden md:flex items-center gap-6">
+//         <nav className="hidden md:flex items-center gap-4">
 //           {navLinks.map((link) => (
 //             <NavLink
 //               key={link.path}
@@ -108,33 +114,38 @@
 
 //           <button
 //             onClick={() => setDarkMode(!darkMode)}
-//             className="ml-4 p-2 rounded-full border border-white text-white hover:bg-white hover:text-[#D35400] transition"
+//             className={toggleButtonClass}
 //           >
 //             {darkMode ? <FiSun size={20} /> : <FiMoon size={20} />}
 //           </button>
 
 //           {user ? (
-//             <div className="flex items-center gap-4 ml-4">
-//               <img
-//                 src={
-//                   user.photoURL || 'https://i.ibb.co/2Z3p8wN/default-user.png'
-//                 }
-//                 alt="User"
-//                 className="w-14 h-14 rounded-full border-2 border-[#FFD700]"
-//               />
-//               <button
-//                 onClick={handleLogout}
-//                 className="flex items-center gap-2 px-4 py-1 border border-[#FFD700] rounded-full text-white hover:bg-[#FFD700] hover:text-[#2E8B57] transition"
-//               >
-//                 <FiLogOut size={18} />
+//             <div className="flex items-center gap-4">
+//               {/* Profile Hover Tooltip Added */}
+//               <div className="relative group">
+//                 <img
+//                   src={
+//                     user.photoURL || 'https://i.ibb.co/2Z3p8wN/default-user.png'
+//                   }
+//                   alt="User"
+//                   className="w-14 h-14 rounded-full border-2 border-[#FFD700] cursor-pointer"
+//                 />
+
+//                 {/* Tooltip box */}
+//                 <div className="absolute top-16 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-sm px-4 py-2 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition pointer-events-none whitespace-nowrap">
+//                   <p className="font-semibold">{user.displayName || 'User'}</p>
+//                   <p className="text-gray-300">{user.email}</p>
+//                 </div>
+//               </div>
+
+//               <button onClick={handleLogout} className={buttonClass}>
+//                 <FiLogOut size={18} className="inline mr-2" />
 //                 Log Out
 //               </button>
 //             </div>
 //           ) : (
 //             <NavLink to="/signup">
-//               <button className="px-4 py-1 border border-[#FFD700] rounded-full text-white hover:bg-[#FFD700] hover:text-[#2E8B57] transition">
-//                 Sign Up
-//               </button>
+//               <button className={buttonClass}>Sign Up</button>
 //             </NavLink>
 //           )}
 //         </nav>
@@ -169,7 +180,7 @@
 
 //             <button
 //               onClick={() => setDarkMode(!darkMode)}
-//               className="mt-2 p-2 rounded-full border border-white text-white hover:bg-white hover:text-[#D35400] transition"
+//               className={toggleButtonClass}
 //             >
 //               {darkMode ? <FiSun size={20} /> : <FiMoon size={20} />}
 //             </button>
@@ -180,15 +191,13 @@
 //                   handleLogout();
 //                   setIsOpen(false);
 //                 }}
-//                 className="px-4 py-1 border border-[#FFD700] rounded-full text-white hover:bg-[#FFD700] hover:text-[#2E8B57] transition"
+//                 className={buttonClass}
 //               >
 //                 Log Out
 //               </button>
 //             ) : (
 //               <NavLink to="/signup" onClick={() => setIsOpen(false)}>
-//                 <button className="px-4 py-1 border border-[#FFD700] rounded-full text-white hover:bg-[#FFD700] hover:text-[#2E8B57] transition">
-//                   Sign Up
-//                 </button>
+//                 <button className={buttonClass}>Sign Up</button>
 //               </NavLink>
 //             )}
 //           </nav>
@@ -208,13 +217,19 @@ import toast, { Toaster } from 'react-hot-toast';
 import Swal from 'sweetalert2';
 
 const Header = () => {
-  const { user, singout } = useContext(AuthContext);
+  const { user, signoutUser } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(
     localStorage.getItem('theme') === 'dark'
   );
   const navigate = useNavigate();
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : 'auto';
+  }, [isOpen]);
+
+  // Theme toggle settings
   useEffect(() => {
     document.documentElement.setAttribute(
       'data-theme',
@@ -235,7 +250,7 @@ const Header = () => {
       ];
 
   const handleLogout = () => {
-    if (!singout) return;
+    if (!signoutUser) return;
 
     Swal.fire({
       title: 'Are you sure?',
@@ -248,7 +263,7 @@ const Header = () => {
       cancelButtonText: 'Cancel',
     }).then((result) => {
       if (result.isConfirmed) {
-        singout()
+        signoutUser()
           .then(() => {
             Swal.fire({
               title: 'Logged out!',
@@ -275,7 +290,7 @@ const Header = () => {
 
   return (
     <header
-      className="w-full fixed top-0 left-0 shadow-md z-50 animate__animated animate__fadeInDown animate__faster"
+      className="w-full fixed top-0 left-0 shadow-md z-50 bg-[#1a1a1a] h-[80px] flex items-center animate__animated animate__fadeInDown animate__faster"
       style={{
         backgroundColor: 'var(--header-bg)',
         color: 'var(--header-text)',
@@ -283,7 +298,7 @@ const Header = () => {
     >
       <Toaster position="top-right" />
 
-      <div className="flex justify-between items-center p-4 max-w-7xl mx-auto">
+      <div className="flex justify-between items-center p-4 w-full max-w-7xl mx-auto">
         <NavLink to="/" className="flex items-center gap-2">
           <img src={logo} alt="Logo" className="w-16 h-16 rounded-full" />
           <span className="hidden sm:flex text-3xl font-bold">
@@ -295,6 +310,7 @@ const Header = () => {
           </span>
         </NavLink>
 
+        {/* Desktop Menu */}
         <nav className="hidden md:flex items-center gap-4">
           {navLinks.map((link) => (
             <NavLink
@@ -321,13 +337,20 @@ const Header = () => {
 
           {user ? (
             <div className="flex items-center gap-4">
-              <img
-                src={
-                  user.photoURL || 'https://i.ibb.co/2Z3p8wN/default-user.png'
-                }
-                alt="User"
-                className="w-14 h-14 rounded-full border-2 border-[#FFD700]"
-              />
+              <div className="relative group">
+                <img
+                  src={
+                    user.photoURL || 'https://i.ibb.co/2Z3p8wN/default-user.png'
+                  }
+                  alt="User"
+                  className="w-14 h-14 rounded-full border-2 border-[#FFD700] cursor-pointer"
+                />
+                <div className="absolute top-16 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-sm px-4 py-2 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition pointer-events-none whitespace-nowrap">
+                  <p className="font-semibold">{user.displayName || 'User'}</p>
+                  <p className="text-gray-300">{user.email}</p>
+                </div>
+              </div>
+
               <button onClick={handleLogout} className={buttonClass}>
                 <FiLogOut size={18} className="inline mr-2" />
                 Log Out
@@ -340,22 +363,27 @@ const Header = () => {
           )}
         </nav>
 
+        {/* Mobile Button */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden text-2xl text-white"
+          className="md:hidden text-3xl text-white"
         >
           {isOpen ? <FiX /> : <FiMenu />}
         </button>
       </div>
 
+      {/* Mobile Sidebar Menu */}
       {isOpen && (
-        <div className="md:hidden fixed top-24 right-0 p-10 bg-[#D35400] shadow-md rounded-bl-3xl animate__animated animate__slideInRight z-40">
+        <div className="md:hidden fixed top-[80px] right-0 w-64 p-10 bg-[#D35400] shadow-md rounded-bl-3xl animate__animated animate__slideInRight z-40">
           <nav className="flex flex-col items-center py-4 space-y-4">
             {navLinks.map((link) => (
               <NavLink
                 key={link.path}
                 to={link.path}
-                onClick={() => setIsOpen(false)}
+                onClick={() => {
+                  setIsOpen(false);
+                  window.scrollTo(0, 0); // Prevent header collapsing
+                }}
                 className={({ isActive }) =>
                   `text-lg transition-all duration-200 ${
                     isActive

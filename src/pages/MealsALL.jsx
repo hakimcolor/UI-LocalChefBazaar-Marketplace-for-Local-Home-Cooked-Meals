@@ -3,7 +3,7 @@ import React from 'react'
 const MealsALL = () => {
   return (
     <div>
-      sdsdssddddddddddddddddddddddddddddd lorem
+      sdsdssdddddddddddd lorem
     </div>
   )
 }

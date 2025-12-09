@@ -5,48 +5,72 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  updateProfile,
 } from 'firebase/auth';
 import { auth } from '../Firebase/Firebase.confige';
+import axios from 'axios';
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [role, setRole] = useState('');
 
-  const createUser = (
-    emailValue,
-    passwordValue,
-    imgUrlValue,
-    firstNameValue
-  ) => {
-    return createUserWithEmailAndPassword(
+
+  const createUser = async (email, password, displayName, photoURL) => {
+    const userCredential = await createUserWithEmailAndPassword(
       auth,
-      emailValue,
-      passwordValue,
-      imgUrlValue,
-      firstNameValue
+      email,
+      password
     );
+
+ 
+    await updateProfile(userCredential.user, {
+      displayName: displayName,
+      photoURL: photoURL,
+    });
+
+    return userCredential;
   };
 
-  const singinuser = (email, passcode) => {
-    return signInWithEmailAndPassword(auth, email, passcode);
+
+  const signinUser = (email, password) => {
+    return signInWithEmailAndPassword(auth, email, password);
   };
 
-  const singout = () => {
+
+  const signoutUser = () => {
     return signOut(auth);
   };
 
+ 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
-      // console.log('Current user:', currentUser);
+
+      if (currentUser) {
+        try {
+       
+          const response = await axios.get(
+            `http://localhost:5000/users/${currentUser.uid}`
+          );
+          setRole(response.data.role); 
+        } catch (error) {
+          console.error('Error fetching role:', error);
+          setRole('');
+        }
+      } else {
+        setRole('');
+      }
     });
+
     return () => unsubscribe();
   }, []);
 
   const authInfo = {
     user,
+    role,
     createUser,
-    singinuser,
-    singout,
+    signinUser,
+    signoutUser,
   };
 
   return (
