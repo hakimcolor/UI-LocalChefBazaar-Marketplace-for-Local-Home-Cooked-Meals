@@ -1,9 +1,14 @@
 @import 'tailwindcss';
+
 :root {
   --bg-color: #ffffff;
   --text-color: #000000;
-  --header-bg: #2e8b57;
-  --header-text: #ffffff;
+  --header-bg: #D35400;      /* Warm orange for header */
+  --header-text: #ffffff;     /* White text */
+  --button-bg: #FFAC33;       /* Golden buttons */
+  --button-text: #2E8B57;     /* Dark green accent */
+  --hover-bg: #2E8B57;        /* Dark green hover */
+  --hover-text: #ffffff;       /* White text on hover */
 }
 
 [data-theme='dark'] {

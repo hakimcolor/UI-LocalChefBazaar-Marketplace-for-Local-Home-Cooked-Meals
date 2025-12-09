@@ -4,25 +4,39 @@ import SignUp from "../pages/SingUp";
 import SignIn from "../pages/Singin";
 import Home from "../pages/Home";
 import MealsALL from "../pages/MealsALL";
+import PrivateRoute from "./PriveteRouter";
+import Dashbord from "../pages/Dashbord";
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <Root />, children: [
+    element: <Root />,
+    children: [
       {
         index: true,
-        element: <Home/>
+        element: <Home />,
       },
       {
         path: 'signup',
-      element:<SignUp/>
-      }, {
+        element: <SignUp />,
+      },
+      {
         path: 'signin',
-        element:<SignIn/>
-      },{
+        element: <SignIn />,
+      },
+      {
         path: 'allmeals',
-        element:<MealsALL/>
-    }
-    ]
+        element: <MealsALL />,
+      },
+      {
+        element: <PrivateRoute />,
+        children: [
+          {
+            path: 'dashboard',
+            element:<Dashbord/>
+          },
+        ],
+      },
+    ],
   },
 ]);
