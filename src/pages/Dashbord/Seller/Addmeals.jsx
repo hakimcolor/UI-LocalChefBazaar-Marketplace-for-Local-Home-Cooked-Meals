@@ -1,10 +1,14 @@
 
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaUtensils } from 'react-icons/fa';
 import axios from 'axios';
 
+import toast, { Toaster } from 'react-hot-toast';
+import { AuthContext } from '../../../Context/AuthContext';
+
 const AddMeals = () => {
+  const { user } = useContext(AuthContext); // logged-in user
   const {
     register,
     handleSubmit,
@@ -23,7 +27,7 @@ const AddMeals = () => {
     formData.append('image', data.foodImage[0]);
 
     try {
-      // Your ImgBB API key
+      // ImgBB API key
       const apiKey = '4069702c25ccc162b662f2c5ce170f8d';
       const response = await axios.post(
         `https://api.imgbb.com/1/upload?key=${apiKey}`,
@@ -33,16 +37,28 @@ const AddMeals = () => {
       const imageUrl = response.data.data.url;
 
       const finalData = {
-        ...data,
-        foodImage: imageUrl, // Image URL here
+        foodName: data.foodName,
+        chefName: data.chefName,
+        foodImage: imageUrl,
+        price: parseFloat(data.price),
+        rating: 0,
+        ingredients: data.ingredients.split(',').map((item) => item.trim()),
+        estimatedDeliveryTime: data.estimatedDeliveryTime,
+        chefExperience: data.chefExperience,
+        chefId: data.chefId,
+        userEmail: user?.email || '', // auto-filled
+        createdAt: new Date(),
       };
 
+      // Send to your backend to save in MongoDB
+      await axios.post('http://localhost:5000/meals', finalData); // Replace with your API endpoint
+
+      toast.success('Meal added successfully!');
       console.log(finalData);
-      alert('Meal added successfully! Check console for details.');
       reset();
     } catch (error) {
-      console.error('Image upload failed:', error);
-      alert('Image upload failed!');
+      console.error('Error:', error);
+      toast.error('Failed to add meal!');
     } finally {
       setLoading(false);
     }
@@ -50,8 +66,9 @@ const AddMeals = () => {
 
   return (
     <div className="max-w-3xl mx-auto p-6 bg-yellow-50 shadow-lg rounded-lg mt-10">
+      <Toaster />
       <h2 className="text-3xl font-bold mb-6 text-orange-600 flex items-center gap-2">
-        <FaUtensils /> Add New Meal
+        <FaUtensils /> Create Meal
       </h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
@@ -64,7 +81,7 @@ const AddMeals = () => {
             type="text"
             {...register('foodName', { required: true })}
             className="w-full border border-orange-300 px-3 py-2 rounded focus:ring-2 focus:ring-orange-400"
-            placeholder="e.g., Spicy Chicken Burger"
+            placeholder="e.g., Grilled Chicken Salad"
           />
           {errors.foodName && (
             <span className="text-red-500 text-sm">Food Name is required</span>
@@ -80,7 +97,7 @@ const AddMeals = () => {
             type="text"
             {...register('chefName', { required: true })}
             className="w-full border border-orange-300 px-3 py-2 rounded focus:ring-2 focus:ring-orange-400"
-            placeholder="e.g., Chef John"
+            placeholder="e.g., John Doe"
           />
           {errors.chefName && (
             <span className="text-red-500 text-sm">Chef Name is required</span>
@@ -120,6 +137,10 @@ const AddMeals = () => {
           )}
         </div>
 
+        {/* Rating (optional, default 0) */}
+        {/* Hidden field as rating starts from 0 */}
+        <input type="hidden" value="0" {...register('rating')} />
+
         {/* Ingredients */}
         <div>
           <label className="block mb-1 font-semibold text-orange-500">
@@ -129,7 +150,7 @@ const AddMeals = () => {
             type="text"
             {...register('ingredients', { required: true })}
             className="w-full border border-orange-300 px-3 py-2 rounded focus:ring-2 focus:ring-orange-400"
-            placeholder="e.g., chicken, cheese, lettuce"
+            placeholder="e.g., Chicken breast, Lettuce, Tomatoes"
           />
           {errors.ingredients && (
             <span className="text-red-500 text-sm">
@@ -147,12 +168,31 @@ const AddMeals = () => {
             type="text"
             {...register('estimatedDeliveryTime', { required: true })}
             className="w-full border border-orange-300 px-3 py-2 rounded focus:ring-2 focus:ring-orange-400"
-            placeholder="e.g., 30 mins"
+            placeholder="e.g., 30 minutes"
           />
           {errors.estimatedDeliveryTime && (
             <span className="text-red-500 text-sm">
               Estimated Delivery Time is required
             </span>
+          )}
+        </div>
+
+        {/* Rating */}
+        <div>
+          <label className="block mb-1 font-semibold text-orange-500">
+            Rating (0-5)
+          </label>
+          <input
+            type="number"
+            step="0.1"
+            min="0"
+            max="5"
+            {...register('rating', { required: true, min: 0, max: 5 })}
+            className="w-full border border-orange-300 px-3 py-2 rounded focus:ring-2 focus:ring-orange-400"
+            placeholder="e.g., 4.5"
+          />
+          {errors.rating && (
+            <span className="text-red-500 text-sm">Rating must be 0-5</span>
           )}
         </div>
 
@@ -165,7 +205,7 @@ const AddMeals = () => {
             type="text"
             {...register('chefExperience', { required: true })}
             className="w-full border border-orange-300 px-3 py-2 rounded focus:ring-2 focus:ring-orange-400"
-            placeholder="e.g., 5 years"
+            placeholder="e.g., 5 years of experience"
           />
           {errors.chefExperience && (
             <span className="text-red-500 text-sm">
@@ -183,11 +223,24 @@ const AddMeals = () => {
             type="text"
             {...register('chefId', { required: true })}
             className="w-full border border-orange-300 px-3 py-2 rounded focus:ring-2 focus:ring-orange-400"
-            placeholder="e.g., C12345"
+            placeholder="e.g., chef_123456"
           />
           {errors.chefId && (
             <span className="text-red-500 text-sm">Chef ID is required</span>
           )}
+        </div>
+
+        {/* User Email */}
+        <div>
+          <label className="block mb-1 font-semibold text-orange-500">
+            User Email
+          </label>
+          <input
+            type="email"
+            value={user?.email || ''}
+            readOnly
+            className="w-full border border-orange-300 px-3 py-2 rounded bg-gray-100 text-gray-700"
+          />
         </div>
 
         <button

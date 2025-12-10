@@ -1,9 +1,11 @@
 import React from 'react'
+import TipsSlider from '../Componentes/HOmeAllpage/TipeSlider'
 
 const Home = () => {
   return (
     <div>
-      Home p Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste doloremque nihil, dicta pariatur nam totam facere, deleniti nostrum voluptatibus aliquid consequuntur, iusto labore harum expedita! Consectetur, suscipit! Dolores, eos quas.
+      <TipsSlider />
+      kjdkfjlsdsdsdsd
     </div>
   )
 }

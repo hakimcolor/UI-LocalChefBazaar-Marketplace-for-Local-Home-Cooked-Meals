@@ -3,7 +3,7 @@ import Root from '../Layout/Root';
 import SignUp from '../pages/SingUp';
 import SignIn from '../pages/Singin';
 import Home from '../pages/Home';
-import MealsALL from '../pages/MealsALL';
+
 
 import DashboardLayout from '../Layout/DashbordLayout/DashboardLayout';
 
@@ -15,6 +15,7 @@ import FavoriteMeal from '../pages/Dashbord/User/FavoriteMeal';
 import WElcomd from '../pages/Dashbord/User/WElcomd';
 import Profile from '../pages/Dashbord/sherd/Profile';
 import Addmeals from '../pages/Dashbord/Seller/Addmeals';
+import MealsPage from '../Componentes/MealsPaGE/MealsPage';
 
 export const router = createBrowserRouter([
   {
@@ -35,7 +36,9 @@ export const router = createBrowserRouter([
       },
       {
         path: 'allmeals',
-        element: <MealsALL />,
+        element: 
+        
+        <MealsPage/>,
       },
     ],
   },
