@@ -1,9 +1,8 @@
 
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaUtensils } from 'react-icons/fa';
 import axios from 'axios';
-
 import toast, { Toaster } from 'react-hot-toast';
 import { AuthContext } from '../../../Context/AuthContext';
 
@@ -14,7 +13,11 @@ const AddMeals = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      rating: 0, // default rating
+    },
+  });
 
   const [loading, setLoading] = useState(false);
 
@@ -41,7 +44,7 @@ const AddMeals = () => {
         chefName: data.chefName,
         foodImage: imageUrl,
         price: parseFloat(data.price),
-        rating: 0,
+        rating: parseFloat(data.rating || 0), // fixed: ensure rating goes to MongoDB
         ingredients: data.ingredients.split(',').map((item) => item.trim()),
         estimatedDeliveryTime: data.estimatedDeliveryTime,
         chefExperience: data.chefExperience,
@@ -137,9 +140,24 @@ const AddMeals = () => {
           )}
         </div>
 
-        {/* Rating (optional, default 0) */}
-        {/* Hidden field as rating starts from 0 */}
-        <input type="hidden" value="0" {...register('rating')} />
+        {/* Rating */}
+        <div>
+          <label className="block mb-1 font-semibold text-orange-500">
+            Rating (0-5)
+          </label>
+          <input
+            type="number"
+            step="0.1"
+            min="0"
+            max="5"
+            {...register('rating', { min: 0, max: 5 })}
+            className="w-full border border-orange-300 px-3 py-2 rounded focus:ring-2 focus:ring-orange-400"
+            placeholder="e.g., 4.5"
+          />
+          {errors.rating && (
+            <span className="text-red-500 text-sm">Rating must be 0-5</span>
+          )}
+        </div>
 
         {/* Ingredients */}
         <div>
@@ -174,25 +192,6 @@ const AddMeals = () => {
             <span className="text-red-500 text-sm">
               Estimated Delivery Time is required
             </span>
-          )}
-        </div>
-
-        {/* Rating */}
-        <div>
-          <label className="block mb-1 font-semibold text-orange-500">
-            Rating (0-5)
-          </label>
-          <input
-            type="number"
-            step="0.1"
-            min="0"
-            max="5"
-            {...register('rating', { required: true, min: 0, max: 5 })}
-            className="w-full border border-orange-300 px-3 py-2 rounded focus:ring-2 focus:ring-orange-400"
-            placeholder="e.g., 4.5"
-          />
-          {errors.rating && (
-            <span className="text-red-500 text-sm">Rating must be 0-5</span>
           )}
         </div>
 
