@@ -245,6 +245,14 @@ const UserAside = () => {
           <FaUser /> My Profile
         </NavLink>
         <NavLink
+          to="addmeals"
+          className={({ isActive }) =>
+            `${linkStyle} ${isActive ? activeStyle : ''}`
+          }
+        >
+          <FaUser /> add..
+        </NavLink>
+        <NavLink
           to="orders"
           className={({ isActive }) =>
             `${linkStyle} ${isActive ? activeStyle : ''}`
@@ -274,13 +282,15 @@ const UserAside = () => {
         >
           <FaArrowLeft /> Back
         </div>
-        <Link to={'/'}> <div
-          className={backButtonStyle}
-          // go back one step in history
-        >
-          <FaArrowLeft /> Back Home
-        </div></Link>
-       
+        <Link to={'/'}>
+          {' '}
+          <div
+            className={backButtonStyle}
+            // go back one step in history
+          >
+            <FaArrowLeft /> Back Home
+          </div>
+        </Link>
       </nav>
 
       {/* Logout Button */}

@@ -4,16 +4,17 @@ import SignUp from '../pages/SingUp';
 import SignIn from '../pages/Singin';
 import Home from '../pages/Home';
 import MealsALL from '../pages/MealsALL';
-import PrivateRoute from './PriveteRouter';
+
 import DashboardLayout from '../Layout/DashbordLayout/DashboardLayout';
 
-import DashboardHome from './DashboardHome';
+
 import Orders from '../pages/Dashbord/User/Orders';
 import MYReviews from '../pages/Dashbord/User/MYReviews';
 import FavoriteMeal from '../pages/Dashbord/User/FavoriteMeal';
 // import Profile from '../pages/Dashbord/sherd/Profile';
 import WElcomd from '../pages/Dashbord/User/WElcomd';
 import Profile from '../pages/Dashbord/sherd/Profile';
+import Addmeals from '../pages/Dashbord/Seller/Addmeals';
 
 export const router = createBrowserRouter([
   {
@@ -59,9 +60,12 @@ export const router = createBrowserRouter([
       }, {
         path: 'profile',
         element:<Profile/>
+      }, {
+        path: 'addmeals',
+        element:<Addmeals/>
       }
     ],
-  },
+  }, 
 
   // ✅ PRIVATE ROUTES
   // {
