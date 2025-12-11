@@ -64,7 +64,16 @@ const FavoriteMeal = () => {
 
   return (
     <div className="p-4 bg-white dark:bg-gray-900 min-h-screen">
-      <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+      {/* Title with RGB food color gradient */}
+      <h2
+        className="text-3xl font-bold mb-6"
+        style={{
+          background:
+            'linear-gradient(90deg, rgb(255,99,71), rgb(255,165,0), rgb(34,139,34))',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+        }}
+      >
         My Favorite Meals
       </h2>
 

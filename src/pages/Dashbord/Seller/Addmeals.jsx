@@ -8,6 +8,7 @@ import { AuthContext } from '../../../Context/AuthContext';
 
 const AddMeals = () => {
   const { user } = useContext(AuthContext); // logged-in user
+
   const {
     register,
     handleSubmit,
@@ -51,6 +52,7 @@ const AddMeals = () => {
         chefId: data.chefId,
         userEmail: user?.email || '', // auto-filled
         createdAt: new Date(),
+        
       };
 
       // Send to your backend to save in MongoDB

@@ -21,7 +21,7 @@ const MealDetails = () => {
   });
 
   useEffect(() => {
-    if (!user) ;
+    if (!user)navigate('signup');
   }, [user, navigate]);
 
   useEffect(() => {
@@ -55,6 +55,7 @@ const MealDetails = () => {
       rating: Number(reviewData.rating),
       comment: reviewData.comment,
       date: new Date().toISOString(),
+      reviewerEmail: user?.email || '',
     };
 
     axios
