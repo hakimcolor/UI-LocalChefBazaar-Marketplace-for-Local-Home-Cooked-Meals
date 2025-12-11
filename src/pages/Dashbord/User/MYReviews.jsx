@@ -43,7 +43,7 @@
 //     e.preventDefault();
 //     try {
 //      const res = await axios.put(
-//        `http://localhost:5000/reviews/${editingReview._id}`, 
+//        `http://localhost:5000/reviews/${editingReview._id}`,
 //        {
 //          rating: Number(updatedRating),
 //          comment: updatedComment,
@@ -69,7 +69,7 @@
 
 //   return (
 //     <div className="p-5 max-w-3xl mx-auto">
-//       <h2 className="text-2xl font-bold mb-5">My Reviews</h2>
+//       <h2 className="text-2xl font-bold mb-5"></h2>
 
 //       {reviews.length === 0 ? (
 //         <p>You have no reviews.</p>
@@ -322,7 +322,7 @@ const MyReviews = () => {
 
   return (
     <div className="p-5 max-w-3xl mx-auto">
-      <h2 className="text-2xl font-bold mb-5">My Reviews</h2>
+      <h2 className="text-2xl font-bold mb-5 text-green-500">My Reviews</h2>
 
       {reviews.length === 0 ? (
         <p>You have no reviews.</p>
@@ -375,14 +375,14 @@ const MyReviews = () => {
       {/* Edit Modal */}
       {editingReview && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+          className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50 text-black"
           onClick={closeModal}
           role="dialog"
           aria-modal="true"
           aria-label="Edit review modal"
         >
           <div
-            className="bg-white p-6 rounded-lg w-96"
+            className="bg-gradient-to-r from-amber-200 via-amber-300 to-amber-400  p-6 rounded-lg w-96"
             onClick={(e) => e.stopPropagation()}
           >
             <h3 className="text-lg font-bold mb-4">Update Review</h3>

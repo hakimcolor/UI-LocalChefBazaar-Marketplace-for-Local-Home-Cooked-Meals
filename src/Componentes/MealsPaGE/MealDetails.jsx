@@ -119,6 +119,7 @@ const MealDetails = () => {
 
   return (
     <div className="relative max-w-6xl mx-auto p-4 sm:p-6 md:p-8 border rounded-lg shadow-lg mt-6 mb-10">
+      <title>LocalChefBazaar||MealDetails</title>
       <button
         onClick={() => navigate(-1)}
         className="bg-black/60 text-white px-3 sm:px-4 py-2 rounded-full shadow hover:bg-black/80 transition cursor-pointer"

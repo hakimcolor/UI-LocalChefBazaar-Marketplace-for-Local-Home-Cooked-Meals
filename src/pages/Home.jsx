@@ -13,7 +13,7 @@ const Home = () => {
       <CustomerReviews />
       <HomeStats/>
       <TipsSlider />
-      kjdkfjlsdsdsdsd
+   
     </div>
   )
 }

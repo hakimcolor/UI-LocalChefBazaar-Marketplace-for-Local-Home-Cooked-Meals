@@ -18,6 +18,7 @@ import Addmeals from '../pages/Dashbord/Seller/Addmeals';
 import MealsPage from '../Componentes/MealsPaGE/MealsPage';
 import MealDetails from '../Componentes/MealsPaGE/MealDetails';
 import Home from '../pages/Home';
+import MyMeals from '../pages/Dashbord/Seller/MyMeals';
 
 export const router = createBrowserRouter([
   {
@@ -74,7 +75,10 @@ export const router = createBrowserRouter([
       {
         path: 'addmeals',
         element: <Addmeals />,
-      },
+      }, {
+        path: 'mymeals',
+        element:<MyMeals/>
+      }
     ],
   },
 

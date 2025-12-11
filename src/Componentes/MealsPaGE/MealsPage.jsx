@@ -6,6 +6,8 @@ import { AuthContext } from '../../Context/AuthContext';
 const MealsPage = () => {
   const [meals, setMeals] = useState([]);
   const [sortOrder, setSortOrder] = useState('asc');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10; // ১০ টা meals per page
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -31,9 +33,15 @@ const MealsPage = () => {
     navigate(`/mealsd/${mealId}`);
   };
 
+
+  const indexOfLastMeal = currentPage * itemsPerPage;
+  const indexOfFirstMeal = indexOfLastMeal - itemsPerPage;
+  const currentMeals = meals.slice(indexOfFirstMeal, indexOfLastMeal);
+  const totalPages = Math.ceil(meals.length / itemsPerPage);
+
   return (
     <div className="p-6 max-w-7xl mx-auto">
-      {/* Sorting */}
+      <title>LocalChefBazaar||MealsPage</title>
       <div className="flex justify-end mb-6">
         <select
           value={sortOrder}
@@ -49,9 +57,8 @@ const MealsPage = () => {
         </select>
       </div>
 
-      {/* Meal Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {meals.map((meal) => (
+        {currentMeals.map((meal) => (
           <div
             key={meal._id}
             className="border rounded shadow flex flex-col h-full"
@@ -61,13 +68,10 @@ const MealsPage = () => {
               className="w-full h-72 object-cover"
               alt=""
             />
-
             <div className="p-4 flex flex-col flex-grow">
               <h2 className="text-xl font-bold">{meal.foodName}</h2>
               <p>Chef: {meal.chefName}</p>
               <p>Price: ${meal.price}</p>
-
-              {/* BUTTON ALWAYS STAYS AT THE BOTTOM */}
               <button
                 onClick={() => handleSeeDetails(meal._id)}
                 className="mt-auto bg-red-600 text-white px-4 py-2 w-full rounded"
@@ -76,6 +80,20 @@ const MealsPage = () => {
               </button>
             </div>
           </div>
+        ))}
+      </div>
+
+      <div className="flex justify-center mt-6 gap-2">
+        {Array.from({ length: totalPages }, (_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrentPage(i + 1)}
+            className={`px-4 py-2 border rounded ${
+              currentPage === i + 1 ? 'bg-indigo-500 text-white' : ''
+            }`}
+          >
+            {i + 1}
+          </button>
         ))}
       </div>
     </div>

@@ -39,7 +39,7 @@ const CustomerReviews = () => {
 
   return (
     <div
-      className="customer-reviews-section py-12 px-6 rounded-lg"
+      className="customer-reviews-section py-12 px-6 rounded-lg max-w-7xl mx-auto "
       style={{
         background: 'linear-gradient(135deg, #e0e0e0, #fff176)', // gray to yellow gradient
       }}

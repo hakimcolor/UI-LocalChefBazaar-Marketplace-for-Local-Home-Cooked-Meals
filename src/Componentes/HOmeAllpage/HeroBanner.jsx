@@ -7,7 +7,7 @@ import gemBlob from '../../assets/gem.png';
 const HeroBanner = () => {
   return (
     <section
-      className="mt-[-20px] relative w-full h-screen flex items-center justify-center overflow-hidden
+      className="mt-[-20px] relative w-full h-screen flex items-center justify-center overflow-hidden 
                  bg-gradient-to-b from-gray-900 via-gray-800 to-gray-700 dark:bg-gray-900"
       aria-label="Hero banner"
     >

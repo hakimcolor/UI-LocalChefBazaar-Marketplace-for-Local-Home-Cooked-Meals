@@ -34,29 +34,39 @@ const DalySixDataDB = () => {
         {meals.map((meal) => (
           <div
             key={meal._id}
-            className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300"
+            className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 flex flex-col"
           >
             <img
               src={meal.foodImage || 'https://via.placeholder.com/400x250'}
               alt={meal.foodName}
               className="w-full h-56 object-cover"
             />
-            <div className="p-5">
-              <h3 className="text-2xl font-semibold mb-2 text-gray-800">
-                {meal.foodName}
-              </h3>
-              <p className="text-gray-600 mb-2">
-                Chef: <span className="font-medium">{meal.chefName}</span>
-              </p>
-              <p className="text-gray-600 mb-2">
-                Ingredients: {meal.ingredients.join(', ')}
-              </p>
-              <p className="text-gray-600 mb-2">
-                Delivery: {meal.estimatedDeliveryTime} mins | Experience:{' '}
-                {meal.chefExperience} yrs
-              </p>
-              <p className="text-red-500 font-bold text-xl">${meal.price}</p>
-              <p className="text-yellow-500 mt-1">Rating: {meal.rating} ⭐</p>
+            <div className="p-5 flex flex-col flex-1 justify-between">
+              <div>
+                <h3 className="text-2xl font-semibold mb-2 text-gray-800">
+                  <strong>{meal.foodName}</strong>
+                </h3>
+                <p className="text-gray-600 mb-1 ">
+                  <strong>Chef:</strong> {meal.chefName}
+                </p>
+                <p className="text-gray-600 mb-1">
+                  <strong>Ingredients:</strong> {meal.ingredients.join(', ')}
+                </p>
+                <p className="text-gray-600 mb-3">
+                  <strong>
+                    Delivery: </strong> {meal.estimatedDeliveryTime} mins | <strong>Experience: </strong>{' '}
+                    {meal.chefExperience} yrs
+                 
+                </p>
+              </div>
+              <div className="mt-3 flex items-center justify-between">
+                <p className="text-red-500 font-bold text-xl">
+                  <strong>${meal.price}</strong>
+                </p>
+                <p className="text-yellow-500 font-semibold">
+                  <strong>⭐ {meal.rating}</strong>
+                </p>
+              </div>
             </div>
           </div>
         ))}
