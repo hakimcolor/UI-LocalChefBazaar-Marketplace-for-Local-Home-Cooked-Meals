@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router';
 import Root from '../Layout/Root';
 import SignUp from '../pages/SingUp';
 import SignIn from '../pages/Singin';
-import Home from '../pages/Home';
+
 
 
 import DashboardLayout from '../Layout/DashbordLayout/DashboardLayout';
@@ -16,6 +16,8 @@ import WElcomd from '../pages/Dashbord/User/WElcomd';
 import Profile from '../pages/Dashbord/sherd/Profile';
 import Addmeals from '../pages/Dashbord/Seller/Addmeals';
 import MealsPage from '../Componentes/MealsPaGE/MealsPage';
+import MealDetails from '../Componentes/MealsPaGE/MealDetails';
+import Home from '../pages/Home';
 
 export const router = createBrowserRouter([
   {
@@ -36,9 +38,11 @@ export const router = createBrowserRouter([
       },
       {
         path: 'allmeals',
-        element: 
-        
-        <MealsPage/>,
+        element: <MealsPage />,
+      },
+      {
+        path: 'mealsd/:id',
+        element: <MealDetails />,
       },
     ],
   },
@@ -49,26 +53,30 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <WElcomd/>,
+        element: <WElcomd />,
       },
       {
         path: 'orders',
         element: <Orders />,
-      }, {
+      },
+      {
         path: 'reviews',
-        element:<MYReviews/>
-      }, {
+        element: <MYReviews />,
+      },
+      {
         path: 'favoritemeal',
-        element:<FavoriteMeal/>
-      }, {
+        element: <FavoriteMeal />,
+      },
+      {
         path: 'profile',
-        element:<Profile/>
-      }, {
+        element: <Profile />,
+      },
+      {
         path: 'addmeals',
-        element:<Addmeals/>
-      }
+        element: <Addmeals />,
+      },
     ],
-  }, 
+  },
 
   // ✅ PRIVATE ROUTES
   // {
