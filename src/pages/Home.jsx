@@ -1,9 +1,17 @@
 import React from 'react'
 import TipsSlider from '../Componentes/HOmeAllpage/TipeSlider'
+import HeroBanner from '../Componentes/HOmeAllpage/HeroBanner'
+import DalySixDataDB from '../Componentes/HOmeAllpage/DalySixDataDB'
+import CustomerReviews from '../Componentes/HOmeAllpage/CustomerReviews'
+import HomeStats from '../Componentes/HOmeAllpage/HomeStats'
 
 const Home = () => {
   return (
     <div>
+      <HeroBanner />
+      <DalySixDataDB />
+      <CustomerReviews />
+      <HomeStats/>
       <TipsSlider />
       kjdkfjlsdsdsdsd
     </div>

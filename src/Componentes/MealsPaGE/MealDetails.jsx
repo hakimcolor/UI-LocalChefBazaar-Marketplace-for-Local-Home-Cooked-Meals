@@ -50,6 +50,7 @@ const MealDetails = () => {
 
     const newReview = {
       foodId: id,
+      mealName: meal.foodName,
       reviewerName: user.displayName,
       reviewerImage: user.photoURL,
       rating: Number(reviewData.rating),
