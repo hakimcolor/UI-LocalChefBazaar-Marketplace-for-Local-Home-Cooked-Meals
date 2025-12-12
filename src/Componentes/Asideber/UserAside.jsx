@@ -111,12 +111,21 @@ const UserAside = () => {
           <FaUser /> add..
         </NavLink>
         <NavLink
-          to="orders"
+          to="myorder"
           className={({ isActive }) =>
             `${linkStyle} ${isActive ? activeStyle : ''}`
           }
         >
           <FaShoppingBag /> My Orders
+        </NavLink>
+        <NavLink
+          to="orderReq"
+          className={({ isActive }) =>
+            `${linkStyle} ${isActive ? activeStyle : ''}`
+          }
+        >
+          <FaShoppingBag />
+          Order Requests
         </NavLink>
         <NavLink
           to="reviews"

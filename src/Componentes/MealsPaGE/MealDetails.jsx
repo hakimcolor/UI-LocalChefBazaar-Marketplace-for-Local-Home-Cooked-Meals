@@ -150,10 +150,12 @@ const MealDetails = () => {
             <strong>Ingredients:</strong> {meal.ingredients}
           </p>
           <p>
-            <strong>Delivery Area:</strong> {meal.deliveryArea}
+            <strong>Delivery Area:</strong> {meal.deliveryArea
+          
+            }
           </p>
           <p>
-            <strong>Delivery Time:</strong> {meal.estimatedTime}
+            <strong>Delivery Time:</strong> {meal.estimatedDeliveryTime}
           </p>
           <p>
             <strong>Chef Experience:</strong> {meal.chefExperience} Years
@@ -163,16 +165,7 @@ const MealDetails = () => {
           </p>
 
           <div className="flex flex-wrap gap-4 mt-4">
-            {/* <Link to={'order'}>
-              {' '}
-              <button
-                onClick={() => navigate(`/order/${meal._id}`)}
-                className="bg-green-600 text-white px-4 py-2 rounded cursor-pointer hover:bg-green-700 transition"
-              >
-                Order Now
-              </button>
-            </Link> */}
-            <Link to={`/order/${meal._id}`} >
+            <Link to={`/order/${meal._id}`}>
               <button
                 onClick={() => navigate(`/order/${meal._id}`)}
                 className="bg-green-600 text-white px-4 py-2 rounded cursor-pointer hover:bg-green-700 transition"

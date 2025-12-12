@@ -320,16 +320,17 @@ const AddMeals = () => {
 
       const finalData = {
         foodName: data.foodName,
-        chefName: data.chefName, // chefName user input থেকে নেওয়া
+        chefName: data.chefName, 
         foodImage: imageUrl,
         price: parseFloat(data.price),
         rating: parseFloat(data.rating || 0),
         ingredients: data.ingredients.split(',').map((item) => item.trim()),
         estimatedDeliveryTime: data.estimatedDeliveryTime,
         chefExperience: data.chefExperience,
-        chefId: chefId, // auto-generated
+        chefId: chefId, 
         userEmail: user?.email || '',
         createdAt: new Date(),
+        deliveryArea: data.deliveryArea,
       };
 
       await axios.post('http://localhost:5000/meals', finalData);
@@ -487,6 +488,23 @@ const AddMeals = () => {
           {errors.chefExperience && (
             <span className="text-red-500 text-sm">
               Chef Experience is required
+            </span>
+          )}
+        </div>
+        {/* Delivery Area */}
+        <div>
+          <label className="block mb-1 font-semibold text-orange-500">
+            Delivery Area
+          </label>
+          <input
+            type="text"
+            {...register('deliveryArea', { required: true })}
+            className="w-full border border-orange-300 px-3 py-2 rounded focus:ring-2 focus:ring-orange-400"
+            placeholder="e.g., New York, Manhattan"
+          />
+          {errors.deliveryArea && (
+            <span className="text-red-500 text-sm">
+              Delivery Area is required
             </span>
           )}
         </div>

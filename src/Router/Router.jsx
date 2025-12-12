@@ -3,12 +3,9 @@ import Root from '../Layout/Root';
 import SignUp from '../pages/SingUp';
 import SignIn from '../pages/Singin';
 
-
-
 import DashboardLayout from '../Layout/DashbordLayout/DashboardLayout';
 
-
-import Orders from '../pages/Dashbord/User/Orders';
+import Orders from '../Componentes/MealsPaGE/Orders';
 import MYReviews from '../pages/Dashbord/User/MYReviews';
 import FavoriteMeal from '../pages/Dashbord/User/FavoriteMeal';
 // import Profile from '../pages/Dashbord/sherd/Profile';
@@ -19,7 +16,9 @@ import MealsPage from '../Componentes/MealsPaGE/MealsPage';
 import MealDetails from '../Componentes/MealsPaGE/MealDetails';
 import Home from '../pages/Home';
 import MyMeals from '../pages/Dashbord/Seller/MyMeals';
-import Order from '../pages/Dashbord/User/Orders';
+import Order from '../Componentes/MealsPaGE/Orders';
+import OrderRequest from '../pages/Dashbord/Seller/OrderRequest';
+import MyOrders from '../pages/Dashbord/User/MyOrders';
 
 export const router = createBrowserRouter([
   {
@@ -87,6 +86,13 @@ export const router = createBrowserRouter([
         path: 'mymeals',
         element: <MyMeals />,
       },
+      {
+        path: 'orderreq',
+        element: <OrderRequest />,
+      },{
+        path: 'myorder',
+        element:<MyOrders/>
+      }
     ],
   },
 
