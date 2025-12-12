@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState, useContext } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import Swal from 'sweetalert2';
@@ -163,12 +163,23 @@ const MealDetails = () => {
           </p>
 
           <div className="flex flex-wrap gap-4 mt-4">
-            <button
-              onClick={() => navigate(`/order/${meal._id}`)}
-              className="bg-green-600 text-white px-4 py-2 rounded cursor-pointer hover:bg-green-700 transition"
-            >
-              Order Now
-            </button>
+            {/* <Link to={'order'}>
+              {' '}
+              <button
+                onClick={() => navigate(`/order/${meal._id}`)}
+                className="bg-green-600 text-white px-4 py-2 rounded cursor-pointer hover:bg-green-700 transition"
+              >
+                Order Now
+              </button>
+            </Link> */}
+            <Link to={`/order/${meal._id}`} >
+              <button
+                onClick={() => navigate(`/order/${meal._id}`)}
+                className="bg-green-600 text-white px-4 py-2 rounded cursor-pointer hover:bg-green-700 transition"
+              >
+                Order Now
+              </button>
+            </Link>
 
             <button
               onClick={handleAddFavorite}

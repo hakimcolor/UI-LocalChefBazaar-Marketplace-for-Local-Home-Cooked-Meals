@@ -19,6 +19,7 @@ import MealsPage from '../Componentes/MealsPaGE/MealsPage';
 import MealDetails from '../Componentes/MealsPaGE/MealDetails';
 import Home from '../pages/Home';
 import MyMeals from '../pages/Dashbord/Seller/MyMeals';
+import Order from '../pages/Dashbord/User/Orders';
 
 export const router = createBrowserRouter([
   {
@@ -44,6 +45,12 @@ export const router = createBrowserRouter([
       {
         path: 'mealsd/:id',
         element: <MealDetails />,
+      },
+      {
+        path: '/order/:id',
+        element: <Order />,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/mealsd/${params.id}`),
       },
     ],
   },
@@ -75,10 +82,11 @@ export const router = createBrowserRouter([
       {
         path: 'addmeals',
         element: <Addmeals />,
-      }, {
+      },
+      {
         path: 'mymeals',
-        element:<MyMeals/>
-      }
+        element: <MyMeals />,
+      },
     ],
   },
 
