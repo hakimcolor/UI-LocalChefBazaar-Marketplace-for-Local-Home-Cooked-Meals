@@ -73,10 +73,7 @@ const CustomerReviews = () => {
   };
 
   return (
-    <div
-      className="py-12 px-4 md:px-6 lg:px-8 customer-reviews-section  rounded-lg max-w-7xl mx-auto"
-      style={{ background: 'linear-gradient(to right, #fff8f0, #fff1e0)' }}
-    >
+    <div className="bg-gradient-to-r   rounded-xl from-orange-100 via-yellow-50 to-orange-200 py-16 px-4 max-w-7xl mx-auto  mt-10">
       <h2 className="text-4xl font-extrabold text-center mb-10 text-gray-800">
         What Our Customers Say
       </h2>

@@ -19,6 +19,8 @@ import MyMeals from '../pages/Dashbord/Seller/MyMeals';
 import Order from '../Componentes/MealsPaGE/Orders';
 import OrderRequest from '../pages/Dashbord/Seller/OrderRequest';
 import MyOrders from '../pages/Dashbord/User/MyOrders';
+import ManageUsers from '../pages/Dashbord/Admin/ManageUsers';
+import ManageRequests from '../pages/Dashbord/Admin/ManageRequests';
 
 export const router = createBrowserRouter([
   {
@@ -92,6 +94,12 @@ export const router = createBrowserRouter([
       },{
         path: 'myorder',
         element:<MyOrders/>
+      }, {
+        path: 'manageuser',
+        element:<ManageUsers/>
+      }, {
+        path: 'managerequest', 
+        element:<ManageRequests/>
       }
     ],
   },

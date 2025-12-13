@@ -151,6 +151,22 @@ const UserAside = () => {
         >
           <FaHeart /> Favorite Meal
         </NavLink>
+        <NavLink
+          to="managerequest"
+          className={({ isActive }) =>
+            `${linkStyle} ${isActive ? activeStyle : ''}`
+          }
+        >
+          <FaHeart /> Manage Request
+        </NavLink>
+        <NavLink
+          to="manageuser"
+          className={({ isActive }) =>
+            `${linkStyle} ${isActive ? activeStyle : ''}`
+          }
+        >
+          <FaHeart /> Manage Users
+        </NavLink>
         <div
           className={backButtonStyle}
           onClick={() => navigate(-1)} // go back one step in history
