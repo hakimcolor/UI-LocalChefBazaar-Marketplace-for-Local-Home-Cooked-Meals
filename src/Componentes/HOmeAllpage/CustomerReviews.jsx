@@ -1,7 +1,32 @@
+
 import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+
+const StarRating = ({ rating }) => {
+  const clampedRating = Math.max(0, Math.min(5, rating));
+  const fullStars = Math.floor(clampedRating);
+  const stars = [];
+
+  for (let i = 0; i < 5; i++) {
+    if (i < fullStars || (i === fullStars && clampedRating % 1 >= 0.5)) {
+      stars.push(
+        <span key={i} className="text-yellow-500">
+          ★
+        </span>
+      );
+    } else {
+      stars.push(
+        <span key={i} className="text-gray-300">
+          ★
+        </span>
+      );
+    }
+  }
+
+  return <div className="inline-flex text-xl">{stars}</div>;
+};
 
 const CustomerReviews = () => {
   const [reviews, setReviews] = useState([]);
@@ -9,69 +34,105 @@ const CustomerReviews = () => {
 
   useEffect(() => {
     fetch('http://localhost:5000/reviews/latest')
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        return res.json();
+      })
       .then((data) => {
-        if (data.success) setReviews(data.data);
+        if (data && data.success && Array.isArray(data.data))
+          setReviews(data.data);
+        else if (Array.isArray(data)) setReviews(data);
+        else setReviews([]);
         setLoading(false);
       })
-      .catch((err) => {
-        console.error('Failed to fetch reviews:', err);
-        setLoading(false);
-      });
+      .catch(() => setLoading(false));
   }, []);
 
-  if (loading) return <div>Loading reviews...</div>;
-  if (reviews.length === 0) return <div>No reviews found.</div>;
+  if (loading)
+    return (
+      <div className="text-center py-10 text-xl font-medium text-gray-700">
+        Loading customer reviews...
+      </div>
+    );
+  if (reviews.length === 0)
+    return (
+      <div className="text-center py-10 text-xl font-medium text-gray-700">
+        No customer reviews found.
+      </div>
+    );
 
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 2,
+    slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 4000,
-    responsive: [
-      { breakpoint: 1024, settings: { slidesToShow: 2 } },
-      { breakpoint: 768, settings: { slidesToShow: 1 } },
-    ],
+    arrows: false,
   };
 
   return (
     <div
-      className="customer-reviews-section py-12 px-6 rounded-lg max-w-7xl mx-auto "
-      style={{
-        background: 'linear-gradient(135deg, #e0e0e0, #fff176)', // gray to yellow gradient
-      }}
+      className="py-12 px-4 md:px-6 lg:px-8 customer-reviews-section  rounded-lg max-w-7xl mx-auto"
+      style={{ background: 'linear-gradient(to right, #fff8f0, #fff1e0)' }}
     >
-      <h2
-        className="text-4xl font-bold text-center mb-8"
-        style={{ color: 'rgb(34, 49, 63)' }} // nice dark RGB color for title
-      >
-        Customer Reviews
+      <h2 className="text-4xl font-extrabold text-center mb-10 text-gray-800">
+        What Our Customers Say
       </h2>
 
-      <Slider {...settings}>
-        {reviews.map((review) => (
-          <div key={review._id} className="px-4">
-            <div className="p-6 bg-white rounded-2xl shadow-lg border border-gray-300">
-              <h3
-                className="font-semibold text-xl mb-2"
-                style={{ color: 'rgb(34, 49, 63)' }}
-              >
-                {review.reviewerName}
-              </h3>
-              <p className="text-yellow-500 font-semibold mb-2">
-                Rating: {review.rating} ⭐
-              </p>
-              <p className="text-gray-700 mb-4">{review.comment}</p>
-              <p className="text-sm text-gray-400">
-                {new Date(review.date).toLocaleDateString()}
-              </p>
+      <div className="max-w-4xl mx-auto">
+        <Slider {...settings}>
+          {reviews.map((review) => (
+            <div key={review._id} className="p-2">
+              <div className="bg-white p-8 rounded-3xl shadow-2xl border border-gray-100 flex flex-col">
+                <div className="flex justify-between items-start mb-6 border-b pb-4">
+                  <div className="flex items-center">
+                    <img
+                      src={
+                        review.reviewerImage ||
+                        'https://via.placeholder.com/50/CCCCCC/FFFFFF?text=User'
+                      }
+                      alt={review.reviewerName || 'Reviewer'}
+                      className="w-14 h-14 rounded-full object-cover mr-4 shadow-md"
+                    />
+                    <div>
+                      <p className="font-bold text-lg text-gray-800">
+                        {review.reviewerName || 'Anonymous User'}
+                      </p>
+                      <p className="text-sm text-gray-500">
+                        {review.date
+                          ? new Date(review.date).toLocaleDateString('en-US', {
+                              year: 'numeric',
+                              month: 'long',
+                              day: 'numeric',
+                            })
+                          : 'Date N/A'}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="text-right flex-shrink-0 pt-1">
+                    <div className="flex flex-col items-end">
+                      <StarRating rating={review.rating} />
+                      <span className="font-semibold text-sm text-gray-700 mt-1">
+                        ({review.rating}/5 Stars)
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <h3 className="font-extrabold text-3xl mb-4 text-gray-800">
+                  {review.title ||
+                    `Review for ${review.mealName || 'Product/Meal'}`}
+                </h3>
+                <p className="text-gray-700 leading-relaxed text-lg">
+                  {review.comment}
+                </p>
+              </div>
             </div>
-          </div>
-        ))}
-      </Slider>
+          ))}
+        </Slider>
+      </div>
     </div>
   );
 };
