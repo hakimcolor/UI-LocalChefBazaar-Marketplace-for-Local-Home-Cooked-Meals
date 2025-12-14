@@ -1,6 +1,10 @@
 import React, { useContext } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { MdRestaurant } from 'react-icons/md';
+import { MdPendingActions } from 'react-icons/md';
+import { FaChartLine, FaUsersCog } from 'react-icons/fa';
 import Swal from 'sweetalert2';
+import { MdRestaurantMenu } from 'react-icons/md';
 import { toast } from 'react-toastify';
 import {
   FaUser,
@@ -97,12 +101,21 @@ const UserAside = () => {
           <FaUser /> My Profile
         </NavLink>
         <NavLink
+          to="StatisticsPage"
+          className={({ isActive }) =>
+            `${linkStyle} ${isActive ? activeStyle : ''}`
+          }
+        >
+          <FaChartLine />
+          Statistics Page
+        </NavLink>
+        <NavLink
           to="addmeals"
           className={({ isActive }) =>
             `${linkStyle} ${isActive ? activeStyle : ''}`
           }
         >
-          <FaUser /> add..
+          <MdRestaurantMenu /> Create meal
         </NavLink>
         <NavLink
           to="myorder"
@@ -135,7 +148,7 @@ const UserAside = () => {
             `${linkStyle} ${isActive ? activeStyle : ''}`
           }
         >
-          <FaStar /> My Meals
+          <MdRestaurant /> My Meals
         </NavLink>
         <NavLink
           to="favoritemeal"
@@ -151,7 +164,7 @@ const UserAside = () => {
             `${linkStyle} ${isActive ? activeStyle : ''}`
           }
         >
-          <FaHeart /> Manage Request
+          <MdPendingActions /> Manage Request
         </NavLink>
         <NavLink
           to="manageuser"
@@ -159,7 +172,7 @@ const UserAside = () => {
             `${linkStyle} ${isActive ? activeStyle : ''}`
           }
         >
-          <FaHeart /> Manage Users
+          <FaUsersCog /> Manage Users
         </NavLink>
         <div className={backButtonStyle} onClick={() => navigate(-1)}>
           <FaArrowLeft /> Back
@@ -175,7 +188,7 @@ const UserAside = () => {
       <div className="mt-auto pt-6">
         <button
           onClick={handleLogout}
-          className="w-full flex items-center justify-center gap-2 py-2 border border-[#b94a21] text-[#b94a21] rounded-md hover:bg-[#ffdbc9] transition"
+          className="w-full flex items-center justify-center gap-2 py-2 border border-[#b94a21] text-[#b94a21] rounded-md hover:bg-[#ffdbc9] transition cursor-pointer"
         >
           <FaSignOutAlt /> Logout
         </button>

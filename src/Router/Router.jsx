@@ -23,11 +23,15 @@ import ManageUsers from '../pages/Dashbord/Admin/ManageUsers';
 import ManageRequests from '../pages/Dashbord/Admin/ManageRequests';
 import PaymentSuccess from '../pages/Dashbord/User/Payment.jsx/PaymentSuccess';
 import PaymentCancel from '../pages/Dashbord/User/Payment.jsx/PaymentCancel';
+import Error from '../Componentes/Error';
+import Statistics from '../pages/Dashbord/Admin/Statistics';
+
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <Root />,
+    errorElement: <Error />,
     children: [
       {
         index: true,
@@ -61,6 +65,7 @@ export const router = createBrowserRouter([
   {
     path: 'dashbord',
     element: <DashboardLayout />,
+    errorElement: <Error />,
     children: [
       {
         index: true,
@@ -93,21 +98,29 @@ export const router = createBrowserRouter([
       {
         path: 'orderreq',
         element: <OrderRequest />,
-      },{
+      },
+      {
         path: 'myorder',
-        element:<MyOrders/>
-      }, {
+        element: <MyOrders />,
+      },
+      {
         path: 'manageuser',
-        element:<ManageUsers/>
-      }, {
-        path: 'managerequest', 
-        element:<ManageRequests/>
-      }, {
+        element: <ManageUsers />,
+      },
+      {
+        path: 'managerequest',
+        element: <ManageRequests />,
+      },
+      {
         path: 'payment-success',
-        element:<PaymentSuccess/>
-      }, {
+        element: <PaymentSuccess />,
+      },
+      {
         path: 'payment-cancel',
-        element:<PaymentCancel/>
+        element: <PaymentCancel />,
+      }, {
+        path: 'StatisticsPage',
+        element:<Statistics/>
       }
     ],
   },

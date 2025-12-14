@@ -17,13 +17,13 @@ const DalySixDataDB = () => {
       });
   }, []);
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center mt-20">
-        <p className="text-gray-500 text-lg animate-pulse">Loading meals...</p>
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className="flex justify-center items-center mt-20">
+  //       <p className="text-gray-500 text-lg animate-pulse">Loading meals...</p>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">

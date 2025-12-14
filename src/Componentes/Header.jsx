@@ -143,7 +143,7 @@ const Header = () => {
               </div>
 
               <button onClick={handleLogout} className={buttonClass}>
-                <FiLogOut size={18} className="inline mr-2" />
+                <FiLogOut size={18} className="inline mr-2 cursor-pointer" />
                 Log Out
               </button>
             </div>

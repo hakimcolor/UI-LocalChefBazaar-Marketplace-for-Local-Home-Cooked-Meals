@@ -1,21 +1,122 @@
+
+// import React, { useEffect, useState } from 'react';
+// import axios from 'axios';
+// import Swal from 'sweetalert2';
+
+// const ManageUsers = () => {
+//   const [users, setUsers] = useState([]);
+
+//   useEffect(() => {
+//     fetchUsers();
+//   }, []);
+
+//   const fetchUsers = async () => {
+//     try {
+//       const res = await axios.get('http://localhost:5000/users');
+//       setUsers(res.data.data);
+//     } catch (err) {
+//       console.error(err);
+//       Swal.fire('Error', 'Failed to fetch users', 'error');
+//     }
+//   };
+
+//   const handleMakeFraud = async (userId) => {
+//     try {
+//       await axios.patch(`http://localhost:5000/users/${userId}/status`, {
+//         status: 'fraud',
+//       });
+//       Swal.fire('Success', 'User marked as fraud!', 'success');
+//       fetchUsers();
+//     } catch (err) {
+//       console.error(err);
+//       Swal.fire('Error', 'Failed to update status', 'error');
+//     }
+//   };
+
+//   return (
+//     <div className="p-6 bg-gray-50 min-h-screen">
+//       <title>LocalChefBazaar || Manage Users</title>
+//       <h2 className="text-3xl font-bold mb-6 text-gray-800">Manage Users</h2>
+
+//       <div className="overflow-x-auto shadow-lg rounded-lg">
+//         <table className="min-w-full bg-white border border-gray-200">
+//           <thead className="bg-gray-100">
+//             <tr className="text-gray-700">
+//               <th className="border px-6 py-3 text-left">Name</th>
+//               <th className="border px-6 py-3 text-left">Email</th>
+//               <th className="border px-6 py-3 text-left">Role</th>
+//               <th className="border px-6 py-3 text-left">Status</th>
+//               <th className="border px-6 py-3 text-center">Action</th>
+//             </tr>
+//           </thead>
+//           <tbody>
+//             {users.map((user) => (
+//               <tr
+//                 key={user._id}
+//                 className="text-center hover:bg-gray-50 transition"
+//               >
+//                 <td className="border px-6 py-3 text-left font-medium text-gray-800">
+//                   {user.name}
+//                 </td>
+//                 <td className="border px-6 py-3 text-left text-gray-600">
+//                   {user.email}
+//                 </td>
+//                 <td className="border px-6 py-3 text-left capitalize">
+//                   {user.role}
+//                 </td>
+//                 <td
+//                   className={`border px-6 py-3 font-semibold ${
+//                     user.status === 'fraud' ? 'text-red-500' : 'text-green-500'
+//                   }`}
+//                 >
+//                   {user.status}
+//                 </td>
+//                 <td className="border px-6 py-3">
+//                   {user.role !== 'admin' && user.status !== 'fraud' ? (
+//                     <button
+//                       onClick={() => handleMakeFraud(user._id)}
+//                       className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition cursor-pointer"
+//                     >
+//                       Make Fraud
+//                     </button>
+//                   ) : user.status === 'fraud' ? (
+//                     <span className="text-gray-400 font-medium">Fraud</span>
+//                   ) : null}
+//                 </td>
+//               </tr>
+//             ))}
+//           </tbody>
+//         </table>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default ManageUsers;
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import Loading from '../../../Componentes/Loading';
+
 
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchUsers();
   }, []);
 
   const fetchUsers = async () => {
+    setLoading(true); 
     try {
       const res = await axios.get('http://localhost:5000/users');
       setUsers(res.data.data);
     } catch (err) {
       console.error(err);
       Swal.fire('Error', 'Failed to fetch users', 'error');
+    } finally {
+      setLoading(false); 
     }
   };
 
@@ -32,43 +133,65 @@ const ManageUsers = () => {
     }
   };
 
+  if (loading) {
+    return <Loading/>
+  }
+
   return (
-    <div className="p-4">
-      <title>LocalChefBazaar || ManageUser</title>
-      <h2 className="text-2xl font-bold mb-4">Manage Users</h2>
-      <table className="min-w-full border">
-        <thead>
-          <tr className="bg-gray-100">
-            <th className="border px-4 py-2">Name</th>
-            <th className="border px-4 py-2">Email</th>
-            <th className="border px-4 py-2">Role</th>
-            <th className="border px-4 py-2">Status</th>
-            <th className="border px-4 py-2">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <tr key={user._id} className="text-center">
-              <td className="border px-4 py-2">{user.name}</td>
-              <td className="border px-4 py-2">{user.email}</td>
-              <td className="border px-4 py-2">{user.role}</td>
-              <td className="border px-4 py-2">{user.status}</td>
-              <td className="border px-4 py-2">
-                {user.role !== 'admin' && user.status !== 'fraud' ? (
-                  <button
-                    onClick={() => handleMakeFraud(user._id)}
-                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-                  >
-                    Make Fraud
-                  </button>
-                ) : user.status === 'fraud' ? (
-                  <span className="text-gray-400">Fraud</span>
-                ) : null}
-              </td>
+    <div className="p-6 bg-gray-50 min-h-screen">
+      <title>LocalChefBazaar || Manage Users</title>
+      <h2 className="text-3xl font-bold mb-6 text-gray-800">Manage Users</h2>
+
+      <div className="overflow-x-auto shadow-lg rounded-lg">
+        <table className="min-w-full bg-white border border-gray-200">
+          <thead className="bg-gray-100">
+            <tr className="text-gray-700">
+              <th className="border px-6 py-3 text-left">Name</th>
+              <th className="border px-6 py-3 text-left">Email</th>
+              <th className="border px-6 py-3 text-left">Role</th>
+              <th className="border px-6 py-3 text-left">Status</th>
+              <th className="border px-6 py-3 text-center">Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {users.map((user) => (
+              <tr
+                key={user._id}
+                className="text-center hover:bg-gray-50 transition"
+              >
+                <td className="border px-6 py-3 text-left font-medium text-gray-800">
+                  {user.name}
+                </td>
+                <td className="border px-6 py-3 text-left text-gray-600">
+                  {user.email}
+                </td>
+                <td className="border px-6 py-3 text-left capitalize">
+                  {user.role}
+                </td>
+                <td
+                  className={`border px-6 py-3 font-semibold ${
+                    user.status === 'fraud' ? 'text-red-500' : 'text-green-500'
+                  }`}
+                >
+                  {user.status}
+                </td>
+                <td className="border px-6 py-3">
+                  {user.role !== 'admin' && user.status !== 'fraud' ? (
+                    <button
+                      onClick={() => handleMakeFraud(user._id)}
+                      className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition cursor-pointer"
+                    >
+                      Make Fraud
+                    </button>
+                  ) : user.status === 'fraud' ? (
+                    <span className="text-gray-400 font-medium">Fraud</span>
+                  ) : null}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

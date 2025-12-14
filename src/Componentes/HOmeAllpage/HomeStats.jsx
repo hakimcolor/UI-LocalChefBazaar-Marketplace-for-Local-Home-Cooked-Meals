@@ -27,7 +27,7 @@ const HomeStats = () => {
       });
   }, []);
 
-  if (loading) return <p className="text-center py-10">Loading...</p>;
+  // if (loading) return <p className="text-center py-10">Loading...</p>;
 
   return (
     <section className="bg-gradient-to-r   rounded-xl from-orange-100 via-yellow-50 to-orange-200 py-16 px-4 max-w-7xl mx-auto  mt-10">

@@ -169,7 +169,7 @@ const MealDetails = () => {
             <Link to={`/order/${meal._id}`}>
               <button
                 onClick={() => navigate(`/order/${meal._id}`)}
-                className="bg-green-600 text-white px-4 py-2 rounded cursor-pointer hover:bg-green-700 transition"
+                className="bg-green-600 text-white px-4 py-2 rounded cursor-pointer hover:bg-green-700 transition "
               >
                 Order Now
               </button>

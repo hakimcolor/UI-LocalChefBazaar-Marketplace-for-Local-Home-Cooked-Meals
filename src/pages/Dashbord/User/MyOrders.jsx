@@ -208,7 +208,7 @@ const MyOrders = () => {
     }
   };
 
-  if (loading)
+  if (loading) 
     return <Loading/>;
 
   // ✅ SORT: pending first, paid last
@@ -290,7 +290,7 @@ const MyOrders = () => {
               order.paymentStatus?.toLowerCase() === 'pending' && (
                 <button
                   onClick={() => handlePay(order)}
-                  className="bg-green-500 text-white px-4 py-2 mt-3 rounded hover:bg-green-600"
+                  className="bg-green-500 text-white px-4 py-2 mt-3 rounded hover:bg-green-600 cursor-pointer"
                 >
                   Pay Now
                 </button>

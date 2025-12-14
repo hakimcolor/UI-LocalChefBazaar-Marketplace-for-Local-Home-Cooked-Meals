@@ -143,7 +143,7 @@ const MealsPage = () => {
             <button
               key={i}
               onClick={() => setCurrentPage(i + 1)}
-              className={`px-4 py-2 border rounded ${
+              className={`px-4 py-2 cursor-pointer border rounded ${
                 currentPage === i + 1 ? 'bg-indigo-500 text-white' : ''
               }`}
             >

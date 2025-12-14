@@ -147,7 +147,7 @@ const Order = () => {
       <div className="flex flex-col sm:flex-row gap-3">
         <button
           onClick={() => navigate(-1)}
-          className="flex-1 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg py-2 text-sm sm:text-base order-1 sm:order-1"
+          className="flex-1 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg py-2 text-sm sm:text-base order-1 sm:order-1 cursor-pointer"
         >
           Back
         </button>
@@ -155,7 +155,7 @@ const Order = () => {
         {/* Confirm Order */}
         <button
           onClick={handleConfirmOrder}
-          className="flex-1 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg py-2 text-sm sm:text-base order-2 sm:order-2"
+          className="flex-1 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg py-2 text-sm sm:text-base order-2 sm:order-2 cursor-pointer"
         >
           Confirm Order
         </button>

@@ -258,7 +258,7 @@ const SignIn = () => {
               className={`text-sm ${
                 email
                   ? 'text-orange-600 hover:underline'
-                  : 'text-gray-400 cursor-not-allowed'
+                  : 'text-gray-400 cursor-not-allowed '
               }`}
             >
               Forgot Password?
@@ -269,7 +269,7 @@ const SignIn = () => {
 
           <button
             type="submit"
-            className="w-full py-3 bg-amber-500 text-white font-bold rounded-xl hover:bg-amber-600 shadow-md"
+            className="w-full py-3 bg-amber-500 text-white font-bold rounded-xl hover:bg-amber-600 shadow-md cursor-pointer"
           >
             Login
           </button>
@@ -279,7 +279,7 @@ const SignIn = () => {
           Don’t have an account?{' '}
           <NavLink
             to="/signup"
-            className="text-orange-600 font-medium hover:underline"
+            className="text-orange-600 font-medium hover:underline cursor-pointer"
           >
             Sign Up
           </NavLink>

@@ -1,154 +1,165 @@
 
-// import React, { useContext, useEffect, useState } from 'react';
-// import Swal from 'sweetalert2';
-// import { toast } from 'react-toastify';
+// import React, { useEffect, useState, useContext } from 'react';
+// import axios from 'axios';
 // import { AuthContext } from '../../../Context/AuthContext';
+// import toast, { Toaster } from 'react-hot-toast';
 // import Loading from '../../../Componentes/Loading';
 
 // const Profile = () => {
-//   const { user } = useContext(AuthContext); // logged-in user
-//   const [userData, setUserData] = useState(null);
-//   const [loading, setLoading] = useState(false);
+//   const { user, loading } = useContext(AuthContext);
+//   const [userInfo, setUserInfo] = useState(null);
 
-//   // Fetch user info from backend
 //   useEffect(() => {
-//     const fetchUserData = async () => {
-//       if (!user?.email) return;
+//     if (!user?.email) return;
 
+//     const fetchUser = async () => {
 //       try {
-//         setLoading(true);
-//         const res = await fetch(`http://localhost:5000/users/${user.email}`);
-//         const data = await res.json();
-
-//         if (data.success) {
-//           setUserData(data.data);
-//         } else {
-//           toast.error(data.message || 'User not found');
-//         }
+//         const res = await axios.get(
+//           `http://localhost:5000/users/${user.email}`
+//         );
+//         setUserInfo(res.data.data);
 //       } catch (err) {
-//         toast.error(err.message);
-//       } finally {
-//         setLoading(false);
+//         console.error(err);
+//         toast.error('Failed to fetch user info', {
+//           position: 'top-center',
+//         });
 //       }
 //     };
 
-//     fetchUserData();
+//     fetchUser();
 //   }, [user?.email]);
 
-//   // Handle Role Request (Chef/Admin)
-//   const handleRoleRequest = async (type) => {
-//     if (!userData) return;
+//   const handleRoleRequest = (role) => {
+//     toast(
+//       (t) => (
+//         <div className="p-4 bg-white rounded shadow-lg text-center w-full max-w-sm mx-auto">
+//           <p className="text-lg font-semibold mb-4">
+//             Are you sure you want to request the role:{' '}
+//             <span className="capitalize">{role}</span>?
+//           </p>
 
-//     const requestData = {
-//       _id: userData._id,
-//       userName: userData.name,
-//       userEmail: userData.email,
-//       requestType: type,
-//       requestStatus: 'pending',
-//       requestTime: new Date().toISOString(),
-//     };
+//           <div className="flex justify-center gap-4">
+//             <button
+//               className="bg-blue-500 text-white px-4 py-2 rounded"
+//               onClick={async () => {
+//                 try {
+//                   const res = await axios.post(
+//                     'http://localhost:5000/role-request',
+//                     {
+//                       email: user.email,
+//                       requestedRole: role,
+//                     }
+//                   );
 
-//     try {
+//                   setUserInfo((prev) => ({
+//                     ...prev,
+//                     roleRequest: role,
+//                   }));
 
-//       setLoading(true);
-//       const res = await fetch('http://localhost:5000/role-requests', {
-//         method: 'POST',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify(requestData),
-//       });
+//                   toast.success(res.data.message, {
+//                     position: 'top-center',
+//                   });
+//                 } catch (err) {
+//                   console.error(err);
+//                   toast.error('Failed to send role request', {
+//                     position: 'top-center',
+//                   });
+//                 }
 
-//       const data = await res.json();
+//                 toast.dismiss(t.id);
+//               }}
+//             >
+//               Yes
+//             </button>
 
-//       if (data.insertedId) {
-//         Swal.fire({
-//           title: 'Request Sent!',
-//           text: `Your request to be a ${type} is now pending.`,
-//           icon: 'success',
-//           timer: 1500,
-//           showConfirmButton: false,
-//         });
-//       } else {
-//         Swal.fire('Error', 'Could not send request.', 'error');
-//       }
-//     } catch (err) {
-//       toast.error(err.message);
-//     } finally {
-//       setLoading(false);
-//     }
+//             <button
+//               className="bg-gray-300 px-4 py-2 rounded"
+//               onClick={() => toast.dismiss(t.id)}
+//             >
+//               No
+//             </button>
+//           </div>
+//         </div>
+//       ),
+//       { duration: Infinity, position: 'top-center' }
+//     );
 //   };
 
-//   if (loading && !userData) return <Loading />;
+//   if (loading) return <Loading />;
+//   if (!user) return <p className="text-center mt-10">No user logged in</p>;
+//   if (!userInfo) return <Loading />;
+
+//   const { role, roleRequest } = userInfo;
 
 //   return (
-//     <div className="flex justify-center mt-10 px-4">
-//       <title>LocalChefBazaar || Profile</title>
-//       <div className="bg-white shadow-md p-8 rounded-xl w-full max-w-lg border border-[#f3d9c6]">
-//         {/* Profile Image */}
-//         <div className="flex justify-center mb-6">
+//     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 to-white px-4">
+//       <Toaster />
+
+//       <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-6 sm:p-8">
+//         {/* Profile Header */}
+//         <div className="flex flex-col items-center -mt-16">
 //           <img
-//             src={
-//               userData?.profileImg ||
-//               'https://i.ibb.co/7CMqG7N/default-avatar.jpg'
-//             }
-//             alt="User"
-//             className="w-32 h-32 rounded-full object-cover border-4 border-[#ffdbc9]"
+//             src={userInfo.profileImg || user?.photoURL}
+//             alt="Profile"
+//             className="w-28 h-28 rounded-full border-4 border-white shadow-md object-cover bg-gray-100"
 //           />
+//           <h2 className="mt-3 text-2xl font-bold text-gray-800">
+//             {userInfo.name}
+//           </h2>
+//           <p className="text-sm text-gray-500">{userInfo.email}</p>
 //         </div>
 
-//         {/* User Info */}
-//         <h2 className="text-2xl font-bold text-center text-[#b94a21] mb-4">
-//           {userData?.name}
-//         </h2>
+//         {/* Info Section */}
+//         <div className="mt-6 space-y-3 text-sm text-gray-700">
+//           <div className="flex justify-between">
+//             <span className="font-semibold">Address</span>
+//             <span>{userInfo.address || 'N/A'}</span>
+//           </div>
 
-//         <div className="space-y-3 text-gray-700">
-//           <p>
-//             <strong>Email:</strong> {userData?.email}
-//           </p>
+//           <div className="flex justify-between">
+//             <span className="font-semibold">Role</span>
+//             <span className="capitalize px-2 py-0.5 rounded bg-blue-100 text-blue-600">
+//               {role}
+//             </span>
+//           </div>
 
-//           <p>
-//             <strong>Address:</strong> {userData?.address || 'Not Provided'}
-//           </p>
-
-//           <p>
-//             <strong>Role:</strong>{' '}
-//             <span className="capitalize">{userData?.role || 'user'}</span>
-//           </p>
-
-//           <p>
-//             <strong>Status:</strong>{' '}
-//             <span className="capitalize">{userData?.status || 'active'}</span>
-//           </p>
-
-//           {/* Chef ID */}
-//           {userData?.role === 'chef' && (
-//             <p>
-//               <strong>Chef ID:</strong> {userData?.chefId || 'Not Assigned'}
-//             </p>
-//           )}
+//           <div className="flex justify-between">
+//             <span className="font-semibold">Status</span>
+//             <span className="capitalize px-2 py-0.5 rounded bg-green-100 text-green-600">
+//               {userInfo.status || 'active'}
+//             </span>
+//           </div>
 //         </div>
 
-//         {/* Buttons */}
-//         <div className="mt-8 flex flex-col gap-3">
-//           {userData?.role !== 'chef' && userData?.role !== 'admin' && (
-//             <button
-//               onClick={() => handleRoleRequest('chef')}
-//               disabled={loading}
-//               className="w-full py-2 bg-[#b94a21] text-white rounded-lg hover:bg-[#a13f1c] transition"
-//             >
-//               {loading ? 'Sending...' : 'Be a Chef'}
-//             </button>
-//           )}
+//         {/* Pending Request */}
+//         {roleRequest && (
+//           <div className="mt-4 text-center text-yellow-600 font-medium bg-yellow-50 py-2 rounded-lg">
+//             Pending Request: {roleRequest}
+//           </div>
+//         )}
 
-//           {userData?.role !== 'admin' && (
-//             <button
-//               onClick={() => handleRoleRequest('admin')}
-//               disabled={loading}
-//               className="w-full py-2 border border-[#b94a21] text-[#b94a21] rounded-lg hover:bg-[#ffdbc9] transition"
-//             >
-//               {loading ? 'Sending...' : 'Be an Admin'}
-//             </button>
-//           )}
-//         </div>
+//         {/* Buttons Logic */}
+//         {!roleRequest && role !== 'admin' && (
+//           <div className="mt-6 flex flex-col sm:flex-row gap-3">
+//             {role === 'user' && (
+//               <button
+//                 onClick={() => handleRoleRequest('chef')}
+//                 className="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg font-semibold"
+//               >
+//                 Be a Chef
+//               </button>
+//             )}
+
+//             {(role === 'user' || role === 'chef') && (
+//               <button
+//                 onClick={() => handleRoleRequest('admin')}
+//                 className="flex-1 bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg font-semibold"
+//               >
+//                 Be an Admin
+//               </button>
+//             )}
+//           </div>
+//         )}
 //       </div>
 //     </div>
 //   );
@@ -158,13 +169,18 @@
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../../Context/AuthContext';
-
+import toast, { Toaster } from 'react-hot-toast';
+import Loading from '../../../Componentes/Loading';
 
 const Profile = () => {
-  const { user } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
   const [userInfo, setUserInfo] = useState(null);
+  const [chefId, setChefId] = useState(null);
 
+  // Fetch user info
   useEffect(() => {
+    if (!user?.email) return;
+
     const fetchUser = async () => {
       try {
         const res = await axios.get(
@@ -173,50 +189,157 @@ const Profile = () => {
         setUserInfo(res.data.data);
       } catch (err) {
         console.error(err);
+        toast.error('Failed to fetch user info', { position: 'top-center' });
       }
     };
-    fetchUser();
-  }, [user.email]);
 
-  const handleRoleRequest = async (role) => {
-    try {
-      const res = await axios.post('http://localhost:5000/role-request', {
-        email: user.email,
-        requestedRole: role,
-      });
-      alert(res.data.message);
-      setUserInfo({ ...userInfo, roleRequest: role });
-    } catch (err) {
-      console.error(err);
-    }
+    fetchUser();
+  }, [user?.email]);
+
+  // Fetch chefId if user is chef
+ useEffect(() => {
+   if (userInfo?.role !== 'chef' || !user?.email) return;
+
+   const fetchChefId = async () => {
+     try {
+       const res = await axios.get(
+         `http://localhost:5000/chef-id/${user.email}`
+       );
+       setChefId(res.data.chefId);
+     } catch (err) {
+       console.error('Failed to fetch chefId:', err);
+     }
+   };
+
+   fetchChefId();
+ }, [userInfo?.role, user?.email]);
+
+  // Handle role request
+  const handleRoleRequest = (role) => {
+    toast(
+      (t) => (
+        <div className="p-4 bg-white rounded shadow-lg text-center w-full max-w-sm mx-auto">
+          <p className="text-lg font-semibold mb-4">
+            Are you sure you want to request the role:{' '}
+            <span className="capitalize">{role}</span>?
+          </p>
+          <div className="flex justify-center gap-4">
+            <button
+              className="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer"
+              onClick={async () => {
+                try {
+                  const res = await axios.post(
+                    'http://localhost:5000/role-request',
+                    {
+                      email: user.email,
+                      requestedRole: role,
+                    }
+                  );
+
+                  setUserInfo((prev) => ({ ...prev, roleRequest: role }));
+                  toast.success(res.data.message, { position: 'top-center' });
+                } catch (err) {
+                  console.error(err);
+                  toast.error('Failed to send role request', {
+                    position: 'top-center',
+                  });
+                }
+                toast.dismiss(t.id);
+              }}
+            >
+              Yes
+            </button>
+            <button
+              className="bg-gray-300 px-4 cursor-pointer py-2 rounded"
+              onClick={() => toast.dismiss(t.id)}
+            >
+              No
+            </button>
+          </div>
+        </div>
+      ),
+      { duration: Infinity, position: 'top-center' }
+    );
   };
 
-  if (!userInfo) return <p>Loading...</p>;
+  if (loading) return <Loading />;
+  if (!user) return <p className="text-center mt-10">No user logged in</p>;
+  if (!userInfo) return <Loading />;
+
+  const { role, roleRequest } = userInfo;
 
   return (
-    <div className="p-4 max-w-md mx-auto bg-white shadow rounded">
-      <h2 className="text-xl font-bold mb-4">{userInfo.name}</h2>
-      <p>Email: {userInfo.email}</p>
-      <p>Address: {userInfo.address}</p>
-      <p>Role: {userInfo.role}</p>
-      <p>Status: {userInfo.status || 'active'}</p>
-      {userInfo.roleRequest && <p>Pending Request: {userInfo.roleRequest}</p>}
-      <div className="mt-4 space-x-2">
-        {!userInfo.roleRequest && (
-          <>
-            <button
-              onClick={() => handleRoleRequest('chef')}
-              className="bg-blue-500 text-white px-4 py-2 rounded"
-            >
-              Be a Chef
-            </button>
-            <button
-              onClick={() => handleRoleRequest('admin')}
-              className="bg-green-500 text-white px-4 py-2 rounded"
-            >
-              Be an Admin
-            </button>
-          </>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 to-white px-4">
+      <Toaster />
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-6 sm:p-8">
+        {/* Profile Header */}
+        <div className="flex flex-col items-center -mt-16">
+          <img
+            src={userInfo.profileImg || user?.photoURL}
+            alt="Profile"
+            className="w-28 h-28 rounded-full border-4 border-white shadow-md object-cover bg-gray-100"
+          />
+          <h2 className="mt-3 text-2xl font-bold text-gray-800">
+            {userInfo.name}
+          </h2>
+          <p className="text-sm text-gray-500">{userInfo.email}</p>
+        </div>
+
+        {/* Info Section */}
+        <div className="mt-6 space-y-3 text-sm text-gray-700">
+          <div className="flex justify-between">
+            <span className="font-semibold">Address</span>
+            <span>{userInfo.address || 'N/A'}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="font-semibold">Role</span>
+            <span className="capitalize px-2 py-0.5 rounded bg-blue-100 text-blue-600">
+              {role}
+            </span>
+          </div>
+          <div className="flex justify-between">
+            <span className="font-semibold">Status</span>
+            <span className="capitalize px-2 py-0.5 rounded bg-green-100 text-green-600">
+              {userInfo.status || 'active'}
+            </span>
+          </div>
+          {role === 'chef' && chefId && (
+            <div className="flex justify-between">
+              <span className="font-semibold">Chef ID</span>
+              <span className="px-2 py-0.5 rounded bg-purple-100 text-purple-600">
+                {chefId}
+              </span>
+            </div>
+          )}
+        </div>
+
+        {/* Pending Request */}
+        {roleRequest && (
+          <div className="mt-4 text-center text-yellow-600 font-medium bg-yellow-50 py-2 rounded-lg">
+            Pending Request: {roleRequest}
+          </div>
+        )}
+
+        {/* Role Request Buttons */}
+        {!roleRequest && role !== 'admin' && (
+          <div className="mt-6 flex flex-col sm:flex-row gap-3">
+            {role === 'user' && (
+              <button
+                onClick={() => handleRoleRequest('chef')}
+                className="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg font-semibold cursor-pointer"
+              >
+                Be a Chef
+              </button>
+            )}
+            {(role === 'user' || role === 'chef') && (
+              <button
+                onClick={() => handleRoleRequest('admin')}
+                className="flex-1 bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg font-semibold cursor-pointer"
+              >
+                Be an Admin
+              </button>
+            )}
+          </div>
         )}
       </div>
     </div>
