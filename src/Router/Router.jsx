@@ -21,6 +21,8 @@ import OrderRequest from '../pages/Dashbord/Seller/OrderRequest';
 import MyOrders from '../pages/Dashbord/User/MyOrders';
 import ManageUsers from '../pages/Dashbord/Admin/ManageUsers';
 import ManageRequests from '../pages/Dashbord/Admin/ManageRequests';
+import PaymentSuccess from '../pages/Dashbord/User/Payment.jsx/PaymentSuccess';
+import PaymentCancel from '../pages/Dashbord/User/Payment.jsx/PaymentCancel';
 
 export const router = createBrowserRouter([
   {
@@ -100,6 +102,12 @@ export const router = createBrowserRouter([
       }, {
         path: 'managerequest', 
         element:<ManageRequests/>
+      }, {
+        path: 'payment-success',
+        element:<PaymentSuccess/>
+      }, {
+        path: 'payment-cancel',
+        element:<PaymentCancel/>
       }
     ],
   },

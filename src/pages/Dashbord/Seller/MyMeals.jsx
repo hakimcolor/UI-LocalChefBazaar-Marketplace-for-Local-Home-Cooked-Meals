@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../../../Context/AuthContext';
 import Swal from 'sweetalert2';
+import Loading from '../../../Componentes/Loading';
 
 const MyMeals = () => {
   const { user } = useContext(AuthContext);
@@ -124,10 +125,11 @@ const MyMeals = () => {
     }
   };
   if (loading)
-    return <p className="text-center text-xl font-semibold">Loading...</p>;
+    return <Loading/>;
 
   return (
     <div className="max-w-6xl mx-auto mt-8 font-[Poppins]">
+      <title>LocalChefBazaar || My Meals</title>
       <h2 className="text-3xl font-bold mb-6 text-center text-black">
         My Added Meals ({meals.length})
       </h2>

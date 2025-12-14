@@ -11,6 +11,7 @@ const Welcome = () => {
 
   return (
     <div className="relative flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-blue-200 to-white text-gray-800 p-6 overflow-hidden">
+      <title>LocalChefBazaar || Dashbord</title>
       <Particles
         id="tsparticles"
         init={particlesInit}

@@ -6,6 +6,7 @@ import UserAside from '../../Componentes/Asideber/UserAside';
 const DashboardLayout = () => {
   return (
     <div className="min-h-screen grid grid-cols-1 md:grid-cols-[260px_1fr] bg-[#FFF8F2]">
+      <title>LocalChefBazaar || dashbord</title>
       {/* Sidebar */}
       <aside className="border-r border-[#f1e3d6] bg-white sticky top-0 h-screen hidden md:block">
         <UserAside />

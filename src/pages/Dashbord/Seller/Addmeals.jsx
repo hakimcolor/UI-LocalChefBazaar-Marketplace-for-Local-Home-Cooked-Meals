@@ -348,6 +348,7 @@ const AddMeals = () => {
 
   return (
     <div className="max-w-3xl mx-auto p-6 bg-yellow-50 shadow-lg rounded-lg mt-10">
+      <title>LocalChefBazaar || Add meal</title>
       <Toaster />
       <h2 className="text-3xl font-bold mb-6 text-orange-600 flex items-center gap-2">
         <FaUtensils /> Create Meal

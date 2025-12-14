@@ -8,14 +8,14 @@ import HomeStats from '../Componentes/HOmeAllpage/HomeStats'
 const Home = () => {
   return (
     <div>
+      <title>LocalChefBazaar || Home page</title>
       <HeroBanner />
       <DalySixDataDB />
       <CustomerReviews />
-      <HomeStats/>
+      <HomeStats />
       <TipsSlider />
-   
     </div>
-  )
+  );
 }
 
 export default Home

@@ -4,6 +4,7 @@ import axios from 'axios';
 import { AuthContext } from '../../../Context/AuthContext';
 import toast from 'react-hot-toast';
 import Swal from 'sweetalert2';
+import Loading from '../../../Componentes/Loading';
 
 const Modal = ({ children, onClose }) => {
   if (typeof document === 'undefined') return null;
@@ -208,10 +209,11 @@ const MyReviews = () => {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loading></Loading>;
 
   return (
     <div className="p-5 max-w-3xl mx-auto">
+      <title>LocalChefBazaar || My Reviews</title>
       <h2 className="text-2xl font-bold mb-5 text-green-500">My Reviews</h2>
 
       {reviews.length === 0 ? (

@@ -5,6 +5,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../Context/AuthContext';
+import Loading from '../Loading';
 
 const MealDetails = () => {
   const { id } = useParams();
@@ -64,10 +65,9 @@ const MealDetails = () => {
       .then(() => {
         Swal.fire('Success!', 'Review added successfully!', 'success');
 
-        // RESET FORM
+        
         setReviewData({ rating: 0, comment: '' });
 
-        // UI INSTANT UPDATE
         fetchReviews();
 
         setLoading(false);
@@ -115,7 +115,8 @@ const MealDetails = () => {
   };
 
 
-  if (!meal) return <p className="text-center text-xl mt-10">Loading...</p>;
+  if (!meal) return
+    <Loading/>;
 
   return (
     <div className="relative max-w-6xl mx-auto p-4 sm:p-6 md:p-8 border rounded-lg shadow-lg mt-6 mb-10">

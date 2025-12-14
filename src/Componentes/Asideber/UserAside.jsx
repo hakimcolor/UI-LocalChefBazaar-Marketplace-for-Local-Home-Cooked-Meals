@@ -1,4 +1,3 @@
-
 import React, { useContext } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -18,7 +17,6 @@ const UserAside = () => {
   const { user, signoutUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  // Logout handler
   const handleLogout = () => {
     if (!signoutUser) return;
 
@@ -62,9 +60,7 @@ const UserAside = () => {
   return (
     <div className="p-6 flex flex-col h-full bg-white shadow-lg">
       <title>LocalChefBazaar||UserAside</title>
-      {/* Back Button */}
 
-      {/* Logo + Brand */}
       <div className="flex items-center gap-3 mb-8">
         <img
           src={Logo}
@@ -77,7 +73,6 @@ const UserAside = () => {
         </div>
       </div>
 
-      {/* User Info */}
       <div className="mb-6 flex items-center gap-3">
         <img
           src={user?.photoURL || 'https://i.ibb.co/7CMqG7N/default-avatar.jpg'}
@@ -92,7 +87,6 @@ const UserAside = () => {
         </div>
       </div>
 
-      {/* Navigation */}
       <nav className="flex flex-col gap-1">
         <NavLink
           to="profile"
@@ -167,24 +161,17 @@ const UserAside = () => {
         >
           <FaHeart /> Manage Users
         </NavLink>
-        <div
-          className={backButtonStyle}
-          onClick={() => navigate(-1)} // go back one step in history
-        >
+        <div className={backButtonStyle} onClick={() => navigate(-1)}>
           <FaArrowLeft /> Back
         </div>
         <Link to={'/'}>
           {' '}
-          <div
-            className={backButtonStyle}
-            // go back one step in history
-          >
+          <div className={backButtonStyle}>
             <FaArrowLeft /> Back Home
           </div>
         </Link>
       </nav>
 
-      {/* Logout Button */}
       <div className="mt-auto pt-6">
         <button
           onClick={handleLogout}
@@ -194,7 +181,6 @@ const UserAside = () => {
         </button>
       </div>
 
-      {/* Footer */}
       <p className="text-center text-xs text-gray-400 mt-4">
         © {new Date().getFullYear()} LocalChefBazaar
       </p>

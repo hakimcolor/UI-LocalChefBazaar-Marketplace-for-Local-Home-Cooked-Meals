@@ -1,118 +1,82 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import Swal from 'sweetalert2';
 
-const ManageRequests = () => {
-  const [requests, setRequests] = useState([]);
+// import React, { useEffect, useState } from 'react';
+// import axios from 'axios';
 
-  useEffect(() => {
-    fetchRequests();
-  }, []);
+// const ManageRequests = () => {
+//   const [requests, setRequests] = useState([]);
 
-  const fetchRequests = async () => {
-    try {
-      const res = await axios.get('http://localhost:5000/role-requests');
-      setRequests(res.data.data);
-    } catch (err) {
-      console.error(err);
-      Swal.fire('Error', 'Failed to fetch requests', 'error');
-    }
-  };
+//   useEffect(() => {
+//     const fetchRequests = async () => {
+//       try {
+//         const res = await axios.get('http://localhost:5000/role-requests');
+//         setRequests(res.data.data);
+//       } catch (err) {
+//         console.error(err);
+//       }
+//     };
+//     fetchRequests();
+//   }, []);
 
-  const handleApprove = async (req) => {
-    try {
-      let updateData = {};
-      if (req.requestType === 'chef') {
-        const chefId = `chef-${Math.floor(1000 + Math.random() * 9000)}`;
-        updateData = { role: 'chef', chefId };
-      } else if (req.requestType === 'admin') {
-        updateData = { role: 'admin' };
-      }
+//   const handleApprove = async (id) => {
+//     try {
+//       const res = await axios.patch(
+//         `http://localhost:5000/role-requests/${id}/approve`
+//       );
+//       alert(res.data.message);
+//       setRequests(requests.filter((r) => r._id !== id));
+//     } catch (err) {
+//       console.error(err);
+//     }
+//   };
 
-      // Update user role
-      await axios.patch(
-        `http://localhost:5000/users/${req.userEmail}/role`,
-        updateData
-      );
+//   const handleDecline = async (id) => {
+//     try {
+//       const res = await axios.patch(
+//         `http://localhost:5000/role-requests/${id}/decline`
+//       );
+//       alert(res.data.message);
+//       setRequests(requests.filter((r) => r._id !== id));
+//     } catch (err) {
+//       console.error(err);
+//     }
+//   };
 
-      // Update request status
-      await axios.patch(
-        `http://localhost:5000/role-requests/${req._id}/status`,
-        { requestStatus: 'approved' }
-      );
+//   if (!requests.length) return <p>No pending requests</p>;
 
-      Swal.fire('Approved', `${req.userName}'s request approved!`, 'success');
-      fetchRequests();
-    } catch (err) {
-      console.error(err);
-      Swal.fire('Error', 'Failed to approve request', 'error');
-    }
-  };
+//   return (
+//     <div className="p-4 max-w-lg mx-auto">
+//       <h2 className="text-xl font-bold mb-4">Pending Role Requests</h2>
+//       <ul>
+//         {requests.map((r) => (
+//           <li
+//             key={r._id}
+//             className="flex justify-between items-center mb-2 p-2 bg-gray-100 rounded"
+//           >
+//             <div>
+//               <p>
+//                 {r.name} ({r.email})
+//               </p>
+//               <p>Requested Role: {r.roleRequest}</p>
+//             </div>
+//             <div className="space-x-2">
+//               <button
+//                 onClick={() => handleApprove(r._id)}
+//                 className="bg-blue-500 text-white px-2 py-1 rounded"
+//               >
+//                 Approve
+//               </button>
+//               <button
+//                 onClick={() => handleDecline(r._id)}
+//                 className="bg-red-500 text-white px-2 py-1 rounded"
+//               >
+//                 Decline
+//               </button>
+//             </div>
+//           </li>
+//         ))}
+//       </ul>
+//     </div>
+//   );
+// };
 
-  const handleReject = async (req) => {
-    try {
-      await axios.patch(
-        `http://localhost:5000/role-requests/${req._id}/status`,
-        { requestStatus: 'rejected' }
-      );
-      Swal.fire('Rejected', `${req.userName}'s request rejected!`, 'info');
-      fetchRequests();
-    } catch (err) {
-      console.error(err);
-      Swal.fire('Error', 'Failed to reject request', 'error');
-    }
-  };
-
-  return (
-    <div className="p-4">
-      <h2 className="text-2xl font-bold mb-4">Manage Role Requests</h2>
-      <table className="min-w-full border">
-        <thead>
-          <tr className="bg-gray-100">
-            <th className="border px-4 py-2">Name</th>
-            <th className="border px-4 py-2">Email</th>
-            <th className="border px-4 py-2">Request Type</th>
-            <th className="border px-4 py-2">Status</th>
-            <th className="border px-4 py-2">Request Time</th>
-            <th className="border px-4 py-2">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {requests.map((req) => (
-            <tr key={req._id} className="text-center">
-              <td className="border px-4 py-2">{req.userName}</td>
-              <td className="border px-4 py-2">{req.userEmail}</td>
-              <td className="border px-4 py-2">{req.requestType}</td>
-              <td className="border px-4 py-2">{req.requestStatus}</td>
-              <td className="border px-4 py-2">
-                {new Date(req.requestTime).toLocaleString()}
-              </td>
-              <td className="border px-4 py-2">
-                {req.requestStatus === 'pending' ? (
-                  <>
-                    <button
-                      onClick={() => handleApprove(req)}
-                      className="bg-green-500 text-white px-3 py-1 mr-2 rounded hover:bg-green-600"
-                    >
-                      Accept
-                    </button>
-                    <button
-                      onClick={() => handleReject(req)}
-                      className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-                    >
-                      Reject
-                    </button>
-                  </>
-                ) : (
-                  <span className="text-gray-400">{req.requestStatus}</span>
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-};
-
-export default ManageRequests;
+// export default ManageRequests;

@@ -34,6 +34,7 @@ const ManageUsers = () => {
 
   return (
     <div className="p-4">
+      <title>LocalChefBazaar || ManageUser</title>
       <h2 className="text-2xl font-bold mb-4">Manage Users</h2>
       <table className="min-w-full border">
         <thead>

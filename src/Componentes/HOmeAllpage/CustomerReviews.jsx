@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import Loading from '../Loading';
 
 const StarRating = ({ rating }) => {
   const clampedRating = Math.max(0, Math.min(5, rating));
@@ -50,9 +51,7 @@ const CustomerReviews = () => {
 
   if (loading)
     return (
-      <div className="text-center py-10 text-xl font-medium text-gray-700">
-        Loading customer reviews...
-      </div>
+      <Loading/>
     );
   if (reviews.length === 0)
     return (

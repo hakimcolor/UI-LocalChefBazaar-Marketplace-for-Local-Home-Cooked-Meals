@@ -66,7 +66,6 @@ const SignUp = () => {
       const userData = { email, name, address, password, profileImg };
       await axios.post('http://localhost:5000/users', userData);
 
-      // Save user in Firestore
       await setDoc(doc(db, 'users', userCredential.user.uid), {
         name,
         email,
