@@ -9,7 +9,8 @@ const PendingPaymentsCard = () => {
     const fetchPendingPayments = async () => {
       try {
         const res = await axios.get(
-          'http://localhost:5000/orders/pending-payment/count'
+          `https://backend-local-chef-bazaar-marketpla.vercel.app
+/orders/pending-payment/count`
         );
 
         if (res.data.success) {

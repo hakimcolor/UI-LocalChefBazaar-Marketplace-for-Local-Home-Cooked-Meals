@@ -23,7 +23,8 @@ const MyMeals = () => {
   useEffect(() => {
     if (!user?.email) return;
 
-    fetch(`http://localhost:5000/user-meals/${user.email}`)
+    fetch(`https://backend-local-chef-bazaar-marketpla.vercel.app
+/user-meals/${user.email}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -47,7 +48,13 @@ const MyMeals = () => {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/meals/${id}`, { method: 'DELETE' })
+        fetch(
+          `https://backend-local-chef-bazaar-marketpla.vercel.app
+/meals/${id}`,
+          {
+            method: 'DELETE',
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             if (data.success) {
@@ -106,11 +113,15 @@ const MyMeals = () => {
     // still send the request in background (optional)
     try {
       const id = encodeURIComponent(String(selectedMeal._id).trim());
-      const res = await fetch(`http://localhost:5000/meals/${id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
+      const res = await fetch(
+        `https://backend-local-chef-bazaar-marketpla.vercel.app
+/meals/${id}`,
+        {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        }
+      );
       const data = await res.json();
       console.log('Background PUT response:', res.status, data);
       // if you want to show an error after success, you could notify user here.
@@ -124,8 +135,7 @@ const MyMeals = () => {
       );
     }
   };
-  if (loading)
-    return <Loading/>;
+  if (loading) return <Loading />;
 
   return (
     <div className="max-w-6xl mx-auto mt-8 font-[Poppins]">

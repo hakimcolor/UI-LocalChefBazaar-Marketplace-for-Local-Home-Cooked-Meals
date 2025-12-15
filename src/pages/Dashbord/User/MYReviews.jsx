@@ -79,7 +79,9 @@ const MyReviews = () => {
     if (user?.email) {
       axios
         .get(
-          `http://localhost:5000/user-reviews/${encodeURIComponent(user.email)}`
+          `https://backend-local-chef-bazaar-marketpla.vercel.app/user-reviews/${encodeURIComponent(
+            user.email
+          )}`
         )
         .then((res) => {
           if (!mounted) return;
@@ -114,7 +116,8 @@ const MyReviews = () => {
 
     try {
       await axios.delete(
-        `http://localhost:5000/reviews/${encodeURIComponent(id)}`
+        `https://backend-local-chef-bazaar-marketpla.vercel.app
+/reviews/${encodeURIComponent(id)}`
       );
       setReviews((prev) => prev.filter((r) => String(r._id) !== String(id)));
       toast.success('Review deleted successfully!');
@@ -162,7 +165,8 @@ const MyReviews = () => {
 
     try {
       const res = await axios.patch(
-        `http://localhost:5000/reviewsup/${encodeURIComponent(reviewId)}`,
+        `https://backend-local-chef-bazaar-marketpla.vercel.app
+/reviewsup/${encodeURIComponent(reviewId)}`,
         payload
       );
 
@@ -248,7 +252,7 @@ const MyReviews = () => {
 
             <div className="flex gap-2">
               <button
-                className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 cursor-pointer" 
+                className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 cursor-pointer"
                 onClick={() => handleDelete(r._id)}
               >
                 Delete

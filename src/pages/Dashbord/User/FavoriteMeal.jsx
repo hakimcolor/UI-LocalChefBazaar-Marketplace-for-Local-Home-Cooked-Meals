@@ -10,23 +10,26 @@ const FavoriteMeal = () => {
   const { user } = useContext(AuthContext);
   const [favorites, setFavorites] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (user?.email) {
       axios
-        .get(`http://localhost:5000/favorites/${user.email}`)
+        .get(
+          `https://backend-local-chef-bazaar-marketpla.vercel.app
+/favorites/${user.email}`
+        )
         .then((res) => {
           if (res.data.success) {
             setFavorites(res.data.data);
             calculateTotal(res.data.data);
           }
-          setLoading(false); 
+          setLoading(false);
         })
         .catch((err) => {
           console.error(err);
           toast.error('Failed to load favorites');
-          setLoading(false); 
+          setLoading(false);
         });
     }
   }, [user?.email]);
@@ -48,7 +51,10 @@ const FavoriteMeal = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:5000/favorites/${id}`)
+          .delete(
+            `https://backend-local-chef-bazaar-marketpla.vercel.app
+/favorites/${id}`
+          )
           .then((res) => {
             if (res.data.success) {
               const updatedFavorites = favorites.filter(
@@ -70,14 +76,13 @@ const FavoriteMeal = () => {
 
   return (
     <div className="p-4 bg-white dark:bg-gray-900 min-h-screen">
-    <title>LocalChefBazaar || Favorite meal</title>
+      <title>LocalChefBazaar || Favorite meal</title>
       {/* {loading && (
         <div className="flex justify-center items-center min-h-[60vh]">
           <div className="w-12 h-12 border-4 border-dashed rounded-full animate-spin border-red-500"></div>
         </div>
       )} */}
 
-   
       <h2
         className="text-3xl font-bold mb-6"
         style={{
@@ -98,7 +103,6 @@ const FavoriteMeal = () => {
             </p>
           ) : (
             <>
-             
               <div className="hidden md:block overflow-x-auto">
                 <table className="w-full border-collapse border border-gray-300 dark:border-gray-700">
                   <thead>
@@ -163,7 +167,6 @@ const FavoriteMeal = () => {
                 </table>
               </div>
 
-              
               <div className="md:hidden space-y-4">
                 {favorites.map((fav) => (
                   <div
@@ -174,7 +177,8 @@ const FavoriteMeal = () => {
                       {fav.mealName}
                     </h3>
                     <p className="text-gray-900 dark:text-gray-100">
-                      <span className="font-semibold">Chef:</span> {fav.chefName}
+                      <span className="font-semibold">Chef:</span>{' '}
+                      {fav.chefName}
                     </p>
                     <p className="text-gray-900 dark:text-gray-100">
                       <span className="font-semibold">Price:</span> $

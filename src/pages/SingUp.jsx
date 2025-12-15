@@ -1,4 +1,3 @@
-
 import React, { useContext, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
@@ -9,7 +8,6 @@ import toast, { Toaster } from 'react-hot-toast';
 import { Helmet } from 'react-helmet';
 import { doc, setDoc } from 'firebase/firestore';
 import axios from 'axios';
-
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -64,7 +62,8 @@ const SignUp = () => {
 
       // Send user data to backend
       const userData = { email, name, address, password, profileImg };
-      await axios.post('http://localhost:5000/users', userData);
+      await axios.post(`https://backend-local-chef-bazaar-marketpla.vercel.app
+/users`, userData);
 
       await setDoc(doc(db, 'users', userCredential.user.uid), {
         name,
@@ -115,9 +114,7 @@ const SignUp = () => {
 
             {/* Profile Image */}
             <div className="flex flex-col">
-              <label className=" font-medium mb-1">
-                Profile Image
-              </label>
+              <label className=" font-medium mb-1">Profile Image</label>
               <input
                 type="file"
                 className=" w-full px-4 py-3 bg-orange-50 border border-orange-200 rounded-xl text-gray-900"
@@ -128,9 +125,7 @@ const SignUp = () => {
 
             {/* Address */}
             <div className="flex flex-col">
-              <label className="font-medium mb-1">
-                Address
-              </label>
+              <label className="font-medium mb-1">Address</label>
               <input
                 type="text"
                 name="text"
@@ -158,9 +153,7 @@ const SignUp = () => {
 
             {/* Password */}
             <div className="flex flex-col relative">
-              <label className=" font-medium mb-1">
-                Password
-              </label>
+              <label className=" font-medium mb-1">Password</label>
               <input
                 type={showPassword ? 'text' : 'password'}
                 className="w-full px-4 py-3 bg-orange-50 border  text-black border-orange-200 rounded-xl pr-12 placeholder-gray-600"
@@ -184,9 +177,7 @@ const SignUp = () => {
 
             {/* Confirm Password */}
             <div className="flex flex-col">
-              <label className=" font-medium mb-1">
-                Confirm Password
-              </label>
+              <label className=" font-medium mb-1">Confirm Password</label>
               <input
                 type={showPassword ? 'text' : 'password'}
                 className="w-full px-4 py-3 text-black bg-orange-50 border border-orange-200 rounded-xl placeholder-gray-600"

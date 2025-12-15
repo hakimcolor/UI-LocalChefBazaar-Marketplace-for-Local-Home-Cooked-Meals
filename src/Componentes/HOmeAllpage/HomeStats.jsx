@@ -9,7 +9,8 @@ const HomeStats = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/stats')
+    fetch(`https://backend-local-chef-bazaar-marketpla.vercel.app
+/api/stats`)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {

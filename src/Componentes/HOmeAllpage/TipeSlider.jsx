@@ -9,7 +9,8 @@ const TipsSlider = () => {
   const [meals, setMeals] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/meals/latest')
+    fetch(`https://backend-local-chef-bazaar-marketpla.vercel.app
+/meals/latest`)
       .then((res) => res.json())
       .then((data) => setMeals(data.data))
       .catch((err) => console.error(err));

@@ -14,7 +14,6 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [role, setRole] = useState('');
 
-
   const createUser = async (email, password, displayName, photoURL) => {
     const userCredential = await createUserWithEmailAndPassword(
       auth,
@@ -22,7 +21,6 @@ const AuthProvider = ({ children }) => {
       password
     );
 
- 
     await updateProfile(userCredential.user, {
       displayName: displayName,
       photoURL: photoURL,
@@ -31,28 +29,25 @@ const AuthProvider = ({ children }) => {
     return userCredential;
   };
 
-
   const signinUser = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
-
 
   const signoutUser = () => {
     return signOut(auth);
   };
 
- 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
 
       if (currentUser) {
         try {
-       
           const response = await axios.get(
-            `http://localhost:5000/users/${currentUser.uid}`
+            `https://backend-local-chef-bazaar-marketpla.vercel.app
+/users/${currentUser.uid}`
           );
-          setRole(response.data.role); 
+          setRole(response.data.role);
         } catch (error) {
           console.error('Error fetching role:', error);
           setRole('');

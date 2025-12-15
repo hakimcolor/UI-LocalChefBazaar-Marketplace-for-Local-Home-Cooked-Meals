@@ -13,7 +13,7 @@ const Home = () => {
       <DalySixDataDB />
       <CustomerReviews />
       <HomeStats />
-      <TipsSlider />
+      {/* <TipsSlider /> */}
     </div>
   );
 }

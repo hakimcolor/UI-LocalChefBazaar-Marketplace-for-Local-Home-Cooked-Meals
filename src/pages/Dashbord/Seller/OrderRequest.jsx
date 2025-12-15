@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../../Context/AuthContext';
@@ -18,7 +17,8 @@ const OrderRequest = () => {
       setLoading(true);
       try {
         const res = await axios.get(
-          `http://localhost:5000/user-chef-orders/${user.email}`
+          `https://backend-local-chef-bazaar-marketpla.vercel.app
+/user-chef-orders/${user.email}`
         );
 
         if (res.data.success) {
@@ -50,7 +50,8 @@ const OrderRequest = () => {
   const handleStatusUpdate = async (orderId, newStatus) => {
     try {
       const res = await axios.patch(
-        `http://localhost:5000/update-order-status/${orderId}`,
+        `https://backend-local-chef-bazaar-marketpla.vercel.app
+/update-order-status/${orderId}`,
         { orderStatus: newStatus }
       );
 
@@ -72,8 +73,7 @@ const OrderRequest = () => {
     }
   };
 
-  if (loading)
-    return <Loading/>;
+  if (loading) return <Loading />;
   if (!orders.length)
     return <div className="text-center mt-10">No orders found.</div>;
 

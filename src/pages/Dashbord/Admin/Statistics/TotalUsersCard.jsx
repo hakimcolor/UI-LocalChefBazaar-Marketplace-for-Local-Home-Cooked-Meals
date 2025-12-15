@@ -8,7 +8,10 @@ const TotalUsersCard = () => {
   useEffect(() => {
     const fetchTotalUsers = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/users/count');
+        const res = await axios.get(
+          `https://backend-local-chef-bazaar-marketpla.vercel.app
+/users/count`
+        );
 
         if (res.data.success) {
           setTotalUsers(res.data.totalUsers);

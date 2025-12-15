@@ -5,7 +5,8 @@ const DalySixDataDB = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:5000/meals/latest')
+    fetch(`https://backend-local-chef-bazaar-marketpla.vercel.app
+/meals/latest`)
       .then((res) => res.json())
       .then((data) => {
         setMeals(data.data.slice(0, 6));
@@ -27,9 +28,7 @@ const DalySixDataDB = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
-      <h2 className="text-4xl font-bold mb-10 text-center ">
-        Daily Meals
-      </h2>
+      <h2 className="text-4xl font-bold mb-10 text-center ">Daily Meals</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {meals.map((meal) => (
           <div
@@ -53,10 +52,8 @@ const DalySixDataDB = () => {
                   <strong>Ingredients:</strong> {meal.ingredients.join(', ')}
                 </p>
                 <p className="text-gray-600 mb-3">
-                  <strong>
-                    Delivery: </strong> {meal.estimatedDeliveryTime} mins | <strong>Experience: </strong>{' '}
-                    {meal.chefExperience} yrs
-                 
+                  <strong>Delivery: </strong> {meal.estimatedDeliveryTime} mins
+                  | <strong>Experience: </strong> {meal.chefExperience} yrs
                 </p>
               </div>
               <div className="mt-3 flex items-center justify-between">

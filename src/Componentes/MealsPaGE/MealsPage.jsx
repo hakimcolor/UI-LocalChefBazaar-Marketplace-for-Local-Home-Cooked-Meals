@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -31,7 +30,8 @@ const MealsPage = () => {
   const fetchMeals = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/meals?sort=${sortOrder}`
+        `https://backend-local-chef-bazaar-marketpla.vercel.app
+/meals?sort=${sortOrder}`
       );
       if (res.data.success) {
         setMeals(res.data.data);
@@ -56,7 +56,6 @@ const MealsPage = () => {
       <title>LocalChefBazaar || Meals</title>
       <h2 className="text-4xl font-bold mb-10 text-center">Daily Meals</h2>
 
-     
       <p className="font-bold text-2xl">Search your meal</p>
       <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4 mt-2">
         <input

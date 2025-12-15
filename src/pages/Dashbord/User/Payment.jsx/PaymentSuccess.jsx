@@ -19,7 +19,8 @@ const PaymentSuccess = () => {
     const verifyPayment = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/verify-payment/${sessionId}`
+          `https://backend-local-chef-bazaar-marketpla.vercel.app
+/verify-payment/${sessionId}`
         );
 
         if (res.data.success) {

@@ -9,7 +9,8 @@ const DeliveredOrdersCard = () => {
     const fetchDeliveredOrders = async () => {
       try {
         const res = await axios.get(
-          'http://localhost:5000/orders/delivered/count'
+          `https://backend-local-chef-bazaar-marketpla.vercel.app
+/orders/delivered/count`
         );
 
         if (res.data.success) {

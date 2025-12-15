@@ -26,7 +26,6 @@ import PaymentCancel from '../pages/Dashbord/User/Payment.jsx/PaymentCancel';
 import Error from '../Componentes/Error';
 import Statistics from '../pages/Dashbord/Admin/Statistics';
 
-
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -57,7 +56,8 @@ export const router = createBrowserRouter([
         path: '/order/:id',
         element: <Order />,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/mealsd/${params.id}`),
+          fetch(`https://backend-local-chef-bazaar-marketpla.vercel.app
+/mealsd/${params.id}`),
       },
     ],
   },
@@ -118,10 +118,11 @@ export const router = createBrowserRouter([
       {
         path: 'payment-cancel',
         element: <PaymentCancel />,
-      }, {
+      },
+      {
         path: 'StatisticsPage',
-        element:<Statistics/>
-      }
+        element: <Statistics />,
+      },
     ],
   },
 

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -34,7 +33,8 @@ const CustomerReviews = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:5000/reviews/latest')
+    fetch(`https://backend-local-chef-bazaar-marketpla.vercel.app
+/reviews/latest`)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         return res.json();
@@ -49,10 +49,7 @@ const CustomerReviews = () => {
       .catch(() => setLoading(false));
   }, []);
 
-  if (loading)
-    return (
-      <Loading/>
-    );
+  if (loading) return <Loading />;
   if (reviews.length === 0)
     return (
       <div className="text-center py-10 text-xl font-medium text-gray-700">

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
@@ -22,12 +21,13 @@ const MealDetails = () => {
   });
 
   useEffect(() => {
-    if (!user)navigate('signup');
+    if (!user) navigate('signup');
   }, [user, navigate]);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/mealsd/${id}`)
+      .get(`https://backend-local-chef-bazaar-marketpla.vercel.app
+/mealsd/${id}`)
       .then((res) => setMeal(res.data))
       .catch((err) => console.log(err));
 
@@ -36,7 +36,8 @@ const MealDetails = () => {
 
   const fetchReviews = () => {
     axios
-      .get(`http://localhost:5000/reviews/${id}`)
+      .get(`https://backend-local-chef-bazaar-marketpla.vercel.app
+/reviews/${id}`)
       .then((res) =>
         setReviews(Array.isArray(res.data) ? res.data : res.data?.data || [])
       )
@@ -61,11 +62,11 @@ const MealDetails = () => {
     };
 
     axios
-      .post('http://localhost:5000/reviews', newReview)
+      .post(`https://backend-local-chef-bazaar-marketpla.vercel.app
+/reviews`, newReview)
       .then(() => {
         Swal.fire('Success!', 'Review added successfully!', 'success');
 
-        
         setReviewData({ rating: 0, comment: '' });
 
         fetchReviews();
@@ -103,20 +104,18 @@ const MealDetails = () => {
         console.log('Sending favData:', favData);
 
         axios
-          .post('http://localhost:5000/favorites', favData)
+          .post(`https://backend-local-chef-bazaar-marketpla.vercel.app
+/favorites`, favData)
           .then((res) => {
             Swal.fire('Added!', 'Meal added to favorites!', 'success');
           })
-          .catch((err) => {
-            
-          });
+          .catch((err) => {});
       }
     });
   };
 
-
-  if (!meal) return
-    <Loading/>;
+  if (!meal) return;
+  <Loading />;
 
   return (
     <div className="relative max-w-6xl mx-auto p-4 sm:p-6 md:p-8 border rounded-lg shadow-lg mt-6 mb-10">
@@ -151,9 +150,7 @@ const MealDetails = () => {
             <strong>Ingredients:</strong> {meal.ingredients}
           </p>
           <p>
-            <strong>Delivery Area:</strong> {meal.deliveryArea
-          
-            }
+            <strong>Delivery Area:</strong> {meal.deliveryArea}
           </p>
           <p>
             <strong>Delivery Time:</strong> {meal.estimatedDeliveryTime}

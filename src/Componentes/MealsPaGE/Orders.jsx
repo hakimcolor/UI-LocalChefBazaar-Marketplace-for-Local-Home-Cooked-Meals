@@ -1,4 +1,3 @@
-
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -47,7 +46,11 @@ const Order = () => {
         };
 
         try {
-          await axios.post('http://localhost:5000/orders', orderInfo);
+          await axios.post(
+            `https://backend-local-chef-bazaar-marketpla.vercel.app
+/orders`,
+            orderInfo
+          );
           Swal.fire('Success!', 'Order placed successfully!', 'success');
         } catch (error) {
           Swal.fire('Error!', 'Failed to place order', 'error');
