@@ -26,8 +26,10 @@ const MealDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`https://backend-local-chef-bazaar-marketpla.vercel.app
-/mealsd/${id}`)
+      .get(
+        `https://backend-local-chef-bazaar-marketpla.vercel.app
+/mealsd/${id}`
+      )
       .then((res) => setMeal(res.data))
       .catch((err) => console.log(err));
 
@@ -36,8 +38,10 @@ const MealDetails = () => {
 
   const fetchReviews = () => {
     axios
-      .get(`https://backend-local-chef-bazaar-marketpla.vercel.app
-/reviews/${id}`)
+      .get(
+        `https://backend-local-chef-bazaar-marketpla.vercel.app
+/reviews/${id}`
+      )
       .then((res) =>
         setReviews(Array.isArray(res.data) ? res.data : res.data?.data || [])
       )
@@ -62,8 +66,11 @@ const MealDetails = () => {
     };
 
     axios
-      .post(`https://backend-local-chef-bazaar-marketpla.vercel.app
-/reviews`, newReview)
+      .post(
+        `https://backend-local-chef-bazaar-marketpla.vercel.app
+/reviews`,
+        newReview
+      )
       .then(() => {
         Swal.fire('Success!', 'Review added successfully!', 'success');
 
@@ -104,8 +111,11 @@ const MealDetails = () => {
         console.log('Sending favData:', favData);
 
         axios
-          .post(`https://backend-local-chef-bazaar-marketpla.vercel.app
-/favorites`, favData)
+          .post(
+            `https://backend-local-chef-bazaar-marketpla.vercel.app
+/favorites`,
+            favData
+          )
           .then((res) => {
             Swal.fire('Added!', 'Meal added to favorites!', 'success');
           })

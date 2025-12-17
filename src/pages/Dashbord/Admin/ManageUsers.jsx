@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -15,8 +14,8 @@ const ManageUsers = () => {
   const fetchUsers = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`https://backend-local-chef-bazaar-marketpla.vercel.app
-/users`);
+      const res =
+        await axios.get(`https://backend-local-chef-bazaar-marketpla.vercel.app/users`);
       setUsers(res.data.data);
     } catch (err) {
       console.error(err);

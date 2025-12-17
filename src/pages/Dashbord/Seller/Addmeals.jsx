@@ -1,4 +1,3 @@
-
 import React, { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaUtensils } from 'react-icons/fa';
@@ -63,8 +62,11 @@ const AddMeals = () => {
         deliveryArea: data.deliveryArea,
       };
 
-      await axios.post(`https://backend-local-chef-bazaar-marketpla.vercel.app
-/meals`, finalData);
+      await axios.post(
+        `https://backend-local-chef-bazaar-marketpla.vercel.app
+/meals`,
+        finalData
+      );
 
       toast.success('Meal added successfully!');
       console.log(finalData);

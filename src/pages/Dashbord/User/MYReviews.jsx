@@ -10,14 +10,14 @@ const Modal = ({ children, onClose }) => {
   if (typeof document === 'undefined') return null;
   return ReactDOM.createPortal(
     <div
-      className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50"
+      className="fixed inset-0 bg-black/10 backdrop-blur-md flex items-center justify-center z-50"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-label="Edit review modal"
     >
       <div
-        className="bg-gradient-to-r from-amber-200 via-amber-300 to-amber-400 p-6 rounded-lg w-96"
+        className="border-amber-900 border-2 p-6 rounded-lg w-96"
         onClick={(e) => e.stopPropagation()}
       >
         {children}
@@ -116,8 +116,9 @@ const MyReviews = () => {
 
     try {
       await axios.delete(
-        `https://backend-local-chef-bazaar-marketpla.vercel.app
-/reviews/${encodeURIComponent(id)}`
+        `https://backend-local-chef-bazaar-marketpla.vercel.app/reviews/${encodeURIComponent(
+          id
+        )}`
       );
       setReviews((prev) => prev.filter((r) => String(r._id) !== String(id)));
       toast.success('Review deleted successfully!');
@@ -165,8 +166,9 @@ const MyReviews = () => {
 
     try {
       const res = await axios.patch(
-        `https://backend-local-chef-bazaar-marketpla.vercel.app
-/reviewsup/${encodeURIComponent(reviewId)}`,
+        `https://backend-local-chef-bazaar-marketpla.vercel.app/reviewsup/${encodeURIComponent(
+          reviewId
+        )}`,
         payload
       );
 

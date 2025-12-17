@@ -62,8 +62,11 @@ const SignUp = () => {
 
       // Send user data to backend
       const userData = { email, name, address, password, profileImg };
-      await axios.post(`https://backend-local-chef-bazaar-marketpla.vercel.app
-/users`, userData);
+      await axios.post(
+        `https://backend-local-chef-bazaar-marketpla.vercel.app
+/users`,
+        userData
+      );
 
       await setDoc(doc(db, 'users', userCredential.user.uid), {
         name,

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../../Context/AuthContext';
@@ -38,12 +37,11 @@ const MyOrders = () => {
     fetchOrders();
   }, [user?.email]);
 
-  // 🔥 PAYMENT LOGIC (UNCHANGED)
+ 
   const handlePay = async (order) => {
     try {
       const res = await axios.post(
-        `https://backend-local-chef-bazaar-marketpla.vercel.app
-/create-checkout-session`,
+        `http://localhost:5000/create-checkout-session`,
         {
           orderId: order._id,
           amount: order.totalPrice,

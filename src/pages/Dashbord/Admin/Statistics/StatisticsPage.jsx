@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import {
@@ -21,8 +20,10 @@ const StatisticsPage = () => {
   useEffect(() => {
     setLoading(true); // Start loading
     axios
-      .get(`https://backend-local-chef-bazaar-marketpla.vercel.app
-/orders/paid/total`)
+      .get(
+        `https://backend-local-chef-bazaar-marketpla.vercel.app
+/orders/paid/total`
+      )
       .then((res) => {
         setStats(res.data);
         setLoading(false); // Stop loading
