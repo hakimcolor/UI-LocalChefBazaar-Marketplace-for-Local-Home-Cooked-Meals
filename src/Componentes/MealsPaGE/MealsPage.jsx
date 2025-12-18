@@ -79,7 +79,6 @@ const MealsPage = () => {
         </select>
       </div>
 
-      {/* Meals Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {currentMeals.length > 0 ? (
           currentMeals.map((meal) => (
@@ -135,7 +134,7 @@ const MealsPage = () => {
         )}
       </div>
 
-      {/* Pagination */}
+
       {totalPages > 1 && (
         <div className="flex justify-center mt-10 gap-2 flex-wrap">
           {Array.from({ length: totalPages }, (_, i) => (

@@ -6,7 +6,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { AuthContext } from '../../../Context/AuthContext';
 
 const AddMeals = () => {
-  const { user } = useContext(AuthContext); // logged-in user
+  const { user } = useContext(AuthContext); 
 
   const {
     register,
@@ -15,7 +15,7 @@ const AddMeals = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      rating: 0, // default rating
+      rating: 0,
     },
   });
 
@@ -88,7 +88,7 @@ const AddMeals = () => {
       </h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-        {/* Food Name */}
+     
         <div>
           <label className="block mb-1 font-semibold text-orange-500">
             Food Name
@@ -104,7 +104,7 @@ const AddMeals = () => {
           )}
         </div>
 
-        {/* Chef Name */}
+    
         <div>
           <label className="block mb-1 font-semibold text-orange-500">
             Chef Name
@@ -120,7 +120,7 @@ const AddMeals = () => {
           )}
         </div>
 
-        {/* Food Image */}
+     
         <div>
           <label className="block mb-1 font-semibold text-orange-500">
             Food Image
@@ -136,7 +136,7 @@ const AddMeals = () => {
           )}
         </div>
 
-        {/* Price */}
+     
         <div>
           <label className="block mb-1 font-semibold text-orange-500">
             Price ($)
@@ -153,7 +153,7 @@ const AddMeals = () => {
           )}
         </div>
 
-        {/* Rating */}
+ 
         <div>
           <label className="block mb-1 font-semibold text-orange-500">
             Rating (0-5)
@@ -172,7 +172,7 @@ const AddMeals = () => {
           )}
         </div>
 
-        {/* Ingredients */}
+  
         <div>
           <label className="block mb-1 font-semibold text-orange-500">
             Ingredients (comma-separated)
@@ -190,7 +190,7 @@ const AddMeals = () => {
           )}
         </div>
 
-        {/* Estimated Delivery Time */}
+     
         <div>
           <label className="block mb-1 font-semibold text-orange-500">
             Estimated Delivery Time
@@ -208,7 +208,7 @@ const AddMeals = () => {
           )}
         </div>
 
-        {/* Chef Experience */}
+       
         <div>
           <label className="block mb-1 font-semibold text-orange-500">
             Chef Experience
@@ -225,7 +225,7 @@ const AddMeals = () => {
             </span>
           )}
         </div>
-        {/* Delivery Area */}
+      
         <div>
           <label className="block mb-1 font-semibold text-orange-500">
             Delivery Area
@@ -243,7 +243,6 @@ const AddMeals = () => {
           )}
         </div>
 
-        {/* User Email */}
         <div>
           <label className="block mb-1 font-semibold text-orange-500">
             User Email

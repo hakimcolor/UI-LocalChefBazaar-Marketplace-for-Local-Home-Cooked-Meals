@@ -127,23 +127,5 @@ export const router = createBrowserRouter([
     ],
   },
 
-  // ✅ PRIVATE ROUTES
-  // {
-  //   path: 'dashboard',
-  //   element: (
-  //     <PrivateRoute>
-  //       <DashboardLayout />
-  //     </PrivateRoute>
-  //   ),
-  //   children: [
-  //     {
-  //       index: true,
-  //       element: <DashboardHome/>,
-  //     },
-  //     {
-  //       path: 'profile',
-  //       element: <Profile />,
-  //     },
-  //   ],
-  // },
+
 ]);

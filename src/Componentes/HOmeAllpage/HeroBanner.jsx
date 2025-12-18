@@ -38,7 +38,7 @@ const HeroBanner = () => {
         aria-hidden="true"
       />
 
-      {/* Hero Content */}
+ 
       <motion.div
         className="relative text-center px-4"
         initial={{ opacity: 0, y: 60 }}

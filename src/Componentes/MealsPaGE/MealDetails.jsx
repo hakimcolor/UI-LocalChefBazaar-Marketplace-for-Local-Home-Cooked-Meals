@@ -101,7 +101,7 @@ const MealDetails = () => {
       if (result.isConfirmed) {
         const favData = {
           userEmail: user.email,
-          mealId: meal._id.toString(), // safer as string
+          mealId: meal._id.toString(), 
           mealName: meal.foodName,
           chefId: meal.chefId,
           chefName: meal.chefName,
@@ -192,7 +192,6 @@ const MealDetails = () => {
         </div>
       </div>
 
-      {/* REVIEW FORM */}
       <div className="mt-6 flex flex-col gap-2">
         <h3 className="text-xl font-semibold mb-2">Give a Review</h3>
 
@@ -226,7 +225,6 @@ const MealDetails = () => {
         </button>
       </div>
 
-      {/* SHOW REVIEWS */}
       <div className="mt-8">
         <h2 className="text-2xl font-bold mb-3">Reviews</h2>
 

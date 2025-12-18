@@ -9,7 +9,7 @@ const MyMeals = () => {
   const [loading, setLoading] = useState(true);
   const [selectedMeal, setSelectedMeal] = useState(null);
 
-  // helper to normalize _id to string
+  
   const normalizeId = (m) => {
     const id = m._id;
     if (!id) return m;
@@ -19,7 +19,7 @@ const MyMeals = () => {
     return m;
   };
 
-  // Fetch user-added meals
+ 
   useEffect(() => {
     if (!user?.email) return;
 
@@ -36,7 +36,7 @@ const MyMeals = () => {
       .finally(() => setLoading(false));
   }, [user?.email]);
 
-  // DELETE function
+  
   const handleDelete = (id) => {
     Swal.fire({
       title: 'Are you sure?',
@@ -66,16 +66,16 @@ const MyMeals = () => {
     });
   };
 
-  // OPEN modal for update
+  
   const handleOpenModal = (meal) => {
     const normalized = normalizeId(meal);
     console.log('Opening modal for meal:', normalized);
     setSelectedMeal(normalized);
   };
-  // CLOSE modal
+
   const handleCloseModal = () => setSelectedMeal(null);
 
-  // HANDLE form input changes
+ 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setSelectedMeal((prev) => ({ ...prev, [name]: value }));
@@ -86,7 +86,7 @@ const MyMeals = () => {
     setSelectedMeal((prev) => ({ ...prev, ingredients: value }));
   };
 
-  // HANDLE Update submit — on success reload whole page so UI updates
+  
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -95,7 +95,7 @@ const MyMeals = () => {
       return;
     }
 
-    // Optimistically update UI and close modal immediately
+    
     const payload = { ...selectedMeal };
     delete payload._id;
     if (payload.price !== undefined) payload.price = Number(payload.price);
@@ -110,7 +110,7 @@ const MyMeals = () => {
     setSelectedMeal(null);
     Swal.fire('Updated!', 'Meal has been updated.', 'success');
 
-    // still send the request in background (optional)
+  
     try {
       const id = encodeURIComponent(String(selectedMeal._id).trim());
       const res = await fetch(
@@ -124,10 +124,10 @@ const MyMeals = () => {
       );
       const data = await res.json();
       console.log('Background PUT response:', res.status, data);
-      // if you want to show an error after success, you could notify user here.
+     
     } catch (err) {
       console.error('Background update failed:', err);
-      // optionally show an error notification, but do NOT revert UI in this quick approach
+      
       Swal.fire(
         'Warning',
         'Server update failed — changes may not be saved.',
@@ -212,7 +212,7 @@ const MyMeals = () => {
         </div>
       )}
 
-      {/* Modal */}
+
       {selectedMeal && (
         <div className="fixed inset-0  bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white p-6 rounded-xl w-96 relative">

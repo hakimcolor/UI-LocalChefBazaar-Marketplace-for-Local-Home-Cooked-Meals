@@ -42,7 +42,7 @@ const SignUp = () => {
       return toast.error('Password must include a special character.');
 
     try {
-      // Upload profile image to IMGBB
+   
       const formData = new FormData();
       formData.append('image', profileFile);
 
@@ -52,7 +52,7 @@ const SignUp = () => {
       );
       const profileImg = uploadRes.data.data.display_url;
 
-      // Create user in Firebase Auth
+
       const userCredential = await createUser(email, password);
 
       await updateProfile(userCredential.user, {
@@ -60,7 +60,7 @@ const SignUp = () => {
         photoURL: profileImg,
       });
 
-      // Send user data to backend
+     
       const userData = { email, name, address, password, profileImg };
       await axios.post(
         `https://backend-local-chef-bazaar-marketpla.vercel.app
@@ -88,7 +88,7 @@ const SignUp = () => {
 
   return (
     <div>
-      {/* Navigation Bar */}
+ 
       <div className="flex items-center justify-center px-4 mt-10 mb-6">
         <Helmet>
           <title>Sign Up | LocalChefBazaar</title>
@@ -101,7 +101,7 @@ const SignUp = () => {
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Name */}
+          
             <div className="flex flex-col">
               <label className="font-medium mb-1">Name</label>
               <input
@@ -115,7 +115,7 @@ const SignUp = () => {
               />
             </div>
 
-            {/* Profile Image */}
+      
             <div className="flex flex-col">
               <label className=" font-medium mb-1">Profile Image</label>
               <input
@@ -126,7 +126,7 @@ const SignUp = () => {
               />
             </div>
 
-            {/* Address */}
+  
             <div className="flex flex-col">
               <label className="font-medium mb-1">Address</label>
               <input
@@ -140,7 +140,7 @@ const SignUp = () => {
               />
             </div>
 
-            {/* Email */}
+  
             <div className="flex flex-col">
               <label className=" font-medium mb-1">Email</label>
               <input
@@ -154,7 +154,7 @@ const SignUp = () => {
               />
             </div>
 
-            {/* Password */}
+          
             <div className="flex flex-col relative">
               <label className=" font-medium mb-1">Password</label>
               <input
@@ -178,7 +178,7 @@ const SignUp = () => {
               </button>
             </div>
 
-            {/* Confirm Password */}
+     
             <div className="flex flex-col">
               <label className=" font-medium mb-1">Confirm Password</label>
               <input
@@ -194,7 +194,7 @@ const SignUp = () => {
             <button
               type="submit"
               className="w-full py-3 bg-amber-500 text-white font-bold rounded-xl hover:bg-amber-600 shadow-md"
-              // onClick={navigate('/')}
+             
             >
               Sign Up
             </button>

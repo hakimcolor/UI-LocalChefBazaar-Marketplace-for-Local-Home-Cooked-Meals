@@ -41,7 +41,7 @@ const MyOrders = () => {
   const handlePay = async (order) => {
     try {
       const res = await axios.post(
-        `http://localhost:5000/create-checkout-session`,
+        `https://backend-local-chef-bazaar-marketpla.vercel.app/create-checkout-session`,
         {
           orderId: order._id,
           amount: order.totalPrice,
@@ -63,7 +63,7 @@ const MyOrders = () => {
 
   if (loading) return <Loading />;
 
-  // ✅ SORT: pending first, paid last
+
   const sortedOrders = [...orders].sort((a, b) => {
     if (a.paymentStatus === 'pending' && b.paymentStatus === 'paid') return -1;
     if (a.paymentStatus === 'paid' && b.paymentStatus === 'pending') return 1;
@@ -137,7 +137,7 @@ const MyOrders = () => {
               {order.paymentStatus}
             </p>
 
-            {/* PAY BUTTON (UNCHANGED UI) */}
+        
             {order.orderStatus === 'accepted' &&
               order.paymentStatus?.toLowerCase() === 'pending' && (
                 <button

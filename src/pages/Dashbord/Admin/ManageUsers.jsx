@@ -74,7 +74,7 @@ const ManageUsers = () => {
                 <td className="border px-6 py-3 text-left text-gray-600">
                   {user.email}
                 </td>
-                <td className="border px-6 py-3 text-left capitalize">
+                <td className="border px-6 py-3 text-left capitalize text-black">
                   {user.role}
                 </td>
                 <td
@@ -84,7 +84,7 @@ const ManageUsers = () => {
                 >
                   {user.status}
                 </td>
-                <td className="border px-6 py-3">
+                <td className="border px-6 py-3 text-black">
                   {user.role !== 'admin' && user.status !== 'fraud' ? (
                     <button
                       onClick={() => handleMakeFraud(user._id)}

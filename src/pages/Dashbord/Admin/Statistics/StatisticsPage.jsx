@@ -15,10 +15,10 @@ const StatisticsPage = () => {
     totalPaidAmount: 0,
     totalOrders: 0,
   });
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
-    setLoading(true); // Start loading
+    setLoading(true); 
     axios
       .get(
         `https://backend-local-chef-bazaar-marketpla.vercel.app
@@ -26,11 +26,11 @@ const StatisticsPage = () => {
       )
       .then((res) => {
         setStats(res.data);
-        setLoading(false); // Stop loading
+        setLoading(false); 
       })
       .catch((err) => {
         console.error(err);
-        setLoading(false); // Stop loading even if error occurs
+        setLoading(false); 
       });
   }, []);
 
@@ -49,7 +49,7 @@ const StatisticsPage = () => {
     <div className="p-6">
       <title>LocalChefBazer || Statistics Page</title>
 
-      <h2 className="text-2xl font-bold mb-4">📊 Platform Statistics</h2>
+      <h2 className="text-2xl font-bold mb-4 text-gray-800">📊 Platform Statistics</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
         <div className="bg-white shadow rounded-xl p-5">

@@ -9,7 +9,7 @@ const OrderRequest = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch orders for the logged-in chef
+
   useEffect(() => {
     if (!user?.email) return;
 
@@ -22,7 +22,7 @@ const OrderRequest = () => {
         );
 
         if (res.data.success) {
-          // 🔥 ONLY CHANGE: pending orders first
+  
           const sortedOrders = res.data.data.sort((a, b) => {
             if (a.orderStatus === 'pending' && b.orderStatus !== 'pending')
               return -1;
@@ -46,7 +46,7 @@ const OrderRequest = () => {
     fetchOrders();
   }, [user?.email]);
 
-  // Update order status
+  
   const handleStatusUpdate = async (orderId, newStatus) => {
     try {
       const res = await axios.patch(
@@ -58,7 +58,7 @@ const OrderRequest = () => {
       if (res.data.success) {
         toast.success(`Order ${newStatus} successfully`);
 
-        // Update UI immediately (KEEP SAME ORDER LOGIC)
+        
         setOrders((prev) =>
           prev.map((order) =>
             order._id === orderId ? { ...order, orderStatus: newStatus } : order
@@ -125,13 +125,13 @@ const OrderRequest = () => {
                 <strong>Address:</strong> {order.userAddress || '-'}
               </p>
 
-              {/* Action Buttons (UNCHANGED) */}
+          
               <div className="mt-4 flex flex-col sm:flex-row gap-2">
                 <button
                   onClick={() => handleStatusUpdate(order._id, 'cancelled')}
                   disabled={!isPending}
-                  className={`px-3 py-2 rounded text-white w-full sm:w-auto ${
-                    isPending ? 'bg-red-600' : 'bg-gray-400 cursor-not-allowed'
+                  className={`px-3 py-2 rounded text-white w-full sm:w-auto  ${
+                    isPending ? 'bg-red-600 cursor-pointer' : 'bg-gray-400 cursor-not-allowed'
                   }`}
                 >
                   Cancel
@@ -140,9 +140,9 @@ const OrderRequest = () => {
                 <button
                   onClick={() => handleStatusUpdate(order._id, 'accepted')}
                   disabled={!isPending}
-                  className={`px-3 py-2 rounded text-white w-full sm:w-auto ${
+                  className={`px-3 py-2 rounded text-white w-full sm:w-auto  ${
                     isPending
-                      ? 'bg-green-600'
+                      ? 'bg-green-600 cursor-pointer'
                       : 'bg-gray-400 cursor-not-allowed'
                   }`}
                 >
@@ -152,9 +152,9 @@ const OrderRequest = () => {
                 <button
                   onClick={() => handleStatusUpdate(order._id, 'delivered')}
                   disabled={!isAccepted}
-                  className={`px-3 py-2 rounded text-white w-full sm:w-auto ${
+                  className={`px-3 py-2 rounded text-white w-full sm:w-auto  ${
                     isAccepted
-                      ? 'bg-blue-600'
+                      ? 'bg-blue-600 cursor-pointer'
                       : 'bg-gray-400 cursor-not-allowed'
                   }`}
                 >

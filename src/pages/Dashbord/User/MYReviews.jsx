@@ -161,7 +161,7 @@ const MyReviews = () => {
     const payload = { rating: ratingNumber, comment: updatedComment };
 
     setIsUpdating(true);
-    // keep original for rollback
+    
     const original = reviews.find((r) => String(r._id) === reviewId);
 
     try {

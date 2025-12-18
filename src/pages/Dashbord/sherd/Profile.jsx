@@ -9,7 +9,7 @@ const Profile = () => {
   const [userInfo, setUserInfo] = useState(null);
   const [chefId, setChefId] = useState(null);
 
-  // Fetch user info
+
   useEffect(() => {
     if (!user?.email) return;
 
@@ -29,7 +29,7 @@ const Profile = () => {
     fetchUser();
   }, [user?.email]);
 
-  // Fetch chefId if user is chef
+
   useEffect(() => {
     if (userInfo?.role !== 'chef' || !user?.email) return;
 
@@ -48,7 +48,7 @@ const Profile = () => {
     fetchChefId();
   }, [userInfo?.role, user?.email]);
 
-  // Handle role request
+
   const handleRoleRequest = (role) => {
     toast(
       (t) => (
@@ -107,7 +107,7 @@ const Profile = () => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 to-white px-4">
       <Toaster />
       <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-6 sm:p-8">
-        {/* Profile Header */}
+  
         <div className="flex flex-col items-center -mt-16">
           <img
             src={userInfo.profileImg || user?.photoURL}
@@ -120,7 +120,7 @@ const Profile = () => {
           <p className="text-sm text-gray-500">{userInfo.email}</p>
         </div>
 
-        {/* Info Section */}
+   
         <div className="mt-6 space-y-3 text-sm text-gray-700">
           <div className="flex justify-between">
             <span className="font-semibold">Address</span>
@@ -148,14 +148,14 @@ const Profile = () => {
           )}
         </div>
 
-        {/* Pending Request */}
+    
         {roleRequest && (
           <div className="mt-4 text-center text-yellow-600 font-medium bg-yellow-50 py-2 rounded-lg">
             Pending Request: {roleRequest}
           </div>
         )}
 
-        {/* Role Request Buttons */}
+ 
         {!roleRequest && role !== 'admin' && (
           <div className="mt-6 flex flex-col sm:flex-row gap-3">
             {role === 'user' && (

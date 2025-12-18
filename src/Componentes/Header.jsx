@@ -15,12 +15,12 @@ const Header = () => {
   );
   const navigate = useNavigate();
 
-  // Prevent body scroll when mobile menu is open
+
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : 'auto';
   }, [isOpen]);
 
-  // Theme toggle settings
+
   useEffect(() => {
     document.documentElement.setAttribute(
       'data-theme',
@@ -101,7 +101,7 @@ const Header = () => {
           </span>
         </NavLink>
 
-        {/* Desktop Menu */}
+     
         <nav className="hidden md:flex items-center gap-4">
           {navLinks.map((link) => (
             <NavLink
@@ -154,7 +154,7 @@ const Header = () => {
           )}
         </nav>
 
-        {/* Mobile Button */}
+        
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="md:hidden text-3xl text-white"
@@ -163,7 +163,7 @@ const Header = () => {
         </button>
       </div>
 
-      {/* Mobile Sidebar Menu */}
+
       {isOpen && (
         <div className="md:hidden fixed top-[80px] right-0 w-64 p-10 bg-[#D35400] shadow-md rounded-bl-3xl animate__animated animate__slideInRight z-40">
           <nav className="flex flex-col items-center py-4 space-y-4">
@@ -173,7 +173,7 @@ const Header = () => {
                 to={link.path}
                 onClick={() => {
                   setIsOpen(false);
-                  window.scrollTo(0, 0); // Prevent header collapsing
+                  window.scrollTo(0, 0); 
                 }}
                 className={({ isActive }) =>
                   `text-lg transition-all duration-200 ${

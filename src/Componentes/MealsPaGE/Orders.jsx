@@ -66,7 +66,7 @@ const Order = () => {
         🍽 Confirm Order: {meal.mealName || meal.foodName}
       </h2>
 
-      {/* Meal Name */}
+     
       <div className="mb-4">
         <label className="font-semibold text-orange-700 mb-1 block">
           Meal Name
@@ -79,7 +79,7 @@ const Order = () => {
         />
       </div>
 
-      {/* Price */}
+     
       <div className="mb-4">
         <label className="font-semibold text-orange-700 mb-1 block">
           Price
@@ -92,7 +92,7 @@ const Order = () => {
         />
       </div>
 
-      {/* Quantity */}
+   
       <div className="mb-4">
         <label className="font-semibold text-orange-700 mb-1 block">
           Quantity
@@ -106,7 +106,7 @@ const Order = () => {
         />
       </div>
 
-      {/* Chef ID */}
+    
       <div className="mb-4">
         <label className="font-semibold text-orange-700 mb-1 block">
           Chef ID
@@ -119,7 +119,7 @@ const Order = () => {
         />
       </div>
 
-      {/* User Email */}
+    
       <div className="mb-4">
         <label className="font-semibold text-orange-700 mb-1 block">
           Your Email
@@ -132,7 +132,7 @@ const Order = () => {
         />
       </div>
 
-      {/* Address */}
+   
       <div className="mb-5">
         <label className="font-semibold text-orange-700 mb-1 block">
           Delivery Address <span className="text-red-500">*</span>
@@ -146,7 +146,7 @@ const Order = () => {
         ></textarea>
       </div>
 
-      {/* Buttons */}
+   
       <div className="flex flex-col sm:flex-row gap-3">
         <button
           onClick={() => navigate(-1)}
@@ -155,7 +155,7 @@ const Order = () => {
           Back
         </button>
 
-        {/* Confirm Order */}
+     
         <button
           onClick={handleConfirmOrder}
           className="flex-1 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg py-2 text-sm sm:text-base order-2 sm:order-2 cursor-pointer"
