@@ -41,7 +41,7 @@ const UserAside = () => {
         }
       } catch (err) {
         console.error('Role fetch failed:', err);
-        setRole('user'); // fallback
+        setRole('user'); 
       }
     };
 
