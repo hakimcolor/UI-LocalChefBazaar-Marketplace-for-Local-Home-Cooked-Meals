@@ -33,7 +33,7 @@ const CustomerReviews = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`https://backend-local-chef-bazaar-marketpla.vercel.app
+    fetch(`${import.meta.env.VITE_BACKEND_API}
 /reviews/latest`)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);

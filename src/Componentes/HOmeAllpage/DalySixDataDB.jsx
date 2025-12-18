@@ -5,8 +5,7 @@ const DalySixDataDB = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`https://backend-local-chef-bazaar-marketpla.vercel.app
-/meals/latest`)
+    fetch(`${import.meta.env.VITE_BACKEND_API}/meals/latest`)
       .then((res) => res.json())
       .then((data) => {
         setMeals(data.data.slice(0, 6));
@@ -17,8 +16,6 @@ const DalySixDataDB = () => {
         setLoading(false);
       });
   }, []);
-
-
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">

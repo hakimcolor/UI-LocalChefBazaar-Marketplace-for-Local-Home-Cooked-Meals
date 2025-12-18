@@ -14,8 +14,7 @@ const ManageUsers = () => {
   const fetchUsers = async () => {
     setLoading(true);
     try {
-      const res =
-        await axios.get(`https://backend-local-chef-bazaar-marketpla.vercel.app/users`);
+      const res = await axios.get(`${import.meta.env.VITE_BACKEND_API}/users`);
       setUsers(res.data.data);
     } catch (err) {
       console.error(err);
@@ -28,7 +27,7 @@ const ManageUsers = () => {
   const handleMakeFraud = async (userId) => {
     try {
       await axios.patch(
-        `https://backend-local-chef-bazaar-marketpla.vercel.app
+        `${import.meta.env.VITE_BACKEND_API}
 /users/${userId}/status`,
         {
           status: 'fraud',

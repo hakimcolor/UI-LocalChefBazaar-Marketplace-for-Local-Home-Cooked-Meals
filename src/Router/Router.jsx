@@ -57,7 +57,7 @@ export const router = createBrowserRouter([
         path: '/order/:id',
         element: <Order />,
         loader: ({ params }) =>
-          fetch(`https://backend-local-chef-bazaar-marketpla.vercel.app
+          fetch(`${import.meta.env.VITE_BACKEND_API}
 /mealsd/${params.id}`),
       },
     ],
@@ -126,6 +126,4 @@ export const router = createBrowserRouter([
       },
     ],
   },
-
-
 ]);

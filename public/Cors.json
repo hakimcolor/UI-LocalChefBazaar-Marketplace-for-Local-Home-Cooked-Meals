@@ -1,6 +1,6 @@
 [
   {
-    "origin": ["https://backend-local-chef-bazaar-marketpla.vercel.app/"],
+    "origin": ["https://backend-local-chef-bazaar-marketpla.vercel.app"],
     "method": ["GET", "POST", "PUT", "DELETE"],
     "maxAgeSeconds": 3600
   }

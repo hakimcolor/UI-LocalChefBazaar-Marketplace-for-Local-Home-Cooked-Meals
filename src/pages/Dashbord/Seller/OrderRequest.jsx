@@ -9,7 +9,6 @@ const OrderRequest = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
     if (!user?.email) return;
 
@@ -17,12 +16,11 @@ const OrderRequest = () => {
       setLoading(true);
       try {
         const res = await axios.get(
-          `https://backend-local-chef-bazaar-marketpla.vercel.app
+          `${import.meta.env.VITE_BACKEND_API}
 /user-chef-orders/${user.email}`
         );
 
         if (res.data.success) {
-  
           const sortedOrders = res.data.data.sort((a, b) => {
             if (a.orderStatus === 'pending' && b.orderStatus !== 'pending')
               return -1;
@@ -46,11 +44,10 @@ const OrderRequest = () => {
     fetchOrders();
   }, [user?.email]);
 
-  
   const handleStatusUpdate = async (orderId, newStatus) => {
     try {
       const res = await axios.patch(
-        `https://backend-local-chef-bazaar-marketpla.vercel.app
+        `${import.meta.env.VITE_BACKEND_API}
 /update-order-status/${orderId}`,
         { orderStatus: newStatus }
       );
@@ -58,7 +55,6 @@ const OrderRequest = () => {
       if (res.data.success) {
         toast.success(`Order ${newStatus} successfully`);
 
-        
         setOrders((prev) =>
           prev.map((order) =>
             order._id === orderId ? { ...order, orderStatus: newStatus } : order
@@ -125,13 +121,14 @@ const OrderRequest = () => {
                 <strong>Address:</strong> {order.userAddress || '-'}
               </p>
 
-          
               <div className="mt-4 flex flex-col sm:flex-row gap-2">
                 <button
                   onClick={() => handleStatusUpdate(order._id, 'cancelled')}
                   disabled={!isPending}
                   className={`px-3 py-2 rounded text-white w-full sm:w-auto  ${
-                    isPending ? 'bg-red-600 cursor-pointer' : 'bg-gray-400 cursor-not-allowed'
+                    isPending
+                      ? 'bg-red-600 cursor-pointer'
+                      : 'bg-gray-400 cursor-not-allowed'
                   }`}
                 >
                   Cancel

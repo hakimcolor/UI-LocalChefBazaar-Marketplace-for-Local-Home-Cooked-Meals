@@ -9,7 +9,6 @@ const MyMeals = () => {
   const [loading, setLoading] = useState(true);
   const [selectedMeal, setSelectedMeal] = useState(null);
 
-  
   const normalizeId = (m) => {
     const id = m._id;
     if (!id) return m;
@@ -19,11 +18,10 @@ const MyMeals = () => {
     return m;
   };
 
- 
   useEffect(() => {
     if (!user?.email) return;
 
-    fetch(`https://backend-local-chef-bazaar-marketpla.vercel.app
+    fetch(`${import.meta.env.VITE_BACKEND_API}
 /user-meals/${user.email}`)
       .then((res) => res.json())
       .then((data) => {
@@ -36,7 +34,6 @@ const MyMeals = () => {
       .finally(() => setLoading(false));
   }, [user?.email]);
 
-  
   const handleDelete = (id) => {
     Swal.fire({
       title: 'Are you sure?',
@@ -49,7 +46,7 @@ const MyMeals = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         fetch(
-          `https://backend-local-chef-bazaar-marketpla.vercel.app
+          `${import.meta.env.VITE_BACKEND_API}
 /meals/${id}`,
           {
             method: 'DELETE',
@@ -66,7 +63,6 @@ const MyMeals = () => {
     });
   };
 
-  
   const handleOpenModal = (meal) => {
     const normalized = normalizeId(meal);
     console.log('Opening modal for meal:', normalized);
@@ -75,7 +71,6 @@ const MyMeals = () => {
 
   const handleCloseModal = () => setSelectedMeal(null);
 
- 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setSelectedMeal((prev) => ({ ...prev, [name]: value }));
@@ -86,8 +81,6 @@ const MyMeals = () => {
     setSelectedMeal((prev) => ({ ...prev, ingredients: value }));
   };
 
-  
-
   const handleUpdate = async (e) => {
     e.preventDefault();
     if (!selectedMeal || !selectedMeal._id) {
@@ -95,7 +88,6 @@ const MyMeals = () => {
       return;
     }
 
-    
     const payload = { ...selectedMeal };
     delete payload._id;
     if (payload.price !== undefined) payload.price = Number(payload.price);
@@ -110,11 +102,10 @@ const MyMeals = () => {
     setSelectedMeal(null);
     Swal.fire('Updated!', 'Meal has been updated.', 'success');
 
-  
     try {
       const id = encodeURIComponent(String(selectedMeal._id).trim());
       const res = await fetch(
-        `https://backend-local-chef-bazaar-marketpla.vercel.app
+        `${import.meta.env.VITE_BACKEND_API}
 /meals/${id}`,
         {
           method: 'PUT',
@@ -124,10 +115,9 @@ const MyMeals = () => {
       );
       const data = await res.json();
       console.log('Background PUT response:', res.status, data);
-     
     } catch (err) {
       console.error('Background update failed:', err);
-      
+
       Swal.fire(
         'Warning',
         'Server update failed — changes may not be saved.',
@@ -211,7 +201,6 @@ const MyMeals = () => {
           ))}
         </div>
       )}
-
 
       {selectedMeal && (
         <div className="fixed inset-0  bg-opacity-50 flex justify-center items-center z-50">

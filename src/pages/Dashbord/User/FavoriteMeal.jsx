@@ -16,7 +16,7 @@ const FavoriteMeal = () => {
     if (user?.email) {
       axios
         .get(
-          `https://backend-local-chef-bazaar-marketpla.vercel.app
+          `${import.meta.env.VITE_BACKEND_API}
 /favorites/${user.email}`
         )
         .then((res) => {
@@ -52,7 +52,7 @@ const FavoriteMeal = () => {
       if (result.isConfirmed) {
         axios
           .delete(
-            `https://backend-local-chef-bazaar-marketpla.vercel.app
+            `${import.meta.env.VITE_BACKEND_API}
 /favorites/${id}`
           )
           .then((res) => {

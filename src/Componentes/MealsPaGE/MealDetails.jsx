@@ -27,7 +27,7 @@ const MealDetails = () => {
   useEffect(() => {
     axios
       .get(
-        `https://backend-local-chef-bazaar-marketpla.vercel.app
+        `${import.meta.env.VITE_BACKEND_API}
 /mealsd/${id}`
       )
       .then((res) => setMeal(res.data))
@@ -39,7 +39,7 @@ const MealDetails = () => {
   const fetchReviews = () => {
     axios
       .get(
-        `https://backend-local-chef-bazaar-marketpla.vercel.app
+        `${import.meta.env.VITE_BACKEND_API}
 /reviews/${id}`
       )
       .then((res) =>
@@ -67,7 +67,7 @@ const MealDetails = () => {
 
     axios
       .post(
-        `https://backend-local-chef-bazaar-marketpla.vercel.app
+        `${import.meta.env.VITE_BACKEND_API}
 /reviews`,
         newReview
       )
@@ -101,7 +101,7 @@ const MealDetails = () => {
       if (result.isConfirmed) {
         const favData = {
           userEmail: user.email,
-          mealId: meal._id.toString(), 
+          mealId: meal._id.toString(),
           mealName: meal.foodName,
           chefId: meal.chefId,
           chefName: meal.chefName,
@@ -112,7 +112,7 @@ const MealDetails = () => {
 
         axios
           .post(
-            `https://backend-local-chef-bazaar-marketpla.vercel.app
+            `${import.meta.env.VITE_BACKEND_API}
 /favorites`,
             favData
           )

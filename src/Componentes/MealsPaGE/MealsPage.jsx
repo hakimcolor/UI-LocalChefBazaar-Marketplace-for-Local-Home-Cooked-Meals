@@ -30,7 +30,7 @@ const MealsPage = () => {
   const fetchMeals = async () => {
     try {
       const res = await axios.get(
-        `https://backend-local-chef-bazaar-marketpla.vercel.app
+        `${import.meta.env.VITE_BACKEND_API}
 /meals?sort=${sortOrder}`
       );
       if (res.data.success) {
@@ -133,7 +133,6 @@ const MealsPage = () => {
           </p>
         )}
       </div>
-
 
       {totalPages > 1 && (
         <div className="flex justify-center mt-10 gap-2 flex-wrap">

@@ -9,7 +9,7 @@ const TotalUsersCard = () => {
     const fetchTotalUsers = async () => {
       try {
         const res = await axios.get(
-          `https://backend-local-chef-bazaar-marketpla.vercel.app
+          `${import.meta.env.VITE_BACKEND_API}
 /users/count`
         );
 

@@ -6,7 +6,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { AuthContext } from '../../../Context/AuthContext';
 
 const AddMeals = () => {
-  const { user } = useContext(AuthContext); 
+  const { user } = useContext(AuthContext);
 
   const {
     register,
@@ -63,7 +63,7 @@ const AddMeals = () => {
       };
 
       await axios.post(
-        `https://backend-local-chef-bazaar-marketpla.vercel.app
+        `${import.meta.env.VITE_BACKEND_API}
 /meals`,
         finalData
       );
@@ -88,7 +88,6 @@ const AddMeals = () => {
       </h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-     
         <div>
           <label className="block mb-1 font-semibold text-orange-500">
             Food Name
@@ -104,7 +103,6 @@ const AddMeals = () => {
           )}
         </div>
 
-    
         <div>
           <label className="block mb-1 font-semibold text-orange-500">
             Chef Name
@@ -120,7 +118,6 @@ const AddMeals = () => {
           )}
         </div>
 
-     
         <div>
           <label className="block mb-1 font-semibold text-orange-500">
             Food Image
@@ -136,7 +133,6 @@ const AddMeals = () => {
           )}
         </div>
 
-     
         <div>
           <label className="block mb-1 font-semibold text-orange-500">
             Price ($)
@@ -153,7 +149,6 @@ const AddMeals = () => {
           )}
         </div>
 
- 
         <div>
           <label className="block mb-1 font-semibold text-orange-500">
             Rating (0-5)
@@ -172,7 +167,6 @@ const AddMeals = () => {
           )}
         </div>
 
-  
         <div>
           <label className="block mb-1 font-semibold text-orange-500">
             Ingredients (comma-separated)
@@ -190,7 +184,6 @@ const AddMeals = () => {
           )}
         </div>
 
-     
         <div>
           <label className="block mb-1 font-semibold text-orange-500">
             Estimated Delivery Time
@@ -208,7 +201,6 @@ const AddMeals = () => {
           )}
         </div>
 
-       
         <div>
           <label className="block mb-1 font-semibold text-orange-500">
             Chef Experience
@@ -225,7 +217,7 @@ const AddMeals = () => {
             </span>
           )}
         </div>
-      
+
         <div>
           <label className="block mb-1 font-semibold text-orange-500">
             Delivery Area

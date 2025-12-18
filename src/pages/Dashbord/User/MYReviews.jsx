@@ -79,9 +79,9 @@ const MyReviews = () => {
     if (user?.email) {
       axios
         .get(
-          `https://backend-local-chef-bazaar-marketpla.vercel.app/user-reviews/${encodeURIComponent(
-            user.email
-          )}`
+          `${
+            import.meta.env.VITE_BACKEND_API
+          }/user-reviews/${encodeURIComponent(user.email)}`
         )
         .then((res) => {
           if (!mounted) return;
@@ -116,9 +116,7 @@ const MyReviews = () => {
 
     try {
       await axios.delete(
-        `https://backend-local-chef-bazaar-marketpla.vercel.app/reviews/${encodeURIComponent(
-          id
-        )}`
+        `${import.meta.env.VITE_BACKEND_API}/reviews/${encodeURIComponent(id)}`
       );
       setReviews((prev) => prev.filter((r) => String(r._id) !== String(id)));
       toast.success('Review deleted successfully!');
@@ -161,12 +159,12 @@ const MyReviews = () => {
     const payload = { rating: ratingNumber, comment: updatedComment };
 
     setIsUpdating(true);
-    
+
     const original = reviews.find((r) => String(r._id) === reviewId);
 
     try {
       const res = await axios.patch(
-        `https://backend-local-chef-bazaar-marketpla.vercel.app/reviewsup/${encodeURIComponent(
+        `${import.meta.env.VITE_BACKEND_API}/reviewsup/${encodeURIComponent(
           reviewId
         )}`,
         payload

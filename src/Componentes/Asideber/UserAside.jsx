@@ -1,6 +1,3 @@
-
-
-
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import {
@@ -36,7 +33,7 @@ const UserAside = () => {
     const fetchRole = async () => {
       try {
         const res = await axios.get(
-          `https://backend-local-chef-bazaar-marketpla.vercel.app/check-role/${user.email}`
+          `${import.meta.env.VITE_BACKEND_API}/check-role/${user.email}`
         );
 
         if (res.data?.success) {
@@ -80,7 +77,6 @@ const UserAside = () => {
     'flex items-center gap-2 text-[#b94a21] font-semibold hover:text-[#ff5722] hover:scale-105 transition cursor-pointer mb-4';
   return (
     <div className="p-6 flex flex-col h-full bg-white shadow-lg">
- 
       <div className="flex items-center gap-3 mb-8">
         <img src={Logo} className="w-12 h-12 rounded-xl" />
         <div>
@@ -88,7 +84,6 @@ const UserAside = () => {
           <p className="text-xs text-gray-500">Dashboard</p>
         </div>
       </div>
-
 
       <div className="mb-6 flex items-center gap-3">
         <img
@@ -201,15 +196,14 @@ const UserAside = () => {
           </>
         )}
         <div className={backButtonStyle} onClick={() => navigate(-1)}>
-           <FaArrowLeft /> Back {' '}
+          <FaArrowLeft /> Back{' '}
         </div>
-       
+
         <Link to="/">
           {' '}
           <div className={backButtonStyle}>
-            <FaArrowLeft /> Back Home {' '}
-          </div>
-          {' '}
+            <FaArrowLeft /> Back Home{' '}
+          </div>{' '}
         </Link>
       </nav>
 

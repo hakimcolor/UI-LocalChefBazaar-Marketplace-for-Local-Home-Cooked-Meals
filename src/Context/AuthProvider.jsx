@@ -44,7 +44,7 @@ const AuthProvider = ({ children }) => {
       if (currentUser) {
         try {
           const response = await axios.get(
-            `https://backend-local-chef-bazaar-marketpla.vercel.app/users/${currentUser.uid}`
+            `${import.meta.env.VITE_BACKEND_API}/users/${currentUser.uid}`
           );
           setRole(response.data.role);
         } catch (error) {

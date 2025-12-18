@@ -9,7 +9,7 @@ const HomeStats = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`https://backend-local-chef-bazaar-marketpla.vercel.app
+    fetch(`${import.meta.env.VITE_BACKEND_API}
 /api/stats`)
       .then((res) => res.json())
       .then((data) => {
@@ -27,8 +27,6 @@ const HomeStats = () => {
         setLoading(false);
       });
   }, []);
-
-
 
   return (
     <section className="bg-gradient-to-r   rounded-xl from-orange-100 via-yellow-50 to-orange-200 py-16 px-4 max-w-7xl mx-auto  mt-10">

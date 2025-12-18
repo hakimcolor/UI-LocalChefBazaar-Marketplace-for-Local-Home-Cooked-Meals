@@ -9,14 +9,13 @@ const Profile = () => {
   const [userInfo, setUserInfo] = useState(null);
   const [chefId, setChefId] = useState(null);
 
-
   useEffect(() => {
     if (!user?.email) return;
 
     const fetchUser = async () => {
       try {
         const res = await axios.get(
-          `https://backend-local-chef-bazaar-marketpla.vercel.app
+          `${import.meta.env.VITE_BACKEND_API}
 /users/${user.email}`
         );
         setUserInfo(res.data.data);
@@ -29,14 +28,13 @@ const Profile = () => {
     fetchUser();
   }, [user?.email]);
 
-
   useEffect(() => {
     if (userInfo?.role !== 'chef' || !user?.email) return;
 
     const fetchChefId = async () => {
       try {
         const res = await axios.get(
-          `https://backend-local-chef-bazaar-marketpla.vercel.app
+          `${import.meta.env.VITE_BACKEND_API}
 /chef-id/${user.email}`
         );
         setChefId(res.data.chefId);
@@ -47,7 +45,6 @@ const Profile = () => {
 
     fetchChefId();
   }, [userInfo?.role, user?.email]);
-
 
   const handleRoleRequest = (role) => {
     toast(
@@ -63,7 +60,7 @@ const Profile = () => {
               onClick={async () => {
                 try {
                   const res = await axios.post(
-                    `https://backend-local-chef-bazaar-marketpla.vercel.app
+                    `${import.meta.env.VITE_BACKEND_API}
 /role-request`,
                     {
                       email: user.email,
@@ -107,7 +104,6 @@ const Profile = () => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 to-white px-4">
       <Toaster />
       <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-6 sm:p-8">
-  
         <div className="flex flex-col items-center -mt-16">
           <img
             src={userInfo.profileImg || user?.photoURL}
@@ -120,7 +116,6 @@ const Profile = () => {
           <p className="text-sm text-gray-500">{userInfo.email}</p>
         </div>
 
-   
         <div className="mt-6 space-y-3 text-sm text-gray-700">
           <div className="flex justify-between">
             <span className="font-semibold">Address</span>
@@ -148,14 +143,12 @@ const Profile = () => {
           )}
         </div>
 
-    
         {roleRequest && (
           <div className="mt-4 text-center text-yellow-600 font-medium bg-yellow-50 py-2 rounded-lg">
             Pending Request: {roleRequest}
           </div>
         )}
 
- 
         {!roleRequest && role !== 'admin' && (
           <div className="mt-6 flex flex-col sm:flex-row gap-3">
             {role === 'user' && (

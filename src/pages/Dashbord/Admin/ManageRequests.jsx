@@ -1,9 +1,8 @@
-
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 
-const BASE_URL = `https://backend-local-chef-bazaar-marketpla.vercel.app`;
+// const BASE_URL = `${import.meta.env.VITE_BACKEND_API}`;
 
 const ManageRequests = () => {
   const [requests, setRequests] = useState([]);
@@ -12,7 +11,9 @@ const ManageRequests = () => {
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const res = await axios.get(`${BASE_URL}/role-requests`);
+        const res = await axios.get(
+          `${import.meta.env.VITE_BACKEND_API}/role-requests`
+        );
         setRequests(res.data.data || []);
       } catch (err) {
         console.error(err);
@@ -26,7 +27,9 @@ const ManageRequests = () => {
 
   const handleApprove = async (id, t) => {
     try {
-      const res = await axios.patch(`${BASE_URL}/role-requests/${id}/approve`);
+      const res = await axios.patch(
+        `${import.meta.env.VITE_BACKEND_API}/role-requests/${id}/approve`
+      );
       setRequests((prev) => prev.filter((r) => r._id !== id));
       toast.success(res.data.message, { position: 'top-center' });
     } catch (err) {
@@ -93,7 +96,9 @@ const ManageRequests = () => {
   }
 
   if (!requests.length) {
-    return <p className="text-center text-lg mt-8 text-black">No pending requests</p>;
+    return (
+      <p className="text-center text-lg mt-8 text-black">No pending requests</p>
+    );
   }
 
   return (

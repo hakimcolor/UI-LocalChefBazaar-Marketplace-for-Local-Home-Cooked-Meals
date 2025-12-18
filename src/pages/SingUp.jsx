@@ -42,7 +42,6 @@ const SignUp = () => {
       return toast.error('Password must include a special character.');
 
     try {
-   
       const formData = new FormData();
       formData.append('image', profileFile);
 
@@ -52,7 +51,6 @@ const SignUp = () => {
       );
       const profileImg = uploadRes.data.data.display_url;
 
-
       const userCredential = await createUser(email, password);
 
       await updateProfile(userCredential.user, {
@@ -60,10 +58,9 @@ const SignUp = () => {
         photoURL: profileImg,
       });
 
-     
       const userData = { email, name, address, password, profileImg };
       await axios.post(
-        `https://backend-local-chef-bazaar-marketpla.vercel.app
+        `${import.meta.env.VITE_BACKEND_API}
 /users`,
         userData
       );
@@ -88,7 +85,6 @@ const SignUp = () => {
 
   return (
     <div>
- 
       <div className="flex items-center justify-center px-4 mt-10 mb-6">
         <Helmet>
           <title>Sign Up | LocalChefBazaar</title>
@@ -101,7 +97,6 @@ const SignUp = () => {
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-5">
-          
             <div className="flex flex-col">
               <label className="font-medium mb-1">Name</label>
               <input
@@ -115,7 +110,6 @@ const SignUp = () => {
               />
             </div>
 
-      
             <div className="flex flex-col">
               <label className=" font-medium mb-1">Profile Image</label>
               <input
@@ -126,7 +120,6 @@ const SignUp = () => {
               />
             </div>
 
-  
             <div className="flex flex-col">
               <label className="font-medium mb-1">Address</label>
               <input
@@ -140,7 +133,6 @@ const SignUp = () => {
               />
             </div>
 
-  
             <div className="flex flex-col">
               <label className=" font-medium mb-1">Email</label>
               <input
@@ -154,7 +146,6 @@ const SignUp = () => {
               />
             </div>
 
-          
             <div className="flex flex-col relative">
               <label className=" font-medium mb-1">Password</label>
               <input
@@ -178,7 +169,6 @@ const SignUp = () => {
               </button>
             </div>
 
-     
             <div className="flex flex-col">
               <label className=" font-medium mb-1">Confirm Password</label>
               <input
@@ -194,7 +184,6 @@ const SignUp = () => {
             <button
               type="submit"
               className="w-full py-3 bg-amber-500 text-white font-bold rounded-xl hover:bg-amber-600 shadow-md"
-             
             >
               Sign Up
             </button>

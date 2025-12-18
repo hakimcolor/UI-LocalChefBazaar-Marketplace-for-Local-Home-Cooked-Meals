@@ -9,7 +9,7 @@ const TipsSlider = () => {
   const [meals, setMeals] = useState([]);
 
   useEffect(() => {
-    fetch(`https://backend-local-chef-bazaar-marketpla.vercel.app
+    fetch(`${import.meta.env.VITE_BACKEND_API}
 /meals/latest`)
       .then((res) => res.json())
       .then((data) => setMeals(data.data))
@@ -35,7 +35,6 @@ const TipsSlider = () => {
         {meals.map((meal) => (
           <SwiperSlide key={meal._id}>
             <div className="flex flex-col md:flex-row items-center border border-amber-200 rounded-3xl p-6 md:p-10 bg-gradient-to-r from-amber-50 via-white to-amber-100 shadow-lg hover:shadow-amber-400 transition duration-500 gap-6 md:gap-10">
-          
               <div className="flex-1 space-y-4">
                 <h3 className="text-3xl font-bold text-amber-900">
                   {meal.foodName}
@@ -75,7 +74,6 @@ const TipsSlider = () => {
                 </div>
               </div>
 
-      
               <div className="flex-1 relative group">
                 <img
                   src={meal.foodImage}
