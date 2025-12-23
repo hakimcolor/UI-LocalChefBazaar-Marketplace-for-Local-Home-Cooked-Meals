@@ -42,8 +42,16 @@ const MealsPage = () => {
     }
   };
 
+  // const handleSeeDetails = (mealId) => {
+  //   navigate(`/mealsd/${mealId}`);
+  // };
+
   const handleSeeDetails = (mealId) => {
-    navigate(`/mealsd/${mealId}`);
+    if (user) {
+      navigate(`/mealsd/${mealId}`);
+    } else {
+      navigate('/signup');
+    }
   };
 
   const indexOfLastMeal = currentPage * itemsPerPage;
