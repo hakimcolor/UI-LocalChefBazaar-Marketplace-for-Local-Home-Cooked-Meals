@@ -1,4 +1,4 @@
-#[text](https://localchefbazzaarmarketplacd.netlify.app)
+#[text](https://localchefbazaarbyhakimcolor.netlify.app)
 TailwindCSS
 tsparticles
 swiper
