@@ -76,7 +76,7 @@ const HeroBanner = () => {
             className="font-semibold px-6 py-3 rounded-xl shadow-lg text-white 
              bg-gradient-to-r from-red-500 via-orange-500 to-yellow-400
              bg-[length:200%_100%] bg-left hover:bg-right transition-all duration-500
-             cursor-pointer text-xl"
+             cursor-pointer text-xl rounded-3xl"
           >
             See our all meals
           </motion.button>
