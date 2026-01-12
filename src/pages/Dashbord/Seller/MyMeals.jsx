@@ -21,8 +21,7 @@ const MyMeals = () => {
   useEffect(() => {
     if (!user?.email) return;
 
-    fetch(`${import.meta.env.VITE_BACKEND_API}
-/user-meals/${user.email}`)
+    fetch(`${import.meta.env.VITE_BACKEND_API}/user-meals/${user.email}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -45,13 +44,9 @@ const MyMeals = () => {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(
-          `${import.meta.env.VITE_BACKEND_API}
-/meals/${id}`,
-          {
-            method: 'DELETE',
-          }
-        )
+        fetch(`${import.meta.env.VITE_BACKEND_API}/meals/${id}`, {
+          method: 'DELETE',
+        })
           .then((res) => res.json())
           .then((data) => {
             if (data.success) {
@@ -104,15 +99,11 @@ const MyMeals = () => {
 
     try {
       const id = encodeURIComponent(String(selectedMeal._id).trim());
-      const res = await fetch(
-        `${import.meta.env.VITE_BACKEND_API}
-/meals/${id}`,
-        {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        }
-      );
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_API}/meals/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
       const data = await res.json();
       console.log('Background PUT response:', res.status, data);
     } catch (err) {
@@ -128,14 +119,31 @@ const MyMeals = () => {
   if (loading) return <Loading />;
 
   return (
-    <div className="max-w-6xl mx-auto mt-8 font-[Poppins]">
+    <div className="min-h-screen bg-white p-6">
       <title>LocalChefBazaar || My Meals</title>
-      <h2 className="text-3xl font-bold mb-6 text-center text-black">
-        My Added Meals ({meals.length})
-      </h2>
+      
+      {/* Header */}
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold   mb-2">
+          My Meals ({meals.length})
+        </h1>
+        <p className="">
+          Manage and update your added meals
+        </p>
+      </div>
+
+      <div className="max-w-6xl mx-auto">
 
       {meals.length === 0 ? (
-        <p className="text-center text-gray-600">No meals added yet.</p>
+        <div className="rounded-xl shadow-lg border border-gray-200 p-8 text-center">
+          <div className=" mb-4">
+            <svg className="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+          </div>
+          <h3 className="text-lg font-semibold mb-2">No Meals Added Yet</h3>
+          <p className="text-gray-600">Start adding meals to showcase your culinary skills!</p>
+        </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {meals.map((meal) => (
@@ -203,7 +211,7 @@ const MyMeals = () => {
       )}
 
       {selectedMeal && (
-        <div className="fixed inset-0  bg-opacity-50 flex justify-center items-center z-50">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white p-6 rounded-xl w-96 relative">
             <h3 className="text-xl font-bold mb-4">Update Meal</h3>
             <form onSubmit={handleUpdate} className="space-y-3">
@@ -284,6 +292,7 @@ const MyMeals = () => {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 };

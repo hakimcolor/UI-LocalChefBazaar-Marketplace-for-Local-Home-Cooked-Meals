@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import { FcGoogle } from 'react-icons/fc';
 import { updateProfile } from 'firebase/auth';
 import { db } from '../Firebase/Firebase.confige';
 import { AuthContext } from '../Context/AuthContext';
@@ -11,7 +12,7 @@ import axios from 'axios';
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const { createUser } = useContext(AuthContext);
+  const { createUser, signInWithGoogle } = useContext(AuthContext);
 
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -20,26 +21,42 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleToggle = () => setShowPassword(!showPassword);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     if (!email || !name || !address || !password || !confirmPassword) {
+      setLoading(false);
       return toast.error('Please fill all fields.');
     }
-    if (!profileFile) return toast.error('Please upload a profile image.');
-    if (password !== confirmPassword)
+    if (!profileFile) {
+      setLoading(false);
+      return toast.error('Please upload a profile image.');
+    }
+    if (password !== confirmPassword) {
+      setLoading(false);
       return toast.error('Passwords do not match.');
-    if (password.length < 6)
+    }
+    if (password.length < 6) {
+      setLoading(false);
       return toast.error('Password must be at least 6 characters.');
-    if (!/[A-Z]/.test(password))
+    }
+    if (!/[A-Z]/.test(password)) {
+      setLoading(false);
       return toast.error('Password must contain an uppercase letter.');
-    if (!/[0-9]/.test(password))
+    }
+    if (!/[0-9]/.test(password)) {
+      setLoading(false);
       return toast.error('Password must include a number.');
-    if (!/[!@#$%^&*(),.?":{}|<>]/.test(password))
+    }
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+      setLoading(false);
       return toast.error('Password must include a special character.');
+    }
 
     try {
       const formData = new FormData();
@@ -58,10 +75,20 @@ const SignUp = () => {
         photoURL: profileImg,
       });
 
-      const userData = { email, name, address, password, profileImg };
+      const userData = { 
+        email, 
+        name, 
+        address, 
+        password, 
+        profileImg,
+        role: 'user',
+        provider: 'email',
+        uid: userCredential.user.uid,
+        createdAt: new Date().toISOString()
+      };
+      
       await axios.post(
-        `${import.meta.env.VITE_BACKEND_API}
-/users`,
+        `${import.meta.env.VITE_BACKEND_API}/users`,
         userData
       );
 
@@ -79,7 +106,71 @@ const SignUp = () => {
       toast.success('Account created successfully!');
       setTimeout(() => navigate('/'), 500);
     } catch (error) {
-      toast.error(error.message);
+      console.error('Sign-up error:', error);
+      
+      let errorMessage = 'Account creation failed. Please try again.';
+      
+      switch (error.code) {
+        case 'auth/email-already-in-use':
+          errorMessage = 'An account with this email already exists. Please sign in instead.';
+          break;
+        case 'auth/invalid-email':
+          errorMessage = 'Invalid email format. Please enter a valid email.';
+          break;
+        case 'auth/operation-not-allowed':
+          errorMessage = 'Email/password accounts are not enabled. Please contact support.';
+          break;
+        case 'auth/weak-password':
+          errorMessage = 'Password is too weak. Please choose a stronger password.';
+          break;
+        case 'auth/network-request-failed':
+          errorMessage = 'Network error. Please check your connection and try again.';
+          break;
+        default:
+          errorMessage = error.message || 'Account creation failed. Please try again.';
+      }
+      
+      toast.error(errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleSignUp = async () => {
+    setLoading(true);
+    
+    try {
+      await signInWithGoogle();
+      toast.success('Google sign-up successful!');
+      navigate('/');
+    } catch (error) {
+      console.error('Google sign-up error:', error);
+      
+      let errorMessage = 'Google sign-up failed. Please try again.';
+      
+      switch (error.code) {
+        case 'auth/popup-closed-by-user':
+          errorMessage = 'Sign-up cancelled. Please try again.';
+          break;
+        case 'auth/popup-blocked':
+          errorMessage = 'Popup blocked. Please allow popups and try again.';
+          break;
+        case 'auth/cancelled-popup-request':
+          errorMessage = 'Sign-up cancelled. Please try again.';
+          break;
+        case 'auth/network-request-failed':
+          errorMessage = 'Network error. Please check your connection and try again.';
+          break;
+        case 'auth/account-exists-with-different-credential':
+          errorMessage = 'An account already exists with this email using a different sign-in method.';
+          break;
+        default:
+          errorMessage = error.message || 'Google sign-up failed. Please try again.';
+      }
+      
+      toast.error(errorMessage);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -95,6 +186,25 @@ const SignUp = () => {
           <h2 className="text-4xl font-extrabold text-center mb-8">
             Create Your Account
           </h2>
+
+          {/* Google Sign Up Button */}
+          <button
+            onClick={handleGoogleSignUp}
+            disabled={loading}
+            className="w-full flex items-center justify-center gap-3 py-3 mb-6 bg-white border-2 border-gray-300 rounded-xl hover:bg-gray-50 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+          >
+            <FcGoogle size={24} />
+            <span className="font-semibold text-gray-700">
+              {loading ? 'Signing up...' : 'Continue with Google'}
+            </span>
+          </button>
+
+          {/* Divider */}
+          <div className="flex items-center my-6">
+            <div className="flex-1 border-t border-gray-300"></div>
+            <span className="px-4 text-gray-500 text-sm">OR</span>
+            <div className="flex-1 border-t border-gray-300"></div>
+          </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="flex flex-col">
@@ -183,9 +293,10 @@ const SignUp = () => {
 
             <button
               type="submit"
-              className="w-full py-3 bg-amber-500 text-white font-bold rounded-xl hover:bg-amber-600 shadow-md"
+              disabled={loading}
+              className="w-full py-3 bg-amber-500 text-white font-bold rounded-xl hover:bg-amber-600 shadow-md cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Sign Up
+              {loading ? 'Creating Account...' : 'Sign Up'}
             </button>
           </form>
 

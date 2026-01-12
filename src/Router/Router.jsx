@@ -3,6 +3,12 @@ import { createBrowserRouter } from 'react-router-dom';
 import Root from '../Layout/Root';
 import SignUp from '../pages/SingUp';
 import SignIn from '../pages/Singin';
+import Services from '../pages/Services';
+import About from '../pages/About';
+import Contact from '../pages/Contact';
+import Blog from '../pages/Blog';
+import BlogPost from '../pages/BlogPost';
+import Chefs from '../pages/Chefs';
 
 import DashboardLayout from '../Layout/DashbordLayout/DashboardLayout';
 
@@ -10,7 +16,7 @@ import Orders from '../Componentes/MealsPaGE/Orders';
 import MYReviews from '../pages/Dashbord/User/MYReviews';
 import FavoriteMeal from '../pages/Dashbord/User/FavoriteMeal';
 // import Profile from '../pages/Dashbord/sherd/Profile';
-import WElcomd from '../pages/Dashbord/User/WElcomd';
+import DashboardOverview from '../pages/Dashbord/User/WElcomd';
 import Profile from '../pages/Dashbord/sherd/Profile';
 import Addmeals from '../pages/Dashbord/Seller/Addmeals';
 import MealsPage from '../Componentes/MealsPaGE/MealsPage';
@@ -25,6 +31,9 @@ import ManageRequests from '../pages/Dashbord/Admin/ManageRequests';
 import PaymentSuccess from '../pages/Dashbord/User/Payment.jsx/PaymentSuccess';
 import PaymentCancel from '../pages/Dashbord/User/Payment.jsx/PaymentCancel';
 import Error from '../Componentes/Error';
+import Analytics from '../pages/Dashbord/Seller/Analytics';
+import Settings from '../pages/Dashbord/Admin/Settings';
+import Reports from '../pages/Dashbord/Manager/Reports';
 import Statistics from '../pages/Dashbord/Admin/Statistics';
 
 export const router = createBrowserRouter([
@@ -50,6 +59,30 @@ export const router = createBrowserRouter([
         element: <MealsPage />,
       },
       {
+        path: 'services',
+        element: <Services />,
+      },
+      {
+        path: 'about',
+        element: <About />,
+      },
+      {
+        path: 'contact',
+        element: <Contact />,
+      },
+      {
+        path: 'blog',
+        element: <Blog />,
+      },
+      {
+        path: 'blog/:id',
+        element: <BlogPost />,
+      },
+      {
+        path: 'chefs',
+        element: <Chefs />,
+      },
+      {
         path: 'mealsd/:id',
         element: <MealDetails />,
       },
@@ -70,7 +103,7 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <WElcomd />,
+        element: <DashboardOverview />,
       },
       {
         path: 'orders',
@@ -123,6 +156,18 @@ export const router = createBrowserRouter([
       {
         path: 'StatisticsPage',
         element: <Statistics />,
+      },
+      {
+        path: 'analytics',
+        element: <Analytics />,
+      },
+      {
+        path: 'settings',
+        element: <Settings />,
+      },
+      {
+        path: 'reports',
+        element: <Reports />,
       },
     ],
   },

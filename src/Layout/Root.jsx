@@ -2,6 +2,7 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from '../Componentes/Header.jsx';
 import Footer from '../Componentes/Footer.jsx';
+import AIChatbot from '../components/AIChatbot/AIChatbot.jsx';
 
 const Root = () => {
   return (
@@ -11,8 +12,11 @@ const Root = () => {
       <br />
       <br />
       <br />
-      <Outlet /><br /><br />
-    <Footer/>
+      <Outlet />
+      <br />
+      <br />
+      <Footer />
+      <AIChatbot />
     </div>
   );
 };

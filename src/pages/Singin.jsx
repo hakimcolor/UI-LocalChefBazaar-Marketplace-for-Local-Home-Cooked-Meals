@@ -2,6 +2,7 @@
 import { auth } from '../Firebase/Firebase.confige';
 import React, { useContext, useState } from 'react';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import { FcGoogle } from 'react-icons/fc';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Context/AuthContext';
 import { sendPasswordResetEmail } from 'firebase/auth';
@@ -9,19 +10,21 @@ import toast, { Toaster } from 'react-hot-toast';
 import { Helmet } from 'react-helmet';
 
 const SignIn = () => {
-  const { signinUser } = useContext(AuthContext); 
+  const { signinUser, signInWithGoogle } = useContext(AuthContext); 
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
   const [passcode, setPasscode] = useState('');
   const [show, setShow] = useState(false);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleToggle = () => setShow(!show);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
 
     signinUser(email, passcode) 
       .then(() => {
@@ -31,9 +34,77 @@ const SignIn = () => {
         navigate('/');
       })
       .catch((err) => {
-        setError(err.message);
-        toast.error(err.message);
+        console.error('Sign-in error:', err);
+        
+        // Handle specific Firebase auth errors
+        let errorMessage = 'Login failed. Please try again.';
+        
+        switch (err.code) {
+          case 'auth/invalid-credential':
+            errorMessage = 'Invalid email or password. Please check your credentials and try again.';
+            break;
+          case 'auth/user-not-found':
+            errorMessage = 'No account found with this email. Please sign up first.';
+            break;
+          case 'auth/wrong-password':
+            errorMessage = 'Incorrect password. Please try again.';
+            break;
+          case 'auth/invalid-email':
+            errorMessage = 'Invalid email format. Please enter a valid email.';
+            break;
+          case 'auth/user-disabled':
+            errorMessage = 'This account has been disabled. Please contact support.';
+            break;
+          case 'auth/too-many-requests':
+            errorMessage = 'Too many failed attempts. Please try again later.';
+            break;
+          default:
+            errorMessage = err.message || 'Login failed. Please try again.';
+        }
+        
+        setError(errorMessage);
+        toast.error(errorMessage);
+      })
+      .finally(() => {
+        setLoading(false);
       });
+  };
+
+  const handleGoogleSignIn = async () => {
+    setError('');
+    setLoading(true);
+    
+    try {
+      await signInWithGoogle();
+      toast.success('Google login successful!');
+      navigate('/');
+    } catch (error) {
+      console.error('Google sign-in error:', error);
+      
+      let errorMessage = 'Google sign-in failed. Please try again.';
+      
+      switch (error.code) {
+        case 'auth/popup-closed-by-user':
+          errorMessage = 'Sign-in cancelled. Please try again.';
+          break;
+        case 'auth/popup-blocked':
+          errorMessage = 'Popup blocked. Please allow popups and try again.';
+          break;
+        case 'auth/cancelled-popup-request':
+          errorMessage = 'Sign-in cancelled. Please try again.';
+          break;
+        case 'auth/network-request-failed':
+          errorMessage = 'Network error. Please check your connection and try again.';
+          break;
+        default:
+          errorMessage = error.message || 'Google sign-in failed. Please try again.';
+      }
+      
+      setError(errorMessage);
+      toast.error(errorMessage);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleForgotPassword = () => {
@@ -47,7 +118,25 @@ const SignIn = () => {
         toast.success('Password reset email sent! Check your inbox.');
       })
       .catch((err) => {
-        toast.error(err.message);
+        console.error('Password reset error:', err);
+        
+        let errorMessage = 'Failed to send password reset email.';
+        
+        switch (err.code) {
+          case 'auth/user-not-found':
+            errorMessage = 'No account found with this email address.';
+            break;
+          case 'auth/invalid-email':
+            errorMessage = 'Invalid email format.';
+            break;
+          case 'auth/too-many-requests':
+            errorMessage = 'Too many requests. Please try again later.';
+            break;
+          default:
+            errorMessage = err.message || 'Failed to send password reset email.';
+        }
+        
+        toast.error(errorMessage);
       });
   };
 
@@ -66,6 +155,25 @@ const SignIn = () => {
         <p className="text-center text-orange-600 mb-8">
           Enter your credentials to continue
         </p>
+
+        {/* Google Sign In Button */}
+        <button
+          onClick={handleGoogleSignIn}
+          disabled={loading}
+          className="w-full flex items-center justify-center gap-3 py-3 mb-6 bg-white border-2 border-gray-300 rounded-xl hover:bg-gray-50 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+        >
+          <FcGoogle size={24} />
+          <span className="font-semibold text-gray-700">
+            {loading ? 'Signing in...' : 'Continue with Google'}
+          </span>
+        </button>
+
+        {/* Divider */}
+        <div className="flex items-center my-6">
+          <div className="flex-1 border-t border-gray-300"></div>
+          <span className="px-4 text-gray-500 text-sm">OR</span>
+          <div className="flex-1 border-t border-gray-300"></div>
+        </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div className="flex flex-col">
@@ -120,13 +228,25 @@ const SignIn = () => {
             </button>
           </div>
 
-          {error && <p className="text-red-500 text-sm">{error}</p>}
+          {error && (
+            <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+              <p className="text-red-600 text-sm">{error}</p>
+              {error.includes('Invalid email or password') && (
+                <div className="mt-2 text-xs text-red-500">
+                  <p>• Make sure your email and password are correct</p>
+                  <p>• Try using the "Forgot Password?" link if needed</p>
+                  <p>• Or sign up for a new account if you don't have one</p>
+                </div>
+              )}
+            </div>
+          )}
 
           <button
             type="submit"
-            className="w-full py-3 bg-amber-500 text-white font-bold rounded-xl hover:bg-amber-600 shadow-md cursor-pointer"
+            disabled={loading}
+            className="w-full py-3 bg-amber-500 text-white font-bold rounded-xl hover:bg-amber-600 shadow-md cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Login
+            {loading ? 'Signing in...' : 'Login'}
           </button>
         </form>
 

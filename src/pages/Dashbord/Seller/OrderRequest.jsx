@@ -74,7 +74,7 @@ const OrderRequest = () => {
     return <div className="text-center mt-10">No orders found.</div>;
 
   return (
-    <div className="p-4 text-black">
+    <div className="p-4 text-black bg-white">
       <title>LocalChefBazaar || Order Requests</title>
       <Toaster />
       <h2 className="text-2xl font-bold mb-4">Your Orders</h2>
