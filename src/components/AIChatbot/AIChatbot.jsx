@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { FiMessageCircle, FiX, FiSend, FiBot, FiUser } from 'react-icons/fi';
+import { FiMessageCircle, FiX, FiSend, FiUser } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const AIChatbot = () => {
@@ -225,7 +225,7 @@ const AIChatbot = () => {
             {/* Header */}
             <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white p-4 flex items-center gap-3">
               <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                <FiBot size={20} />
+                <FiMessageCircle size={20} />
               </div>
               <div>
                 <h3 className="font-bold font-heading">AI Assistant</h3>
@@ -246,7 +246,7 @@ const AIChatbot = () => {
                         ? 'bg-orange-500 text-white' 
                         : 'bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300'
                     }`}>
-                      {message.sender === 'user' ? <FiUser size={16} /> : <FiBot size={16} />}
+                      {message.sender === 'user' ? <FiUser size={16} /> : <FiMessageCircle size={16} />}
                     </div>
                     <div className={`p-3 rounded-2xl ${
                       message.sender === 'user'
@@ -269,7 +269,7 @@ const AIChatbot = () => {
                 <div className="flex justify-start">
                   <div className="flex items-start gap-2">
                     <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center">
-                      <FiBot size={16} className="text-gray-600 dark:text-gray-300" />
+                      <FiMessageCircle size={16} className="text-gray-600 dark:text-gray-300" />
                     </div>
                     <div className="bg-gray-100 dark:bg-gray-700 p-3 rounded-2xl rounded-bl-md">
                       <div className="flex space-x-1">
