@@ -3,8 +3,8 @@
 
 🌐 **Live Website**  
 https://localchefbazaarbyhakimcolor.netlify.app/
-**Admin Email: hakimcolor777@gmail.com
-**Adimn Password: hakimcolor777@gmail.comH
+Admin Email: *hakimcolor777@gmail.com*
+Adimn Password: hakimcolor777@gmail.comH
 ---
 
 ## 📌 Project Description
