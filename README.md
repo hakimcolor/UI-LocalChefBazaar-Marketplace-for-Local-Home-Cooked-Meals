@@ -3,7 +3,8 @@
 
 🌐 **Live Website**  
 https://localchefbazaarbyhakimcolor.netlify.app/
-
+**Admin Email: hakimcolor777@gmail.com
+**Adimn Password: hakimcolor777@gmail.comH
 ---
 
 ## 📌 Project Description
@@ -14,6 +15,7 @@ The platform includes **role-based authentication**, **multiple dashboards**, **
 This project reflects a real-world marketplace system built using modern full-stack technologies.
 
 ---
+<img width="1920" height="1336" alt="hakimcolor" src="https://github.com/user-attachments/assets/e8b99706-b76f-4912-a632-483ea4048338" />
 
 ## 🚀 Core Features
 
