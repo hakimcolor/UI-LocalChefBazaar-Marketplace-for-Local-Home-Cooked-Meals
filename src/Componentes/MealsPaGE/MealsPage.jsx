@@ -313,7 +313,7 @@ const MealsPage = () => {
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 ">
-            Daily Meals
+            Daily <span className="text-orange-500">Delicious</span> Meals
           </h1>
           <p className="text-lg 0 max-w-2xl mx-auto">
             Discover delicious home-cooked meals from local chefs in your area

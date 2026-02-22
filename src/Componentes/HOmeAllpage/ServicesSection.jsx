@@ -6,28 +6,36 @@ const ServicesSection = () => {
   const services = [
     {
       icon: <FiHome className="text-5xl text-orange-500" />,
-      title: "Home Delivery",
-      description: "Fresh meals delivered straight to your doorstep",
-      features: ["30-min delivery", "Real-time tracking", "Contactless delivery"]
+      title: 'Home Delivery',
+      description: 'Fresh meals delivered straight to your doorstep',
+      features: [
+        '30-min delivery',
+        'Real-time tracking',
+        'Contactless delivery',
+      ],
     },
     {
       icon: <FiCalendar className="text-5xl text-blue-500" />,
-      title: "Meal Planning",
-      description: "Weekly meal subscriptions tailored to your taste",
-      features: ["Custom meal plans", "Dietary preferences", "Flexible scheduling"]
+      title: 'Meal Planning',
+      description: 'Weekly meal subscriptions tailored to your taste',
+      features: [
+        'Custom meal plans',
+        'Dietary preferences',
+        'Flexible scheduling',
+      ],
     },
     {
       icon: <FiGift className="text-5xl text-purple-500" />,
-      title: "Catering Services",
-      description: "Perfect for events, parties, and corporate meetings",
-      features: ["Bulk orders", "Event planning", "Custom menus"]
+      title: 'Catering Services',
+      description: 'Perfect for events, parties, and corporate meetings',
+      features: ['Bulk orders', 'Event planning', 'Custom menus'],
     },
     {
       icon: <FiCoffee className="text-5xl text-green-500" />,
-      title: "Chef Consultation",
-      description: "Personal cooking sessions with professional chefs",
-      features: ["1-on-1 sessions", "Recipe sharing", "Cooking tips"]
-    }
+      title: 'Chef Consultation',
+      description: 'Personal cooking sessions with professional chefs',
+      features: ['1-on-1 sessions', 'Recipe sharing', 'Cooking tips'],
+    },
   ];
 
   return (
@@ -41,10 +49,11 @@ const ServicesSection = () => {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl font-bold mb-4 ">
-            Our Services
+            Our <span className="text-orange-500">Services</span>
           </h2>
           <p className="text-xl  max-w-2xl mx-auto">
-            From quick deliveries to personalized meal planning, we've got you covered
+            From quick deliveries to personalized meal planning, we've got you
+            covered
           </p>
         </motion.div>
 
@@ -69,7 +78,10 @@ const ServicesSection = () => {
               </p>
               <ul className="space-y-2">
                 {service.features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="flex items-center text-gray-600 dark:text-gray-300">
+                  <li
+                    key={featureIndex}
+                    className="flex items-center text-gray-600 dark:text-gray-300"
+                  >
                     <span className="w-2 h-2 bg-orange-500 rounded-full mr-3"></span>
                     {feature}
                   </li>
