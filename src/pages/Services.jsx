@@ -70,7 +70,7 @@ const Services = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            Our Services
+            Our <span className="text-orange-600">Services</span>
           </motion.h1>
           <motion.p
             className="text-xl opacity-90"
