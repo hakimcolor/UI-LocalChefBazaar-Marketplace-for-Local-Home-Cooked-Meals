@@ -99,7 +99,7 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen  pt-10">
-      {/* Hero Sectio */}
+      {/* Hero Section */}
       <section className="py-16 px-4 ">
         <div className="max-w-4xl mx-auto text-center">
           <motion.h1
