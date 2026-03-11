@@ -264,13 +264,13 @@ const SignIn = () => {
             Sign Up
           </NavLink>{' '}
           <br />
-          <div className='mt-10'> Admin Loging: <br />
-          <span className="text-cyan-300 ">
-            Email:
-          </span> hakimcolor777@gmail.com <br />
-          <span className="text-red-500 ">Password:</span>
-          hakimcolor777@gmail.comH</div>
-         
+          <div className="mt-10 ">
+            <span className=" ">Admin Loging:</span> <br />
+            <span className="text-cyan-300 ">Email:</span>{' '}
+            hakimcolor777@gmail.com <br />
+            <span className="text-red-500 ">Password:</span>
+            hakimcolor777@gmail.comH
+          </div>
         </p>
       </div>
     </div>
