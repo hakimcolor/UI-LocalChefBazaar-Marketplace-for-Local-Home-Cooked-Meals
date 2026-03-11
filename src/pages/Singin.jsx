@@ -1,4 +1,3 @@
-
 import { auth } from '../Firebase/Firebase.confige';
 import React, { useContext, useState } from 'react';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
@@ -10,7 +9,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { Helmet } from 'react-helmet';
 
 const SignIn = () => {
-  const { signinUser, signInWithGoogle } = useContext(AuthContext); 
+  const { signinUser, signInWithGoogle } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
@@ -26,7 +25,7 @@ const SignIn = () => {
     setError('');
     setLoading(true);
 
-    signinUser(email, passcode) 
+    signinUser(email, passcode)
       .then(() => {
         setEmail('');
         setPasscode('');
@@ -35,16 +34,18 @@ const SignIn = () => {
       })
       .catch((err) => {
         console.error('Sign-in error:', err);
-        
+
         // Handle specific Firebase auth errors
         let errorMessage = 'Login failed. Please try again.';
-        
+
         switch (err.code) {
           case 'auth/invalid-credential':
-            errorMessage = 'Invalid email or password. Please check your credentials and try again.';
+            errorMessage =
+              'Invalid email or password. Please check your credentials and try again.';
             break;
           case 'auth/user-not-found':
-            errorMessage = 'No account found with this email. Please sign up first.';
+            errorMessage =
+              'No account found with this email. Please sign up first.';
             break;
           case 'auth/wrong-password':
             errorMessage = 'Incorrect password. Please try again.';
@@ -53,7 +54,8 @@ const SignIn = () => {
             errorMessage = 'Invalid email format. Please enter a valid email.';
             break;
           case 'auth/user-disabled':
-            errorMessage = 'This account has been disabled. Please contact support.';
+            errorMessage =
+              'This account has been disabled. Please contact support.';
             break;
           case 'auth/too-many-requests':
             errorMessage = 'Too many failed attempts. Please try again later.';
@@ -61,7 +63,7 @@ const SignIn = () => {
           default:
             errorMessage = err.message || 'Login failed. Please try again.';
         }
-        
+
         setError(errorMessage);
         toast.error(errorMessage);
       })
@@ -73,16 +75,16 @@ const SignIn = () => {
   const handleGoogleSignIn = async () => {
     setError('');
     setLoading(true);
-    
+
     try {
       await signInWithGoogle();
       toast.success('Google login successful!');
       navigate('/');
     } catch (error) {
       console.error('Google sign-in error:', error);
-      
+
       let errorMessage = 'Google sign-in failed. Please try again.';
-      
+
       switch (error.code) {
         case 'auth/popup-closed-by-user':
           errorMessage = 'Sign-in cancelled. Please try again.';
@@ -94,12 +96,14 @@ const SignIn = () => {
           errorMessage = 'Sign-in cancelled. Please try again.';
           break;
         case 'auth/network-request-failed':
-          errorMessage = 'Network error. Please check your connection and try again.';
+          errorMessage =
+            'Network error. Please check your connection and try again.';
           break;
         default:
-          errorMessage = error.message || 'Google sign-in failed. Please try again.';
+          errorMessage =
+            error.message || 'Google sign-in failed. Please try again.';
       }
-      
+
       setError(errorMessage);
       toast.error(errorMessage);
     } finally {
@@ -119,9 +123,9 @@ const SignIn = () => {
       })
       .catch((err) => {
         console.error('Password reset error:', err);
-        
+
         let errorMessage = 'Failed to send password reset email.';
-        
+
         switch (err.code) {
           case 'auth/user-not-found':
             errorMessage = 'No account found with this email address.';
@@ -133,9 +137,10 @@ const SignIn = () => {
             errorMessage = 'Too many requests. Please try again later.';
             break;
           default:
-            errorMessage = err.message || 'Failed to send password reset email.';
+            errorMessage =
+              err.message || 'Failed to send password reset email.';
         }
-        
+
         toast.error(errorMessage);
       });
   };
@@ -257,7 +262,15 @@ const SignIn = () => {
             className="text-orange-600 font-medium hover:underline cursor-pointer"
           >
             Sign Up
-          </NavLink>
+          </NavLink>{' '}
+          <br />
+          <div className='mt-10'> Admin Loging: <br />
+          <span className="text-cyan-300 ">
+            Email:
+          </span> hakimcolor777@gmail.com <br />
+          <span className="text-red-500 ">Password:</span>
+          hakimcolor777@gmail.comH</div>
+         
         </p>
       </div>
     </div>
