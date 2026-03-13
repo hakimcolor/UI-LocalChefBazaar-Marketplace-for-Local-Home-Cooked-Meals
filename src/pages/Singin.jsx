@@ -259,7 +259,7 @@ const SignIn = () => {
           Don’t have an account?{' '}
           <NavLink
             to="/signup"
-            className="text-orange-600 font-medium hover:underline cursor-pointer"
+            className="text-orange-600 font-medium hover:underline cursor-pointer underline"
           >
             Sign Up
           </NavLink>{' '}
