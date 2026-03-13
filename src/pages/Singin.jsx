@@ -269,10 +269,10 @@ const SignIn = () => {
             <div className="mt-10 ">
               <span className=" ">Admin credentials :-</span> <br />
               <span className="text-red-500">Email:</span>{' '}
-              <span className="text-gray-500"> hakimcolor777@gmail.com</span>
+              <span className="text-gray-500 ml-2"> hakimcolor777@gmail.com</span>
               <br />
               <span className="text-red-500 ">Password:</span>{' '}
-              <span className="text-gray-500"> hakimcolor777@gmail.comH</span>
+              <span className="text-gray-500 ml-2"> hakimcolor777@gmail.comH</span>
             </div>
           </div>
         </p>
